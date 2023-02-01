@@ -1,16 +1,40 @@
+import { signIn } from 'next-auth/react';
 import type { FC } from 'react';
 
 const SignInForm: FC = () => {
   return (
-    <div className='flex w-full flex-col items-center rounded-sm border  border-themePrimary-100/40 py-10 sm:w-fit sm:px-8'>
-      <div className='mx-16 mb-5 w-full px-6 sm:px-0 '>
-        <button className='btn'>Google</button>
+    <div className='flex w-full flex-col items-center rounded-sm border border-themePrimary-300/20 pb-10 pt-4 sm:w-fit sm:px-8'>
+      <div className='mb-6'>
+        <span className='font-sans font-thin tracking-wide text-themePrimary-50/70'>
+          Sign in with
+        </span>
       </div>
-      <div className='mx-16 w-full px-6 sm:px-0 '>
-        <button className='btn'>Discord</button>
+      <div className='mx-16 mt-5 w-full px-6 sm:px-0 '>
+        <button
+          className='btn'
+          onClick={() => {
+            void signIn('google');
+          }}>
+          Google
+        </button>
       </div>
-      <div className='mx-16 mt-5 w-full px-6 sm:px-0'>
-        <button className='btn'>Github</button>
+      <div className='mx-16 my-5 w-full px-6 sm:px-0 '>
+        <button
+          className='btn'
+          onClick={() => {
+            void signIn('discord');
+          }}>
+          Discord
+        </button>
+      </div>
+      <div className='mx-16 w-full px-6 sm:px-0'>
+        <button
+          className='btn'
+          onClick={() => {
+            void signIn('github');
+          }}>
+          Github
+        </button>
       </div>
     </div>
   );
