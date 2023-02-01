@@ -7,9 +7,9 @@ const HeadComp: FC<{ headTitle?: string }> = ({ headTitle = undefined }) => {
     <>
       <Head>
         {headTitle === undefined ? (
-          <title>{`Social Media`}</title>
+          <title>{`Plex`}</title>
         ) : (
-          <title>{`Social Media | ${headTitle}`}</title>
+          <title>{`Plex | ${headTitle}`}</title>
         )}
 
         <meta
@@ -19,7 +19,7 @@ const HeadComp: FC<{ headTitle?: string }> = ({ headTitle = undefined }) => {
         />
         {/* <link rel='manifest' href='/manifest.json'></link> */}
         <meta name='darkreader-lock' />
-        <meta content='Social Media' property='og:title' />
+        <meta content='Plex' property='og:title' />
         <meta content='Get together with friends.' property='og:description' />
         <meta content='http://localhost:3000' property='og:url' />
         <meta content='' property='og:image' />
