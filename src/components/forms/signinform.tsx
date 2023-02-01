@@ -3,13 +3,13 @@ import type { FC } from 'react';
 
 const SignInForm: FC = () => {
   return (
-    <div className='flex w-full flex-col items-center rounded-sm border border-themePrimary-300/20 pb-10 pt-4 sm:w-fit sm:px-8'>
+    <div className='flex w-full flex-col items-center rounded-sm border border-themePrimary-300/10 pb-10 pt-4 sm:w-fit sm:px-8'>
       <div className='mb-6'>
         <span className='font-sans font-thin tracking-wide text-themePrimary-50/70'>
           Sign in with
         </span>
       </div>
-      <div className='mx-16 mt-5 w-full px-6 sm:px-0 '>
+      <div className='mx-16 mt-4 w-full px-6 sm:px-0 '>
         <button
           className='btn'
           onClick={() => {
