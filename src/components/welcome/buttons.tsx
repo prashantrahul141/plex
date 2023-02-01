@@ -1,17 +1,18 @@
-import { useRouter } from 'next/router';
+import type { NextRouter } from 'next/router';
 import type { FC } from 'react';
 
-const WelcomePageButton: FC = () => {
-  const router = useRouter();
+const WelcomePageButton: FC<{ router: NextRouter }> = ({ router }) => {
   return (
-    <div className='mt-60 flex gap-4'>
+    <div className='mx-auto mt-60 flex w-fit gap-4'>
       <button
         onClick={() => void router.push('/signin')}
-        className='btn rounded-lg bg-themePrimary-300 hover:border-themePrimary-300/80 hover:bg-themePrimary-300/80 hover:text-themePrimary-50'>
+        className='btn hover:bg-themePrimary-30080 w-max rounded-lg bg-themePrimary-300 hover:bg-gradient-to-bl hover:from-themePrimary-50/20 hover:to-transparent hover:text-themePrimary-50 '>
         Sign in
       </button>
-      <button className='btn rounded-md text-themePrimary-50/70 hover:border-themePrimary-300/60 hover:bg-transparent hover:text-themePrimary-50'>
-        Learn more
+      <button
+        onClick={() => void router.push('/home')}
+        className='btn w-max rounded-md text-themePrimary-50/70 hover:border-themePrimary-300/60 hover:bg-transparent hover:text-themePrimary-50'>
+        Explore
       </button>
     </div>
   );
