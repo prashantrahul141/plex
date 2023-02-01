@@ -36,6 +36,6 @@
 
 @layer components {
   .btn {
-    @apply border p-2;
+    @apply w-full rounded-sm border border-themePrimary-50/50 p-2 font-mukta leading-6 tracking-wider text-themePrimary-50 transition-all hover:border-themePrimary-300 hover:bg-themePrimary-300 hover:text-themePrimary-1000;
   }
 }
