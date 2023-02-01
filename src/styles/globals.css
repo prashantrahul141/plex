@@ -30,7 +30,7 @@
   html,
   body {
     all: unset;
-    @apply bg-baseBackground-100;
+    @apply bg-baseBackground-100 selection:bg-themePrimary-100/10;
   }
 }
 
@@ -40,6 +40,6 @@
   }
 
   .btn {
-    @apply w-full select-none rounded-sm border border-themePrimary-300/40 p-2 font-mukta leading-6 tracking-wider text-themePrimary-50 transition-all hover:border-themePrimary-300 hover:bg-themePrimary-300 hover:text-themePrimary-1000;
+    @apply w-full select-none rounded-sm border border-themePrimary-300/40 p-2 font-mukta leading-6 tracking-wider text-themePrimary-50/70 transition-all duration-150 ease-in-out hover:border-themePrimary-300/50 hover:bg-gradient-to-br hover:from-transparent hover:to-themePrimary-50/5 hover:text-themePrimary-50 hover:shadow-2xl hover:shadow-themePrimary-300/20;
   }
 }
