@@ -3,6 +3,7 @@ import LoadingComponent from '@components/common/loadingcomponent';
 import SignInForm from '@components/forms/signinform';
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const SignInPage: NextPage = () => {
@@ -16,16 +17,18 @@ const SignInPage: NextPage = () => {
       <>
         <HeadComp headTitle='Sign in'></HeadComp>
         <div className='flex h-screen flex-col items-center justify-center'>
-          <span className='mb-12 font-unbounded text-3xl tracking-wider text-themePrimary-50'>
+          <Link
+            href={'/'}
+            className='mb-12 font-unbounded text-3xl tracking-wider text-themePrimary-50'>
             Welcome
-          </span>
+          </Link>
           <SignInForm></SignInForm>
           <div className='mt-8'>
             <button
               onClick={() => {
                 void router.push('/');
               }}
-              className='btn border-none font-mukta text-sm tracking-wider text-themePrimary-100/60 hover:border-none hover:bg-transparent hover:text-themePrimary-100 hover:underline'>
+              className='btn border-none font-mukta text-sm tracking-wider text-themePrimary-100/60 hover:border-none hover:bg-none hover:text-themePrimary-100 hover:underline hover:shadow-none'>
               cancel
             </button>
           </div>
