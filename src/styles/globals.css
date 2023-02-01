@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
+
 @tailwind base;
 
 /* Firefox */
@@ -25,9 +29,13 @@
 @layer base {
   html,
   body {
-    @apply bg-baseBackground-500;
+    all: unset;
+    @apply bg-baseBackground;
   }
 }
 
 @layer components {
+  .btn {
+    @apply border p-2;
+  }
 }
