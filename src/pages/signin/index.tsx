@@ -14,6 +14,7 @@ const SignInPage: NextPage = () => {
   } else if (status === 'unauthenticated') {
     return (
       <>
+        <HeadComp headTitle='Sign in'></HeadComp>
         <div className='flex h-screen flex-col items-center justify-center'>
           <span className='mb-12 font-unbounded text-3xl tracking-wider text-themePrimary-50'>
             Welcome
