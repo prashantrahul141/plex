@@ -20,7 +20,11 @@ const SignInPage: NextPage = () => {
           </span>
           <SignInForm></SignInForm>
           <div className='mt-8'>
-            <button className='btn border-none font-mukta text-sm tracking-wider text-themePrimary-100/60 hover:border-none hover:bg-transparent hover:text-themePrimary-100 hover:underline'>
+            <button
+              onClick={() => {
+                void router.push('/');
+              }}
+              className='btn border-none font-mukta text-sm tracking-wider text-themePrimary-100/60 hover:border-none hover:bg-transparent hover:text-themePrimary-100 hover:underline'>
               cancel
             </button>
           </div>
