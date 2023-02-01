@@ -13,9 +13,9 @@ const SignInPage: NextPage = () => {
     void router.push('/');
   } else if (status === 'unauthenticated') {
     return (
-      <>
+      <div className='flex h-screen items-center justify-center'>
         <SignInForm></SignInForm>
-      </>
+      </div>
     );
   }
   return (
