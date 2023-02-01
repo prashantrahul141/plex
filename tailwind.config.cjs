@@ -9,7 +9,7 @@ module.exports = {
         ibmplex: ['IBM Plex Mono'],
       },
       colors: {
-        baseBackground: '#0b101b',
+        baseBackground: { 100: '#141d31', 200: '#0b101b' },
         themePrimary: {
           50: '#f8fbff',
           100: '#bad3fd',
