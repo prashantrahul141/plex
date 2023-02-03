@@ -30,7 +30,7 @@ const TopBarNavigation: FC<{
           width={32}
           height={32}></Image>
         &nbsp;
-        <span className='select-none text-[10px] text-themePrimary-50/70'>
+        <span className='select-none text-[8px] text-themePrimary-50/70'>
           &#9660;
         </span>
         <AnimatePresence>
