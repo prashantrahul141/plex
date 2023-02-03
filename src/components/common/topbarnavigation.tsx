@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { NavMenuTabs } from 'src/constants';
+import { getNavMenuTabs } from 'src/constants';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const TopBarNavigation: FC<{
@@ -49,7 +49,7 @@ const TopBarNavigation: FC<{
                   duration: 0.3,
                 }}
                 className={`absolute top-full right-full z-10 rounded-md border border-themePrimary-50/10 p-2 backdrop-blur-md`}>
-                {NavMenuTabs.map((eachMenuTab, index) => {
+                {getNavMenuTabs(24).map((eachMenuTab, index) => {
                   return (
                     <Link
                       href={eachMenuTab.link}

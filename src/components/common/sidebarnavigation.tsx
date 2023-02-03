@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { NavMenuTabs } from 'src/constants';
+import { getNavMenuTabs } from 'src/constants';
 
 const SideBarNavigation: FC<{
   activateTab: string;
@@ -15,7 +15,7 @@ const SideBarNavigation: FC<{
           <Image src='/favicon.ico' width={32} height={32} alt='Plex'></Image>
         </Link>
       </div>
-      {NavMenuTabs.map((eachTab, index) => {
+      {getNavMenuTabs().map((eachTab, index) => {
         return (
           <div key={index} className='my-3 flex'>
             <Link href={eachTab.link}>
