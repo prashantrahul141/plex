@@ -3,12 +3,13 @@ import type { FC } from 'react';
 
 const WelcomePageCards: FC = () => {
   const cardsData: Array<{
-    imageUrl?: string;
-    imageAttribution?: string;
+    imageUrl: string;
+    imageAttribution: string;
     header: string;
     headerGradientText: string;
-    description?: string;
-    gradientColors: { colorOne: string; colorTwo: string };
+    description: string;
+    textGradientColors: { colorOne: string; colorTwo: string };
+    backgroundOverlayColor: string;
   }> = [
     {
       imageUrl: '/static/welcomepage_friends.jpg',
@@ -19,10 +20,11 @@ const WelcomePageCards: FC = () => {
       cupiditate! Quasi explicabo, odio voluptate quibusdam iure quas quia
       error. Voluptatem voluptate eum fugiat, exercitationem porro modi
       dolorem! Quos?`,
-      gradientColors: {
+      textGradientColors: {
         colorOne: 'from-welcomePageGradientColor-1',
         colorTwo: 'to-welcomePageGradientColor-2',
       },
+      backgroundOverlayColor: '#ffffff',
     },
     {
       imageUrl: '/static/welcomepage_family.jpg',
@@ -33,53 +35,49 @@ const WelcomePageCards: FC = () => {
       cupiditate! Quasi explicabo, odio voluptate quibusdam iure quas quia
       error. Voluptatem voluptate eum fugiat, exercitationem porro modi
       dolorem! Quos?`,
-      gradientColors: {
+      textGradientColors: {
         colorOne: 'from-welcomePageGradientColor-3',
         colorTwo: 'to-welcomePageGradientColor-4',
       },
-    },
-    {
-      header: 'Get together with',
-      headerGradientText: 'Plex',
-      gradientColors: {
-        colorOne: 'from-welcomePageGradientColor-5',
-        colorTwo: 'to-welcomePageGradientColor-6',
-      },
+      backgroundOverlayColor: '#ffffff',
     },
   ];
 
+  const plex = {
+    header: 'Get together with',
+    headerGradientText: 'Plex',
+    gradientColors: {
+      colorOne: 'from-welcomePageGradientColor-5',
+      colorTwo: 'to-welcomePageGradientColor-6',
+    },
+  };
   return (
-    <div className='mx-auto mt-24 w-full px-4 sm:px-12'>
+    <div>
       {cardsData.map((eachCardData, index) => {
-        console.log(
-          `bg-gradient-to-r from-welcomePageGradientColor-${eachCardData.gradientColors.colorOne} bg-clip-text text-transparent to-welcomePageGradientColor-${eachCardData.gradientColors.colorTwo}`
-        );
-
         return (
-          <article key={index} className='flex'>
-            <main>
-              <header className='mt-16 mb-2 font-unbounded text-4xl tracking-wide text-themePrimary-50'>
-                {eachCardData.header}&nbsp;
-                <span
-                  className={`bg-gradient-to-r ${eachCardData.gradientColors.colorOne} bg-clip-text text-transparent ${eachCardData.gradientColors.colorTwo}`}>
-                  {eachCardData.headerGradientText}
-                </span>
-                .
+          <div key={index} className='w-full'>
+            <article className='relative w-full'>
+              <Image
+                className={`w-full select-none blur-[2px]`}
+                alt='image'
+                src={eachCardData.imageUrl}
+                width={1000}
+                height={1000}></Image>
+
+              <header className='absolute top-1/3 left-1/2 -translate-x-1/2 text-center'>
+                <h1 className='mx-auto font-unbounded text-4xl tracking-wide text-themePrimary-50'>
+                  {eachCardData.header}&nbsp;
+                  <span
+                    className={`bg-gradient-to-r ${eachCardData.textGradientColors.colorOne} ${eachCardData.textGradientColors.colorTwo} bg-clip-text text-transparent`}>
+                    {eachCardData.headerGradientText}
+                  </span>
+                </h1>
+                <p className='mt-2 font-mukta leading-tight tracking-wide text-themePrimary-50/90'>
+                  {eachCardData.description}
+                </p>
               </header>
-              <p className='font-mukta text-xl tracking-wide text-themePrimary-50/80 sm:w-3/4'>
-                {eachCardData.description}
-              </p>
-            </main>
-            {eachCardData.imageUrl !== undefined && (
-              <main className=''>
-                <Image
-                  alt='image'
-                  src={eachCardData.imageUrl}
-                  width={500}
-                  height={500}></Image>
-              </main>
-            )}
-          </article>
+            </article>
+          </div>
         );
       })}
     </div>
