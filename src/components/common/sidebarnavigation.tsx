@@ -111,7 +111,7 @@ const SideBarNavigation: FC<{
 
   return (
     <nav className='flex h-screen w-max flex-col'>
-      <div className='my-8'>
+      <div className='mb-8 mt-4'>
         <Link href={'/'}>
           <Image src='/favicon.ico' width={32} height={32} alt='Plex'></Image>
         </Link>
