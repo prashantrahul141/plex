@@ -15,7 +15,7 @@ const WelcomePage: NextPage = () => {
         <div className='mx-0 h-full w-screen pt-24'>
           <WelcomePageMainHeader></WelcomePageMainHeader>
           <WelcomePageButton router={router}></WelcomePageButton>
-          <WelcomePageDownButton router={router}></WelcomePageDownButton>
+          <WelcomePageDownButton></WelcomePageDownButton>
           <WelcomePageCards router={router}></WelcomePageCards>
         </div>
       </div>
