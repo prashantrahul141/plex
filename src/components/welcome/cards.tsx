@@ -2,10 +2,12 @@ import Image from 'next/image';
 import type { FC } from 'react';
 import WelcomePageButton from './buttons';
 import type { NextRouter } from 'next/router';
+import Link from 'next/link';
 
 const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
   const cardsData: Array<{
     imageUrl: string;
+    imageAttributionName: string;
     imageAttribution: string;
     header: string;
     headerGradientText: string;
@@ -14,6 +16,7 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
   }> = [
     {
       imageUrl: '/static/welcomepage_friends.jpg',
+      imageAttributionName: 'lobosnico',
       imageAttribution: 'https://unsplash.com/@lobosnico',
       header: 'Get together with',
       headerGradientText: 'Friends',
@@ -28,6 +31,7 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
     },
     {
       imageUrl: '/static/welcomepage_family.jpg',
+      imageAttributionName: 'pablomerchanm',
       imageAttribution: 'https://unsplash.com/@pablomerchanm',
       header: 'Get together with',
       headerGradientText: 'Family',
@@ -67,6 +71,17 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
                   {eachCardData.description}
                 </p>
               </header>
+              <div className='absolute bottom-0 left-0'>
+                <span className='text-themePrimary-50/30 hover:text-themePrimary-50/70 hover:underline'>
+                  Image by&nbsp;
+                  <Link
+                    target={'_blank'}
+                    passHref={true}
+                    href={eachCardData.imageAttribution}>
+                    {eachCardData.imageAttributionName}
+                  </Link>
+                </span>
+              </div>
             </article>
           </div>
         );
