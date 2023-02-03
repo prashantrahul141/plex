@@ -14,9 +14,9 @@ const TopBarNavigation: FC<{
 
   return (
     <nav className='relative flex h-max w-full max-w-6xl'>
-      <div className='absolute left-2'>
+      <Link href={'/'} className='absolute left-2'>
         <Image alt='Plex' src={'/favicon.ico'} width={32} height={32}></Image>
-      </div>
+      </Link>
 
       <div
         onClick={() => {
