@@ -12,7 +12,7 @@ const WelcomePage: NextPage = () => {
     <>
       <HeadComp headTitle='Welcome'></HeadComp>
       <div className='h-screen w-screen'>
-        <div className='mx-auto h-full w-fit pt-24'>
+        <div className='mx-0 h-full w-screen pt-24'>
           <WelcomePageMainHeader></WelcomePageMainHeader>
           <WelcomePageButton router={router}></WelcomePageButton>
           <WelcomePageDownButton router={router}></WelcomePageDownButton>
