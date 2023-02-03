@@ -16,7 +16,7 @@ const WelcomePage: NextPage = () => {
           <WelcomePageMainHeader></WelcomePageMainHeader>
           <WelcomePageButton router={router}></WelcomePageButton>
           <WelcomePageDownButton router={router}></WelcomePageDownButton>
-          <WelcomePageCards></WelcomePageCards>
+          <WelcomePageCards router={router}></WelcomePageCards>
         </div>
       </div>
     </>
