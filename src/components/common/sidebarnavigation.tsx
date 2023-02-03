@@ -111,6 +111,11 @@ const SideBarNavigation: FC<{
 
   return (
     <nav className='flex h-screen w-max flex-col'>
+      <div className='my-8'>
+        <Link href={'/'}>
+          <Image src='/favicon.ico' width={32} height={32} alt='Plex'></Image>
+        </Link>
+      </div>
       {Tabs.map((eachTab, index) => {
         return (
           <div key={index} className='my-3 flex'>
@@ -127,7 +132,7 @@ const SideBarNavigation: FC<{
           </div>
         );
       })}
-      <div className='my-3 flex'>
+      <div className='my-8 flex'>
         <Link href={'/profile'}>
           <i className='group relative flex items-center'>
             <Image
