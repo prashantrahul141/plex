@@ -11,7 +11,6 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
     headerGradientText: string;
     description: string;
     textGradientColors: { colorOne: string; colorTwo: string };
-    backgroundOverlayColor: string;
   }> = [
     {
       imageUrl: '/static/welcomepage_friends.jpg',
@@ -26,7 +25,6 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
         colorOne: 'from-welcomePageGradientColor-1',
         colorTwo: 'to-welcomePageGradientColor-2',
       },
-      backgroundOverlayColor: '#ffffff',
     },
     {
       imageUrl: '/static/welcomepage_family.jpg',
@@ -41,7 +39,6 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
         colorOne: 'from-welcomePageGradientColor-3',
         colorTwo: 'to-welcomePageGradientColor-4',
       },
-      backgroundOverlayColor: '#ffffff',
     },
   ];
 
@@ -52,7 +49,7 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
           <div key={index} className='w-full'>
             <article className='relative w-full'>
               <Image
-                className={`-z-10 h-full select-none blur-[2px] brightness-50 sm:w-full`}
+                className={`-z-10 h-full select-none blur-[2px] brightness-[0.4] sm:w-full`}
                 alt='image'
                 src={eachCardData.imageUrl}
                 width={1000}
