@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import type { FC } from 'react';
+import WelcomePageButton from './buttons';
+import type { NextRouter } from 'next/router';
 
-const WelcomePageCards: FC = () => {
+const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
   const cardsData: Array<{
     imageUrl: string;
     imageAttribution: string;
@@ -43,36 +45,28 @@ const WelcomePageCards: FC = () => {
     },
   ];
 
-  const plex = {
-    header: 'Get together with',
-    headerGradientText: 'Plex',
-    gradientColors: {
-      colorOne: 'from-welcomePageGradientColor-5',
-      colorTwo: 'to-welcomePageGradientColor-6',
-    },
-  };
   return (
-    <div>
+    <div className='mt-24'>
       {cardsData.map((eachCardData, index) => {
         return (
           <div key={index} className='w-full'>
             <article className='relative w-full'>
               <Image
-                className={`w-full select-none blur-[2px]`}
+                className={`-z-10 h-full select-none blur-[2px] brightness-50 sm:w-full`}
                 alt='image'
                 src={eachCardData.imageUrl}
                 width={1000}
                 height={1000}></Image>
 
-              <header className='absolute top-1/3 left-1/2 -translate-x-1/2 text-center'>
-                <h1 className='mx-auto font-unbounded text-4xl tracking-wide text-themePrimary-50'>
+              <header className='absolute left-1/2 top-1/4 w-full max-w-2xl -translate-x-1/2 px-2 text-center sm:top-1/2 sm:px-0'>
+                <h1 className='mx-auto font-unbounded text-lg tracking-wide text-themePrimary-50 sm:text-4xl'>
                   {eachCardData.header}&nbsp;
                   <span
                     className={`bg-gradient-to-r ${eachCardData.textGradientColors.colorOne} ${eachCardData.textGradientColors.colorTwo} bg-clip-text text-transparent`}>
                     {eachCardData.headerGradientText}
                   </span>
                 </h1>
-                <p className='mt-2 font-mukta leading-tight tracking-wide text-themePrimary-50/90'>
+                <p className='mt-2 font-mukta text-sm leading-tight tracking-wide text-themePrimary-50/90 sm:text-base'>
                   {eachCardData.description}
                 </p>
               </header>
@@ -80,6 +74,19 @@ const WelcomePageCards: FC = () => {
           </div>
         );
       })}
+      <div className='flex h-screen w-full items-center justify-center'>
+        <article className=''>
+          <header className='mx-auto font-unbounded text-lg tracking-wide text-themePrimary-50 sm:text-4xl'>
+            Get together with&nbsp;
+            <span
+              className={`bg-gradient-to-r  from-welcomePageGradientColor-5 to-welcomePageGradientColor-6 bg-clip-text text-transparent`}>
+              Plex
+            </span>
+            .
+          </header>
+          <WelcomePageButton router={router}></WelcomePageButton>
+        </article>
+      </div>
     </div>
   );
 };
