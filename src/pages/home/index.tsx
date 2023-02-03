@@ -1,9 +1,12 @@
+import HeadComp from '@components/common/headcomponent';
 import SideBarNavigation from '@components/common/sidebarnavigation';
 import type { NextPage } from 'next';
 
 const HomePage: NextPage = () => {
   return (
     <>
+      <HeadComp headTitle='Home'></HeadComp>
+
       <SideBarNavigation
         activateTab='Bookmarks'
         authorName='Prashant'
