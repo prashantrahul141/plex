@@ -9,9 +9,8 @@ const WelcomePageMainHeader: FC = () => {
         </h1>
       </header>
       <p>
-        <span className='font-mukta tracking-wider text-themePrimary-100/70'>
-          Get together with&nbsp;
-          <span className='font-bold text-themePrimary-300'>Plex</span>
+        <span className='font-mukta tracking-wider text-themePrimary-100/60'>
+          Get together
         </span>
       </p>
     </header>
