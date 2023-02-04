@@ -43,6 +43,10 @@
     @apply w-full select-none rounded-sm border border-themePrimary-300/40 p-2 font-mukta leading-6 tracking-wider text-themePrimary-50/70 transition-all duration-150 ease-in-out hover:border-themePrimary-300/50 hover:bg-gradient-to-br hover:from-transparent hover:to-themePrimary-50/5 hover:text-themePrimary-50 hover:shadow-2xl hover:shadow-themePrimary-300/20;
   }
 
+  .textarea {
+    @apply h-20 w-full resize-none rounded-lg bg-themePrimary-50/5 px-1 py-1 font-mukta text-xl leading-tight tracking-wide text-themePrimary-50 outline-none focus:outline-1 focus:outline-themePrimary-300/40;
+  }
+
   .navbar-icon-inactive {
     @apply rounded-full text-themePrimary-100/70 duration-150 ease-in-out group-hover:text-themePrimary-50;
   }
