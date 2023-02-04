@@ -1,10 +1,13 @@
 import type { FC } from 'react';
+import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
+import { BsImage } from 'react-icons/bs';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 interface IFormInput {
   postText: string;
-  postImages?: Array<string>;
+  postImages?: File;
 }
 
 const CreatePostForm: FC = () => {
@@ -14,22 +17,84 @@ const CreatePostForm: FC = () => {
     handleSubmit,
   } = useForm<IFormInput>();
 
+  const [postImageState, setPostImageState] = useState<File | null>(null);
+  const [postImageObjectUrlState, setPostImageObjectUrlState] = useState<
+    string | null
+  >(null);
+
   const submitForm: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+    console.log(data.postText, postImageState);
   };
 
   return (
     <form className='w-full' onSubmit={handleSubmit(submitForm)}>
-      <input
-        className='w-full'
-        {...register('postText', { required: true, maxLength: 20 })}
-      />
+      <textarea
+        placeholder='Your thoughts here'
+        className='textarea'
+        {...register('postText', {
+          required: true,
+          maxLength: 150,
+        })}></textarea>
+
       {errors.postText?.type === 'required' && (
-        <p role='alert'>forgot to type something here?</p>
+        <div>
+          <span
+            role='alert'
+            className='rounded-md bg-red-300 px-1 font-mukta text-xs text-red-700'>
+            Forgot to type something here?
+          </span>
+        </div>
       )}
-      <input type='file'></input>
+
+      {errors.postText?.type === 'maxLength' && (
+        <div>
+          <span
+            role='alert'
+            className='rounded-md bg-red-300 px-1 font-mukta text-xs text-red-700'>
+            A post cannot be longer than 150 characters :/
+          </span>
+        </div>
+      )}
+
+      {postImageObjectUrlState !== null && (
+        <div className='relative'>
+          <img alt='Image' src={postImageObjectUrlState}></img>
+          <button
+            type='button'
+            className='group absolute top-2 right-2 rounded-md bg-black/40 p-[2px]'
+            onClick={() => {
+              setPostImageObjectUrlState(null);
+              setPostImageState(null);
+            }}>
+            <AiOutlineCloseCircle
+              className='text-themePrimary-50/70 group-hover:text-themePrimary-50'
+              size={24}></AiOutlineCloseCircle>
+          </button>
+        </div>
+      )}
+      <div className='w-min'>
+        <label htmlFor='contained-button-file' className='cursor-pointer'>
+          <input
+            accept={'.png, .jpg, .jpeg'}
+            className='hidden'
+            id='contained-button-file'
+            type='file'
+            onChange={({ target: { files } }) => {
+              if (files !== null && files[0] !== undefined) {
+                setPostImageState(files[0]);
+                const objectUrl = URL.createObjectURL(files[0]);
+                setPostImageObjectUrlState(objectUrl);
+              }
+            }}
+          />
+          <BsImage
+            size={24}
+            className='text-themePrimary-300/70 hover:text-themePrimary-300/95'></BsImage>
+        </label>
+      </div>
+
       <button className='btn' type='submit'>
-        submit
+        Post
       </button>
     </form>
   );
