@@ -4,6 +4,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { BsImage } from 'react-icons/bs';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface IFormInput {
   postText: string;
@@ -55,23 +56,34 @@ const CreatePostForm: FC = () => {
           </span>
         </div>
       )}
+      <AnimatePresence>
+        {postImageObjectUrlState !== null && (
+          <motion.div
+            className='relative'
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}>
+            <img alt='Image' src={postImageObjectUrlState}></img>
+            <button
+              type='button'
+              className='group absolute top-2 right-2 rounded-md bg-black/40 p-[2px]'
+              onClick={() => {
+                setPostImageObjectUrlState(null);
+                setPostImageState(null);
+                (
+                  document.getElementById(
+                    'contained-button-file'
+                  ) as HTMLInputElement
+                ).value = '';
+              }}>
+              <AiOutlineCloseCircle
+                className='text-themePrimary-50/70 group-hover:text-themePrimary-50'
+                size={24}></AiOutlineCloseCircle>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {postImageObjectUrlState !== null && (
-        <div className='relative'>
-          <img alt='Image' src={postImageObjectUrlState}></img>
-          <button
-            type='button'
-            className='group absolute top-2 right-2 rounded-md bg-black/40 p-[2px]'
-            onClick={() => {
-              setPostImageObjectUrlState(null);
-              setPostImageState(null);
-            }}>
-            <AiOutlineCloseCircle
-              className='text-themePrimary-50/70 group-hover:text-themePrimary-50'
-              size={24}></AiOutlineCloseCircle>
-          </button>
-        </div>
-      )}
       <div className='w-min'>
         <label htmlFor='contained-button-file' className='cursor-pointer'>
           <input
