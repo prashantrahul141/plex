@@ -31,7 +31,7 @@ const CreatePostForm: FC = () => {
     <form className='w-full' onSubmit={handleSubmit(submitForm)}>
       <textarea
         placeholder='Your thoughts here'
-        className='textarea'
+        className='textarea mb-1'
         {...register('postText', {
           required: true,
           maxLength: 150,
@@ -41,7 +41,7 @@ const CreatePostForm: FC = () => {
         <div>
           <span
             role='alert'
-            className='rounded-md bg-red-300 px-1 font-mukta text-xs text-red-700'>
+            className='ml-1 rounded-md bg-red-300 px-1 font-mukta text-xs text-red-700'>
             Forgot to type something here?
           </span>
         </div>
@@ -51,18 +51,23 @@ const CreatePostForm: FC = () => {
         <div>
           <span
             role='alert'
-            className='rounded-md bg-red-300 px-1 font-mukta text-xs text-red-700'>
+            className='ml-1 rounded-md bg-red-300 px-1 font-mukta text-xs text-red-700'>
             A post cannot be longer than 150 characters :/
           </span>
         </div>
       )}
+
       <AnimatePresence>
         {postImageObjectUrlState !== null && (
           <motion.div
-            className='relative'
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}>
+            className='relative my-8'
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{
+              ease: 'easeInOut',
+              duration: 0.3,
+            }}>
             <img alt='Image' src={postImageObjectUrlState}></img>
             <button
               type='button'
@@ -70,11 +75,12 @@ const CreatePostForm: FC = () => {
               onClick={() => {
                 setPostImageObjectUrlState(null);
                 setPostImageState(null);
-                (
-                  document.getElementById(
-                    'contained-button-file'
-                  ) as HTMLInputElement
-                ).value = '';
+                const containedButtonFile = document.getElementById(
+                  'contained-button-file'
+                ) as HTMLInputElement;
+                if (containedButtonFile !== null) {
+                  containedButtonFile.value = '';
+                }
               }}>
               <MdDeleteForever
                 className='text-red-400 group-hover:text-themePrimary-50/80'
@@ -83,28 +89,38 @@ const CreatePostForm: FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <div className='w-min'>
-        <label htmlFor='contained-button-file' className='cursor-pointer'>
-          <input
-            accept={'.png, .jpg, .jpeg'}
-            className='hidden'
-            id='contained-button-file'
-            type='file'
-            onChange={({ target: { files } }) => {
-              if (files !== null && files[0] !== undefined) {
-                setPostImageState(files[0]);
-                const objectUrl = URL.createObjectURL(files[0]);
-                setPostImageObjectUrlState(objectUrl);
-              }
-            }}
-          />
-          <BsImage
-            size={24}
-            className='text-themePrimary-300/70 hover:text-themePrimary-300/95'></BsImage>
-        </label>
-      </div>
-
+      <AnimatePresence>
+        {postImageObjectUrlState === null && (
+          <motion.div
+            className='my-4 ml-1 w-min'
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{
+              ease: 'easeInOut',
+              duration: 0.3,
+            }}>
+            <label htmlFor='contained-button-file' className='cursor-pointer'>
+              <input
+                accept={'.png, .jpg, .jpeg'}
+                className='hidden'
+                id='contained-button-file'
+                type='file'
+                onChange={({ target: { files } }) => {
+                  if (files !== null && files[0] !== undefined) {
+                    setPostImageState(files[0]);
+                    const objectUrl = URL.createObjectURL(files[0]);
+                    setPostImageObjectUrlState(objectUrl);
+                  }
+                }}
+              />
+              <BsImage
+                size={18}
+                className='text-themePrimary-300/70 hover:text-themePrimary-300/95'></BsImage>
+            </label>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <button className='btn' type='submit'>
         Post
       </button>
