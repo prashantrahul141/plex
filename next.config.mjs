@@ -18,6 +18,7 @@ const config = {
       'cdn.discordapp.com',
       'avatars.githubusercontent.com',
       'lh3.googleusercontent.com',
+      'media.discordapp.net',
     ],
     remotePatterns: [
       {
@@ -31,6 +32,12 @@ const config = {
         hostname: 'cdn.discordapp.com',
         port: '',
         pathname: '/avatars/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.discordapp.net',
+        port: '',
+        pathname: '/attachments/**',
       },
       {
         protocol: 'https',
