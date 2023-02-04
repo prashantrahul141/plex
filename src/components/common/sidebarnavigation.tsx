@@ -4,10 +4,10 @@ import type { FC } from 'react';
 import { getNavMenuTabs } from 'src/constants';
 
 const SideBarNavigation: FC<{
-  activateTab: string;
+  activeTab: string;
   authorAvatar: string;
   authorName: string;
-}> = ({ activateTab, authorAvatar, authorName }) => {
+}> = ({ activeTab, authorAvatar, authorName }) => {
   return (
     <nav className='flex h-screen w-max flex-col'>
       <div className='mb-8 mt-4'>
@@ -20,7 +20,7 @@ const SideBarNavigation: FC<{
           <div key={index} className='my-3 flex'>
             <Link href={eachTab.link}>
               <i className='group relative flex items-center'>
-                {activateTab === eachTab.name
+                {activeTab === eachTab.name
                   ? eachTab.activateIcon
                   : eachTab.inactivateIcon}
                 <span className='absolute left-full ml-1 hidden rounded-md bg-themePrimary-50/70 px-1  font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
