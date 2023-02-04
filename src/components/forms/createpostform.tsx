@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { BsImage } from 'react-icons/bs';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { MdDeleteForever } from 'react-icons/md';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface IFormInput {
@@ -66,7 +66,7 @@ const CreatePostForm: FC = () => {
             <img alt='Image' src={postImageObjectUrlState}></img>
             <button
               type='button'
-              className='group absolute top-2 right-2 rounded-md bg-black/40 p-[2px]'
+              className='group absolute top-2 right-2 rounded-md bg-black/40 p-[2px] hover:bg-red-600/80'
               onClick={() => {
                 setPostImageObjectUrlState(null);
                 setPostImageState(null);
@@ -76,9 +76,9 @@ const CreatePostForm: FC = () => {
                   ) as HTMLInputElement
                 ).value = '';
               }}>
-              <AiOutlineCloseCircle
-                className='text-themePrimary-50/70 group-hover:text-themePrimary-50'
-                size={24}></AiOutlineCloseCircle>
+              <MdDeleteForever
+                className='text-red-400 group-hover:text-themePrimary-50/80'
+                size={24}></MdDeleteForever>
             </button>
           </motion.div>
         )}
