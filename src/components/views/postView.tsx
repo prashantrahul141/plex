@@ -139,10 +139,10 @@ const PostView: FC<{
           </div>
         )}
 
-        <div className='mt-2 flex select-none font-ibmplex text-sm leading-none'>
+        <div className='mt-2 flex select-none font-ibmplex text-sm leading-none text-themePrimary-50/70'>
           <button className='flex flex-grow cursor-default items-center justify-center'>
             <span
-              className='flex w-fit cursor-pointer items-center justify-center'
+              className='flex w-fit cursor-pointer items-center justify-center hover:text-themePrimary-50'
               onClick={handleLike}>
               {postLikedState && (
                 <AiTwotoneHeart className='text-xl text-red-500 sm:text-2xl'></AiTwotoneHeart>
@@ -157,7 +157,7 @@ const PostView: FC<{
           <div className='flex flex-grow  items-center justify-center'>
             <Link
               href={`${authorUsername}/${postId}`}
-              className='flex w-fit cursor-pointer items-center justify-center'>
+              className='flex w-fit cursor-pointer items-center justify-center hover:text-themePrimary-50'>
               <BiCommentDetail className='text-xl sm:text-2xl'></BiCommentDetail>
               &nbsp;
               {commentsCount}
@@ -177,7 +177,7 @@ const PostView: FC<{
                   setShowCopyShareLink(false);
                 }, 3000);
               }}
-              className='w-fit cursor-pointer items-center justify-center'>
+              className='w-fit cursor-pointer items-center justify-center hover:text-themePrimary-50'>
               <BiShare className='text-xl sm:text-2xl'></BiShare>
             </button>
           </div>
