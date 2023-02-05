@@ -1,3 +1,5 @@
+import CommonAlert from '@components/common/commonAlert';
+import { AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -5,6 +7,7 @@ import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
 import { BiCommentDetail, BiShare } from 'react-icons/bi';
 
 const PostView: FC<{
+  postId: string;
   authorAvatar: string;
   authorName: string;
   authorUsername: string;
@@ -16,6 +19,7 @@ const PostView: FC<{
   commentsCount: number;
   authorAdmin: boolean;
 }> = ({
+  postId,
   authorAvatar,
   authorName,
   authorUsername,
@@ -29,6 +33,7 @@ const PostView: FC<{
 }) => {
   const [postLikedState, setPostLiked] = useState(postLiked);
   const [likesCountState, setLikesCountState] = useState(likesCount);
+  const [showCopyShareLink, setShowCopyShareLink] = useState(false);
 
   const handleLike = () => {
     setPostLiked(!postLikedState);
@@ -49,7 +54,7 @@ const PostView: FC<{
       <div className='w-full '>
         <header className='flex'>
           <h5>{authorName}</h5>&nbsp;
-          <h6>{authorUsername}</h6>&nbsp;·&nbsp;
+          <h6>@{authorUsername}</h6>&nbsp;·&nbsp;
           <h6>{postedDate.toString()}</h6>
         </header>
 
@@ -86,12 +91,29 @@ const PostView: FC<{
           </div>
 
           <div className='flex flex-grow items-center justify-center'>
-            <button className='w-fit cursor-pointer items-center justify-center'>
+            <button
+              onClick={async () => {
+                await navigator.clipboard.writeText(
+                  `http://localhost:3000/${authorUsername}/${postId}`
+                );
+                setShowCopyShareLink(true);
+                setTimeout(() => {
+                  setShowCopyShareLink(false);
+                }, 3000);
+              }}
+              className='w-fit cursor-pointer items-center justify-center'>
               <BiShare></BiShare>
             </button>
           </div>
         </div>
       </div>
+      <AnimatePresence>
+        {showCopyShareLink && (
+          <CommonAlert
+            alertText='Copied post link!'
+            alertType='success'></CommonAlert>
+        )}
+      </AnimatePresence>
     </main>
   );
 };
