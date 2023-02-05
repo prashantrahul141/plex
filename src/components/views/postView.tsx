@@ -1,14 +1,14 @@
-import CommonAlert from '@components/common/commonAlert';
-import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { AnimatePresence, motion } from 'framer-motion';
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
-import { BiCommentDetail, BiShare } from 'react-icons/bi';
 import { SlOptions } from 'react-icons/sl';
-import BigImageView from './bigImageView';
+import { BiCommentDetail, BiShare } from 'react-icons/bi';
 import { MdDeleteForever, MdVerified } from 'react-icons/md';
+import BigImageView from './bigImageView';
+import CommonAlert from '@components/common/commonAlert';
 
 const PostView: FC<{
   postId: string;
