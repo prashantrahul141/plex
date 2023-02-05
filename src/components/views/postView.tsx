@@ -1,10 +1,12 @@
 import CommonAlert from '@components/common/commonAlert';
 import { AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
 import { BiCommentDetail, BiShare } from 'react-icons/bi';
+import BigImageView from './bigImageView';
 
 const PostView: FC<{
   postId: string;
@@ -31,9 +33,11 @@ const PostView: FC<{
   commentsCount,
   authorAdmin,
 }) => {
+  const iconSize = 24;
   const [postLikedState, setPostLiked] = useState(postLiked);
   const [likesCountState, setLikesCountState] = useState(likesCount);
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
+  const [showBigImage, setShowBigImage] = useState(false);
 
   const handleLike = () => {
     setPostLiked(!postLikedState);
@@ -41,27 +45,45 @@ const PostView: FC<{
   };
 
   return (
-    <main className='flex w-full gap-1 text-themePrimary-50'>
+    <div className='flex w-full gap-1 text-themePrimary-50'>
       <div>
-        <Image
-          className='w-12 rounded-full'
-          src={authorAvatar}
-          alt={authorName}
-          width={100}
-          height={100}></Image>
+        <Link href={`/${authorUsername}`} className='mr-1 w-fit'>
+          <Image
+            className='mt-1 w-14 min-w-[48px] rounded-full'
+            src={authorAvatar}
+            alt={authorName}
+            width={100}
+            height={100}></Image>
+        </Link>
       </div>
 
       <div className='w-full '>
-        <header className='flex'>
-          <h5>{authorName}</h5>&nbsp;
-          <h6>@{authorUsername}</h6>&nbsp;·&nbsp;
-          <h6>{postedDate.toString()}</h6>
-        </header>
+        <Link href={`/${authorUsername}`} className='flex items-center'>
+          <h5 className='font-mukta text-themePrimary-50/95 hover:underline'>
+            {authorName}
+          </h5>
+          &nbsp;
+          <h6 className='font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline'>
+            @{authorUsername}
+          </h6>
+          &nbsp;
+          <span className='text-2xl leading-none text-themePrimary-50/95'>
+            ·
+          </span>
+          &nbsp;
+          <h6 className='cursor-default font-ibmplex text-xs tracking-tighter text-themePrimary-100/70'>
+            {postedDate.toString()}
+          </h6>
+        </Link>
 
-        <header className='mb-2'>{postText}</header>
+        <Link
+          href={`/${authorUsername}/${postId}`}
+          className='mb-2 block font-mukta font-thin leading-snug tracking-wide'>
+          {postText}
+        </Link>
 
         {postImage !== null && (
-          <div className='select-none'>
+          <div className='select-none' onClick={() => setShowBigImage(true)}>
             <Image
               className='rounded-2xl'
               width={1000}
@@ -71,22 +93,26 @@ const PostView: FC<{
           </div>
         )}
 
-        <div className='mt-2 flex select-none'>
-          <button className='flex flex-grow items-center justify-center'>
+        <div className='mt-2 flex select-none font-ibmplex text-sm leading-none'>
+          <button className='flex flex-grow cursor-default items-center justify-center'>
             <span
               className='flex w-fit cursor-pointer items-center justify-center'
               onClick={handleLike}>
               {postLikedState && (
-                <AiTwotoneHeart className='text-red-500'></AiTwotoneHeart>
+                <AiTwotoneHeart className='text-xl text-red-500 sm:text-2xl'></AiTwotoneHeart>
               )}
-              {!postLikedState && <AiOutlineHeart></AiOutlineHeart>}
+              {!postLikedState && (
+                <AiOutlineHeart className='text-xl sm:text-2xl'></AiOutlineHeart>
+              )}
               &nbsp;{likesCountState}
             </span>
           </button>
 
           <div className='flex flex-grow  items-center justify-center'>
             <button className='flex w-fit cursor-pointer items-center justify-center'>
-              <BiCommentDetail></BiCommentDetail>&nbsp;{commentsCount}
+              <BiCommentDetail className='text-xl sm:text-2xl'></BiCommentDetail>
+              &nbsp;
+              {commentsCount}
             </button>
           </div>
 
@@ -94,7 +120,9 @@ const PostView: FC<{
             <button
               onClick={async () => {
                 await navigator.clipboard.writeText(
-                  `http://localhost:3000/${authorUsername}/${postId}`
+                  typeof window !== 'undefined'
+                    ? `${authorUsername}/${postId}`
+                    : '/'
                 );
                 setShowCopyShareLink(true);
                 setTimeout(() => {
@@ -102,11 +130,12 @@ const PostView: FC<{
                 }, 3000);
               }}
               className='w-fit cursor-pointer items-center justify-center'>
-              <BiShare></BiShare>
+              <BiShare className='text-xl sm:text-2xl'></BiShare>
             </button>
           </div>
         </div>
       </div>
+
       <AnimatePresence>
         {showCopyShareLink && (
           <CommonAlert
@@ -114,7 +143,15 @@ const PostView: FC<{
             alertType='success'></CommonAlert>
         )}
       </AnimatePresence>
-    </main>
+
+      <AnimatePresence>
+        {showBigImage && postImage !== null && (
+          <BigImageView
+            callBackFun={(_state: boolean) => setShowBigImage(_state)}
+            imageUrl={postImage}></BigImageView>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 
