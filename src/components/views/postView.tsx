@@ -1,12 +1,14 @@
 import CommonAlert from '@components/common/commonAlert';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
 import { BiCommentDetail, BiShare } from 'react-icons/bi';
+import { SlOptions } from 'react-icons/sl';
 import BigImageView from './bigImageView';
+import { MdDeleteForever } from 'react-icons/md';
 
 const PostView: FC<{
   postId: string;
@@ -33,11 +35,11 @@ const PostView: FC<{
   commentsCount,
   authorAdmin,
 }) => {
-  const iconSize = 24;
   const [postLikedState, setPostLiked] = useState(postLiked);
   const [likesCountState, setLikesCountState] = useState(likesCount);
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
   const [showBigImage, setShowBigImage] = useState(false);
+  const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
 
   const handleLike = () => {
     setPostLiked(!postLikedState);
@@ -45,7 +47,7 @@ const PostView: FC<{
   };
 
   return (
-    <div className='flex w-full gap-1 text-themePrimary-50'>
+    <div className='flex w-full gap-1 text-themePrimary-50/95'>
       <div>
         <Link href={`/${authorUsername}`} className='mr-1 w-fit'>
           <Image
@@ -57,24 +59,57 @@ const PostView: FC<{
         </Link>
       </div>
 
-      <div className='w-full '>
-        <Link href={`/${authorUsername}`} className='flex items-center'>
-          <h5 className='font-mukta text-themePrimary-50/95 hover:underline'>
-            {authorName}
-          </h5>
-          &nbsp;
-          <h6 className='font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline'>
-            @{authorUsername}
-          </h6>
-          &nbsp;
-          <span className='text-2xl leading-none text-themePrimary-50/95'>
-            ·
-          </span>
-          &nbsp;
-          <h6 className='cursor-default font-ibmplex text-xs tracking-tighter text-themePrimary-100/70'>
-            {postedDate.toString()}
-          </h6>
-        </Link>
+      <div className='group w-full'>
+        <div className='relative flex'>
+          <Link href={`/${authorUsername}`} className='flex items-center'>
+            <h5 className='font-mukta text-themePrimary-50/95 hover:underline'>
+              {authorName}
+            </h5>
+            &nbsp;
+            <h6 className='font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline'>
+              @{authorUsername}
+            </h6>
+            &nbsp;
+            <span className='text-2xl leading-none text-themePrimary-50/95'>
+              ·
+            </span>
+            &nbsp;
+            <h6 className='cursor-default font-ibmplex text-xs tracking-tighter text-themePrimary-100/70'>
+              {postedDate.toString()}
+            </h6>
+          </Link>
+
+          {authorAdmin && (
+            <button
+              onClick={() => setShowHamMenuOptions(!showHamMenuOptions)}
+              className='absolute right-4 top-1/2 hidden rounded-full p-2 hover:bg-themePrimary-50/10 group-hover:block'>
+              <SlOptions></SlOptions>
+            </button>
+          )}
+          <AnimatePresence>
+            {authorAdmin && showHamMenuOptions && (
+              <>
+                <div
+                  onClick={() => setShowHamMenuOptions(false)}
+                  className='fixed top-0 left-0 h-screen w-screen'></div>
+                <motion.div
+                  initial={{ top: 10, right: -20, scale: 0, opacity: 0 }}
+                  animate={{ top: 30, right: 20, scale: 1, opacity: 1 }}
+                  exit={{ top: 10, right: -20, scale: 0, opacity: 0 }}
+                  transition={{
+                    type: 'spring',
+                    duration: 0.3,
+                  }}
+                  className='absolute z-10 rounded-md border border-themePrimary-300/50 py-1 text-themePrimary-50/80 backdrop-blur-[2px] backdrop-brightness-90'>
+                  <button className='group/btn flex items-center justify-center py-1 px-2 font-mukta text-base font-light leading-none tracking-wide hover:bg-red-500/80 hover:text-themePrimary-50'>
+                    <MdDeleteForever className=' group-hover/btn:text-themePrimary-50'></MdDeleteForever>
+                    &nbsp; Delete
+                  </button>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+        </div>
 
         <Link
           href={`/${authorUsername}/${postId}`}
@@ -109,11 +144,13 @@ const PostView: FC<{
           </button>
 
           <div className='flex flex-grow  items-center justify-center'>
-            <button className='flex w-fit cursor-pointer items-center justify-center'>
+            <Link
+              href={`${authorUsername}/${postId}`}
+              className='flex w-fit cursor-pointer items-center justify-center'>
               <BiCommentDetail className='text-xl sm:text-2xl'></BiCommentDetail>
               &nbsp;
               {commentsCount}
-            </button>
+            </Link>
           </div>
 
           <div className='flex flex-grow items-center justify-center'>
