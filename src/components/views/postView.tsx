@@ -121,7 +121,7 @@ const PostView: FC<{
               onClick={async () => {
                 await navigator.clipboard.writeText(
                   typeof window !== 'undefined'
-                    ? `${authorUsername}/${postId}`
+                    ? `${window.location.host}/${authorUsername}/${postId}`
                     : '/'
                 );
                 setShowCopyShareLink(true);
