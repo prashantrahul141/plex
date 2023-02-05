@@ -8,13 +8,14 @@ import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
 import { BiCommentDetail, BiShare } from 'react-icons/bi';
 import { SlOptions } from 'react-icons/sl';
 import BigImageView from './bigImageView';
-import { MdDeleteForever } from 'react-icons/md';
+import { MdDeleteForever, MdVerified } from 'react-icons/md';
 
 const PostView: FC<{
   postId: string;
   authorAvatar: string;
   authorName: string;
   authorUsername: string;
+  authorVerified: boolean;
   postedDate: string;
   postText: string;
   postImage: string | null;
@@ -27,6 +28,7 @@ const PostView: FC<{
   authorAvatar,
   authorName,
   authorUsername,
+  authorVerified,
   postedDate,
   postText,
   postImage,
@@ -65,6 +67,15 @@ const PostView: FC<{
             <h5 className='font-mukta text-themePrimary-50/95 hover:underline'>
               {authorName}
             </h5>
+            &nbsp;
+            {authorVerified && (
+              <h6 className='group/verified relative'>
+                <MdVerified></MdVerified>
+                <span className='absolute left-1/2 top-6 hidden w-28 -translate-x-1/2 rounded-md bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide group-hover/verified:block'>
+                  This user this verified by the plex team.
+                </span>
+              </h6>
+            )}
             &nbsp;
             <h6 className='font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline'>
               @{authorUsername}
