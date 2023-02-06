@@ -40,7 +40,7 @@ const SmallProfileView: FC<{
       <main className='relative flex-grow pt-1 pl-2'>
         <header className=''>
           <span className='flex gap-1 font-mukta text-xl leading-none tracking-wider text-themePrimary-50'>
-            {userName}{' '}
+            {userName}
             {userVerified && (
               <span className='group/verified relative'>
                 <MdVerified></MdVerified>
@@ -59,7 +59,7 @@ const SmallProfileView: FC<{
             <button
               onClick={handleFollow}
               className={`btn w-fit rounded-3xl px-3 font-mukta text-sm ${
-                following ? 'bg-themePrimary-300 text-themePrimary-50/90' : ''
+                !following ? 'bg-themePrimary-300 text-themePrimary-50/90' : ''
               }`}>
               {following ? 'Following' : 'Follow'}
             </button>
