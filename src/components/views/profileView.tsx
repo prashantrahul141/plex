@@ -18,6 +18,7 @@ const ProfileView: FC<{
   authorFollows: number;
   isAuthor: boolean;
   isVerified: boolean;
+  isFollowed: boolean;
 }> = ({
   authorBanner,
   authorAvatar,
@@ -30,6 +31,7 @@ const ProfileView: FC<{
   authorFollows,
   isAuthor,
   isVerified,
+  isFollowed,
 }) => {
   const [showBigImageAvatar, setShowBigImageAvatar] = useState(false);
   const [showBigImageBanner, setShowBigImageBanner] = useState(false);
@@ -65,7 +67,7 @@ const ProfileView: FC<{
         )}
         {!isAuthor && (
           <button className='btn absolute -bottom-12 right-2 w-fit rounded-3xl px-3  font-mukta text-sm '>
-            Follow
+            {isFollowed ? 'Following' : 'Follow'}
           </button>
         )}
       </header>
