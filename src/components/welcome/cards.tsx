@@ -59,7 +59,7 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
                 width={1000}
                 height={1000}></Image>
 
-              <header className='absolute left-1/2 top-1/4 w-full max-w-2xl -translate-x-1/2 px-2 text-center sm:top-1/2 sm:px-0'>
+              <header className='absolute left-1/2 top-1/3 w-full max-w-2xl -translate-x-1/2 px-2 text-center sm:top-1/2 sm:px-0'>
                 <h1 className='mx-auto font-unbounded text-lg tracking-wide text-themePrimary-50 sm:text-4xl'>
                   {eachCardData.header}&nbsp;
                   <span
