@@ -22,7 +22,9 @@ const SideBarNavigation: FC<{
         </Link>
       </div>
 
-      <div className='my-3 flex' onClick={() => setShowCreatePostForm(true)}>
+      <div
+        className='my-3 flex cursor-pointer'
+        onClick={() => setShowCreatePostForm(true)}>
         <i className='group relative flex items-center'>
           {!showCreatePostForm && (
             <HiOutlinePencil
