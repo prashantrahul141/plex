@@ -44,7 +44,7 @@ model User {
     username      String    @unique @default(cuid())
     email         String    @unique
     emailVerified DateTime?
-    image         String    @default("/static/defaultAvatar.png")
+    image         String?   @default("/static/defaultAvatar.png")
     joinedOn      DateTime  @default(now())
 
     settings   Settings @relation(fields: [settingsId], references: [id])
@@ -52,7 +52,7 @@ model User {
 
     url    String?
     banner String  @default("/static/defaultBanner.png")
-    bio    String  @default("")
+    bio    String?
 
     authorPosts  authorPosts @relation(fields: [authorPostId], references: [id])
     authorPostId String
@@ -60,8 +60,8 @@ model User {
     authorComments   authorComments @relation(fields: [authorCommentsId], references: [id])
     authorCommentsId String
 
-    authorLikes  likedPosts @relation(fields: [likedPostsId], references: [id])
-    likedPostsId String
+    authorLikes   likedPosts @relation(fields: [authorLikesId], references: [id])
+    authorLikesId String
 
     accounts Account[]
     sessions Session[]
