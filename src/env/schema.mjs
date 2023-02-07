@@ -53,8 +53,8 @@ export const serverEnv = {
   _GITHUB_CLIENT_ID: process.env._GITHUB_CLIENT_ID,
   _GITHUB_CLIENT_SECRET: process.env._GITHUB_CLIENT_SECRET,
 
-  CLOUDINARY_CLOUDNAME: process.env.CLOUDINARY_CLOUDNAME,
-  CLOUDINARY_CLUODAPIKEY: process.env.CLOUDINARY_CLUODAPIKEY,
+  CLOUDINARY_CLOUDNAME: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME,
+  CLOUDINARY_CLUODAPIKEY: process.env.NEXT_PUBLIC_CLOUDINARY_CLUODAPIKEY,
   CLOUDINARY_CLOUDAPISECRET: process.env.CLOUDINARY_CLOUDAPISECRET,
 };
 
@@ -65,6 +65,8 @@ export const serverEnv = {
  */
 export const clientSchema = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string(),
+  NEXT_PUBLIC_CLOUDINARY_CLOUDNAME: z.string(),
+  NEXT_PUBLIC_CLOUDINARY_CLUODAPIKEY: z.string(),
 });
 
 /**
@@ -74,5 +76,8 @@ export const clientSchema = z.object({
  * @type {{ [k in keyof z.input<typeof clientSchema>]: string | undefined }}
  */
 export const clientEnv = {
-  // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+  NEXT_PUBLIC_CLOUDINARY_CLOUDNAME:
+    process.env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME,
+  NEXT_PUBLIC_CLOUDINARY_CLUODAPIKEY:
+    process.env.NEXT_PUBLIC_CLOUDINARY_CLUODAPIKEY,
 };
