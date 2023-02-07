@@ -66,7 +66,7 @@ export const serverEnv = {
 export const clientSchema = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string(),
   NEXT_PUBLIC_CLOUDINARY_CLOUDNAME: z.string(),
-  NEXT_PUBLIC_CLOUDINARY_CLUODAPIKEY: z.string(),
+  NEXT_PUBLIC_CLOUDINARY_CLOUDAPIKEY: z.string(),
 });
 
 /**
@@ -78,6 +78,6 @@ export const clientSchema = z.object({
 export const clientEnv = {
   NEXT_PUBLIC_CLOUDINARY_CLOUDNAME:
     process.env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME,
-  NEXT_PUBLIC_CLOUDINARY_CLUODAPIKEY:
-    process.env.NEXT_PUBLIC_CLOUDINARY_CLUODAPIKEY,
+    NEXT_PUBLIC_CLOUDINARY_CLOUDAPIKEY:
+    process.env.NEXT_PUBLIC_CLOUDINARY_CLOUDAPIKEY,
 };
