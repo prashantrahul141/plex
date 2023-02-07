@@ -19,10 +19,10 @@ type pages =
   | 'profile';
 
 const PageLayout: FC<{ page: pages }> = ({ page }) => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (session) {
+  if (status === 'authenticated') {
     return (
       <>
         <div className='flex w-full flex-col gap-2 sm:flex-row sm:gap-0'>
@@ -62,7 +62,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
         <div></div>
       </>
     );
-  } else {
+  } else if (status === 'unauthenticated') {
     void router.push('/');
   }
   return <></>;
