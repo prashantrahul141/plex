@@ -13,7 +13,7 @@ const TopBarNavigation: FC<{
   const [showNavBarMenu, setShowNavBarMenu] = useState(false);
 
   return (
-    <nav className='relative flex h-max w-full max-w-6xl select-none'>
+    <nav className='relative flex h-12 w-full max-w-6xl select-none pt-2 backdrop-blur-sm backdrop-brightness-75'>
       <Link href={'/'} className='absolute left-2'>
         <Image alt='Plex' src={'/favicon.ico'} width={32} height={32}></Image>
       </Link>
@@ -48,14 +48,14 @@ const TopBarNavigation: FC<{
                   type: 'spring',
                   duration: 0.3,
                 }}
-                className={`absolute z-10 rounded-md border border-themePrimary-50/10 p-2 backdrop-blur-md`}>
+                className={`absolute z-10 rounded-md border border-themePrimary-50/10 bg-baseBackground-100/95 p-2`}>
                 {getNavMenuTabs(24).map((eachMenuTab, index) => {
                   return (
                     <Link
                       href={eachMenuTab.link}
                       key={index}
                       className={`flex items-center rounded-md py-1 px-2 ${
-                        activeTab === eachMenuTab.name
+                        activeTab === eachMenuTab.name.toLowerCase()
                           ? 'bg-themePrimary-50/10'
                           : ''
                       }`}>
@@ -66,9 +66,9 @@ const TopBarNavigation: FC<{
                       </i>
                       <span
                         className={`ml-2 font-mukta ${
-                          activeTab === eachMenuTab.name
+                          activeTab === eachMenuTab.name.toLowerCase()
                             ? 'text-themePrimary-50'
-                            : 'text-themePrimary-50/60'
+                            : 'text-themePrimary-50/70'
                         }`}>
                         {eachMenuTab.name}
                       </span>
