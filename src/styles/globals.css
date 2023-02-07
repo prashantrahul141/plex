@@ -45,7 +45,7 @@
   }
 
   .textarea {
-    @apply h-20 w-full resize-none rounded-lg bg-themePrimary-50/5 px-1 py-1 font-mukta text-xl leading-tight tracking-wide text-themePrimary-50 outline-none focus:outline-1 focus:outline-themePrimary-300/40;
+    @apply h-20 w-full resize-none rounded-md bg-themePrimary-50/5 px-2 py-2 font-mukta text-lg leading-tight tracking-wide text-themePrimary-50 outline-none focus:outline-1 focus:outline-themePrimary-300/40;
   }
 
   .navbar-icon-inactive {
