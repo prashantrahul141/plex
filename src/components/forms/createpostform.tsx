@@ -28,7 +28,9 @@ const CreatePostForm: FC = () => {
   };
 
   return (
-    <form className='w-full max-w-md' onSubmit={handleSubmit(submitForm)}>
+    <form
+      className='w-full max-w-md rounded-lg border border-themePrimary-100/10 bg-baseBackground-100/95 px-2 py-4'
+      onSubmit={handleSubmit(submitForm)}>
       <div className='py-4 text-center'>
         <span className='font-mukta text-2xl leading-tight tracking-wide text-themePrimary-100/95'>
           Create a post
