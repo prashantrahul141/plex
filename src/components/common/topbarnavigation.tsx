@@ -4,6 +4,8 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { getNavMenuTabs } from 'src/constants';
 import { AnimatePresence, motion } from 'framer-motion';
+import CreatePostForm from '@components/forms/createpostform';
+import { HiOutlinePencil } from 'react-icons/hi';
 
 const TopBarNavigation: FC<{
   activeTab: string;
@@ -11,6 +13,7 @@ const TopBarNavigation: FC<{
   authorName: string;
 }> = ({ activeTab, authorAvatar, authorName }) => {
   const [showNavBarMenu, setShowNavBarMenu] = useState(false);
+  const [showCreatePostForm, setShowCreatePostForm] = useState(false);
 
   return (
     <nav className='relative flex h-12 w-full max-w-6xl select-none pt-2 backdrop-blur-sm backdrop-brightness-75'>
@@ -34,7 +37,7 @@ const TopBarNavigation: FC<{
           &#9660;
         </span>
         <AnimatePresence>
-          {showNavBarMenu && (
+          {showNavBarMenu && !showCreatePostForm && (
             <>
               <div
                 className='fixed top-0 left-0 -z-10 h-screen w-screen cursor-default'
@@ -49,6 +52,19 @@ const TopBarNavigation: FC<{
                   duration: 0.3,
                 }}
                 className={`absolute z-10 rounded-md border border-themePrimary-50/10 bg-baseBackground-100/95 p-2`}>
+                <div
+                  onClick={() => setShowCreatePostForm(true)}
+                  className={`flex items-center rounded-md py-1 px-2 `}>
+                  <i>
+                    <HiOutlinePencil
+                      size={24}
+                      className='navbar-icon-inactive'></HiOutlinePencil>
+                  </i>
+                  <span className={`ml-2 font-mukta text-themePrimary-50/70 `}>
+                    create
+                  </span>
+                </div>
+
                 {getNavMenuTabs(24).map((eachMenuTab, index) => {
                   return (
                     <Link
@@ -75,6 +91,18 @@ const TopBarNavigation: FC<{
                     </Link>
                   );
                 })}
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {showCreatePostForm && (
+            <>
+              <div
+                onClick={() => setShowCreatePostForm(false)}
+                className='fixed top-0 left-0 z-40 h-screen w-screen backdrop-brightness-75'></div>
+              <motion.div className='fixed top-40 left-1/2 z-50 flex w-full -translate-x-1/2 items-center justify-center'>
+                <CreatePostForm></CreatePostForm>
               </motion.div>
             </>
           )}
