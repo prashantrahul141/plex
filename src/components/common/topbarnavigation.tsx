@@ -41,14 +41,14 @@ const TopBarNavigation: FC<{
                 id='navbar-backdrop'></div>
 
               <motion.div
-                initial={{ top: -100, opacity: 0, scale: 0 }}
-                animate={{ top: '100%', opacity: 100, scale: 1 }}
-                exit={{ top: -100, opacity: 0, scale: 0 }}
+                initial={{ top: -80, right: -30, opacity: 0, scale: 0 }}
+                animate={{ top: '100%', right: 30, opacity: 100, scale: 1 }}
+                exit={{ top: -80, right: -30, opacity: 0, scale: 0 }}
                 transition={{
                   type: 'spring',
                   duration: 0.3,
                 }}
-                className={`absolute top-full right-full z-10 rounded-md border border-themePrimary-50/10 p-2 backdrop-blur-md`}>
+                className={`absolute z-10 rounded-md border border-themePrimary-50/10 p-2 backdrop-blur-md`}>
                 {getNavMenuTabs(24).map((eachMenuTab, index) => {
                   return (
                     <Link
