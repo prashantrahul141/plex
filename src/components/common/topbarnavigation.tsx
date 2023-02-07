@@ -100,8 +100,17 @@ const TopBarNavigation: FC<{
             <>
               <div
                 onClick={() => setShowCreatePostForm(false)}
-                className='fixed top-0 left-0 z-40 h-screen w-screen backdrop-brightness-75'></div>
-              <motion.div className='fixed top-40 left-1/2 z-50 flex w-full -translate-x-1/2 items-center justify-center'>
+                className='fixed top-0 left-0 z-40 h-screen w-screen cursor-default backdrop-brightness-75'></div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  translateX: '-50%',
+                }}
+                exit={{ opacity: 0, scale: 0, translateX: '-75%' }}
+                transition={{ type: 'spring', duration: 0.4 }}
+                className='fixed top-40 left-1/2 z-50 flex w-full -translate-x-1/2 cursor-default items-center justify-center'>
                 <CreatePostForm></CreatePostForm>
               </motion.div>
             </>
