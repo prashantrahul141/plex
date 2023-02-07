@@ -39,13 +39,14 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String
-    username      String    @unique @default(cuid())
-    email         String    @unique
-    emailVerified DateTime?
-    image         String?   @default("/static/defaultAvatar.png")
-    joinedOn      DateTime  @default(now())
+    id             String    @id @default(cuid())
+    name           String
+    username       String    @unique @default(cuid())
+    email          String    @unique
+    emailVerified  DateTime?
+    image          String?   @default("/static/defaultAvatar.png")
+    joinedOn       DateTime  @default(now())
+    authorVerified Boolean   @default(false)
 
     settings   Settings @relation(fields: [settingsId], references: [id])
     settingsId String
