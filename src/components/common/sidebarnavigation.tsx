@@ -15,8 +15,8 @@ const SideBarNavigation: FC<{
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
 
   return (
-    <nav className='flex h-screen w-max flex-col'>
-      <div className='mb-8 mt-4'>
+    <nav className='flex h-screen w-max flex-col border-r border-themePrimary-100/40 px-4 pt-4'>
+      <div className='mb-8 mt-2'>
         <Link href={'/'}>
           <Image src='/favicon.ico' width={32} height={32} alt='Plex'></Image>
         </Link>
