@@ -7,8 +7,6 @@ import {
   AiTwotoneSetting,
 } from 'react-icons/ai';
 import {
-  HiOutlinePencil,
-  HiPencil,
   HiOutlineGlobe,
   HiGlobe,
   HiOutlineBookmark,
@@ -34,19 +32,6 @@ const getNavMenuTabs = (iconSize = 32) => {
         <AiFillHome className='navbar-icon-active' size={iconSize}></AiFillHome>
       ),
     },
-    {
-      name: 'Create',
-      link: '/create',
-      inactivateIcon: (
-        <HiOutlinePencil
-          className='navbar-icon-inactive'
-          size={iconSize}></HiOutlinePencil>
-      ),
-      activateIcon: (
-        <HiPencil className='navbar-icon-active' size={iconSize}></HiPencil>
-      ),
-    },
-
     {
       name: 'Trending',
       link: '/trending',
