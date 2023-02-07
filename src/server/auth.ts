@@ -7,9 +7,9 @@ import {
 import DiscordProvider from 'next-auth/providers/discord';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { env } from '../env/server.mjs';
 import { prisma } from './db';
+import { CustomPrismaAdapter } from 'src/server/CustomPrismaAdaptor';
 
 /**
  * Module augmentation for `next-auth` types
@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   // Configure one or more authentication providers
-  adapter: PrismaAdapter(prisma),
+  adapter: CustomPrismaAdapter(prisma),
   providers: [
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
