@@ -76,9 +76,15 @@ const SideBarNavigation: FC<{
       <AnimatePresence>
         {showCreatePostForm && (
           <>
-            <div
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setShowCreatePostForm(false)}
-              className='fixed top-0 left-0 z-40 h-screen w-screen cursor-default backdrop-brightness-75'></div>
+              className='fixed top-0 left-0 z-40 h-screen w-screen cursor-default backdrop-brightness-50'></motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{
