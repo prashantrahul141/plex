@@ -7,6 +7,7 @@ import { MdDeleteForever } from 'react-icons/md';
 import { AnimatePresence, motion } from 'framer-motion';
 import { env } from 'src/env/client.mjs';
 import { api } from '@utils/api';
+import type { AxiosProgressEvent } from 'axios';
 import axios from 'axios';
 import LoadingComponent from '@components/common/loadingcomponent';
 
@@ -15,7 +16,12 @@ interface IFormInput {
   postImages: string | null;
 }
 
-const CreatePostForm: FC = () => {
+const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
+  formSetCallback,
+}) => {
+  const CLOUDINARY_CLOUDNAME = env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME;
+  const CLOUDINARY_API_KEY = env.NEXT_PUBLIC_CLOUDINARY_CLOUDAPIKEY;
+
   const {
     register,
     formState: { errors },
@@ -26,9 +32,9 @@ const CreatePostForm: FC = () => {
   const [postImageObjectUrlState, setPostImageObjectUrlState] = useState<
     string | null
   >(null);
-  const [uploadingImage, setUploadingImage] = useState<number | null>(1);
-  const CLOUDINARY_CLOUDNAME = env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME;
-  const CLOUDINARY_API_KEY = env.NEXT_PUBLIC_CLOUDINARY_CLOUDAPIKEY;
+  const [uploadingImageProgress, setuploadingImageProgress] = useState<
+    number | null
+  >(null);
 
   // requests a cloudinary signature
   const signatureQuery = api.post.getSignature.useQuery({}, { enabled: false });
@@ -38,6 +44,7 @@ const CreatePostForm: FC = () => {
       postText: formData.postText,
       postImages: formData.postImages,
     });
+    formSetCallback(false);
   };
 
   const submitForm: SubmitHandler<IFormInput> = async (data) => {
@@ -54,8 +61,10 @@ const CreatePostForm: FC = () => {
           formData,
           {
             headers: { 'Content-Type': 'multipart/form-data' },
-            onUploadProgress: (e) => {
-              console.log(e.estimated);
+            onUploadProgress: (e: AxiosProgressEvent) => {
+              if (typeof e.progress === 'number') {
+                setuploadingImageProgress(e.progress);
+              }
             },
           }
         );
@@ -78,12 +87,17 @@ const CreatePostForm: FC = () => {
     <form
       className='relative w-full max-w-md rounded-lg border border-themePrimary-100/10 bg-baseBackground-100/95 px-2 py-4'
       onSubmit={handleSubmit(submitForm)}>
-      {uploadingImage && (
-        <div className='absolute top-0 left-0 h-full w-full max-w-md rounded border border-red-500 backdrop-brightness-75'>
-          <div className='absolute top-1/2 left-1/2 h-10 w-10 -translate-y-1/2 -translate-x-1/2'>
-            <LoadingComponent></LoadingComponent>
+      {uploadingImageProgress && (
+        <>
+          <div className='absolute top-0 left-0 z-30 h-full w-full max-w-md rounded backdrop-brightness-50'>
+            <div className='absolute top-1/2 left-1/2 h-10 w-10 -translate-y-1/2 -translate-x-1/2 text-center'>
+              <LoadingComponent></LoadingComponent>
+              <p className='mt-1 rounded-md bg-black/20 px-2 py-1 font-ibmplex text-sm tracking-wider  text-themePrimary-50'>
+                {parseInt((uploadingImageProgress * 100).toString())}%
+              </p>
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       <div className='py-4 text-center'>

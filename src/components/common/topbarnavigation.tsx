@@ -117,7 +117,10 @@ const TopBarNavigation: FC<{
                 exit={{ opacity: 0, scale: 0, translateX: '-75%' }}
                 transition={{ type: 'spring', duration: 0.4 }}
                 className='fixed top-40 left-1/2 z-50 flex w-full -translate-x-1/2 cursor-default items-center justify-center'>
-                <CreatePostForm></CreatePostForm>
+                <CreatePostForm
+                  formSetCallback={(value: boolean) =>
+                    setShowCreatePostForm(value)
+                  }></CreatePostForm>
               </motion.div>
             </>
           )}
