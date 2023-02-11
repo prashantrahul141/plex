@@ -8,9 +8,6 @@ export function CustomPrismaAdapter(p: PrismaClient): Adapter {
         // @ts-ignore
         data: {
           ...data,
-          authorPosts: { create: {} },
-          authorComments: { create: {} },
-          authorLikes: { create: {} },
           settings: { create: {} },
         },
       }),
