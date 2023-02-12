@@ -61,7 +61,7 @@ const TopBarNavigation: FC<{
                       className='navbar-icon-inactive'></HiOutlinePencil>
                   </i>
                   <span className={`ml-2 font-mukta text-themePrimary-50/70 `}>
-                    create
+                    Create
                   </span>
                 </div>
 
