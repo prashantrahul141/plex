@@ -32,9 +32,17 @@ export const PostRouter = createTRPCRouter({
             },
           },
         },
+        select: {
+          id: true,
+          Author: {
+            select: {
+              username: true,
+            },
+          },
+        },
       });
 
-      return { createdPostId: createdPost.id };
+      return { createdPost };
     }),
 
   view: publicProcedure.input(z.object({ postId: z.string() })).query(() => {
