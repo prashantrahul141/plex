@@ -18,7 +18,8 @@ type pages =
   | 'notifications'
   | 'bookmarks'
   | 'settings'
-  | 'profile';
+  | 'profile'
+  | 'user';
 
 const PageLayout: FC<{ page: pages }> = ({ page }) => {
   const { data: session, status } = useSession();
