@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createTRPCRouter, publicProcedure, protectedProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { v2 as cloudinary } from 'cloudinary';
 import { env } from 'src/env/server.mjs';
 import { prisma } from 'src/server/db';
@@ -69,7 +69,7 @@ export const PostRouter = createTRPCRouter({
       return { createdPost };
     }),
 
-  view: publicProcedure.input(z.object({ postId: z.string() })).query(() => {
+  view: protectedProcedure.input(z.object({ postId: z.string() })).query(() => {
     return {};
   }),
 });
