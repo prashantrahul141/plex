@@ -50,7 +50,7 @@ const SideBarNavigation: FC<{
           <div key={index} className='my-3 flex'>
             <Link href={eachTab.link}>
               <i className='group relative flex items-center'>
-                {activeTab === eachTab.name
+                {activeTab.toLowerCase() === eachTab.name.toLowerCase()
                   ? eachTab.activateIcon
                   : eachTab.inactivateIcon}
                 <span className='absolute left-full ml-1 hidden rounded-md bg-themePrimary-50/70 px-1  font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>

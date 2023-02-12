@@ -76,7 +76,8 @@ const TopBarNavigation: FC<{
                       href={eachMenuTab.link}
                       key={index}
                       className={`flex items-center rounded-md py-1 px-2 ${
-                        activeTab === eachMenuTab.name.toLowerCase()
+                        activeTab.toLowerCase() ===
+                        eachMenuTab.name.toLowerCase()
                           ? 'bg-themePrimary-50/10'
                           : ''
                       }`}>
