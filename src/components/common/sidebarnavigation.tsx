@@ -16,7 +16,7 @@ const SideBarNavigation: FC<{
 
   return (
     <nav className='flex h-screen w-max flex-col border-r border-themePrimary-100/40 px-4 pt-4'>
-      <div className='mb-8 mt-2'>
+      <div className='mb-8 mt-2 select-none'>
         <Link href={'/'}>
           <Image src='/favicon.ico' width={32} height={32} alt='Plex'></Image>
         </Link>
