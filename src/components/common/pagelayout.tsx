@@ -9,6 +9,7 @@ import TopBarNavigation from './topbarnavigation';
 import { useSession } from 'next-auth/react';
 import SideBarNavigation from './sidebarnavigation';
 import { useRouter } from 'next/router';
+import LoadingComponent from '@components/common/loadingcomponent';
 
 type pages =
   | 'home'
@@ -65,7 +66,13 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
   } else if (status === 'unauthenticated') {
     void router.push('/');
   }
-  return <></>;
+  return (
+    <div className='flex h-screen w-screen items-center justify-center'>
+      <div className='h-8 w-8'>
+        <LoadingComponent></LoadingComponent>
+      </div>
+    </div>
+  );
 };
 
 export default PageLayout;
