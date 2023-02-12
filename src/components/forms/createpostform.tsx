@@ -10,6 +10,7 @@ import { api } from '@utils/api';
 import type { AxiosProgressEvent } from 'axios';
 import axios from 'axios';
 import LoadingComponent from '@components/common/loadingcomponent';
+import { useRouter } from 'next/router';
 
 interface IFormInput {
   postText: string;
@@ -35,6 +36,7 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
   const [uploadingImageProgress, setuploadingImageProgress] = useState<
     number | null
   >(null);
+  const router = useRouter();
 
   // requests a cloudinary signature
   const signatureQuery = api.post.getSignature.useQuery({}, { enabled: false });
@@ -45,6 +47,9 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
       postImages: formData.postImages,
     });
     formSetCallback(false);
+    void router.push(
+      `/${mutatedPost.createdPost.Author.username}/${mutatedPost.createdPost.id}`
+    );
   };
 
   const submitForm: SubmitHandler<IFormInput> = async (data) => {
