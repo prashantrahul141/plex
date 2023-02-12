@@ -19,13 +19,37 @@ export const PostRouter = createTRPCRouter({
 
   create: protectedProcedure
     .input(
-      z.object({ postText: z.string(), postImages: z.string().nullable() })
+      z.object({
+        postText: z.string(),
+        postImages: z
+          .object({
+            public_id: z.string(),
+            version_number: z.number(),
+            signature: z.string(),
+          })
+          .nullable(),
+      })
     )
     .mutation(async ({ input, ctx }) => {
+      let public_id: string | null = null;
+      if (input.postImages) {
+        const expectedSignature = cloudinary.utils.api_sign_request(
+          {
+            public_id: input.postImages.public_id,
+            version: input.postImages.version_number,
+          },
+          env.CLOUDINARY_CLOUDAPISECRET
+        );
+
+        if (input.postImages.signature === expectedSignature) {
+          public_id = input.postImages.public_id;
+        }
+      }
+
       const createdPost = await prisma.post.create({
         data: {
           text: input.postText,
-          image: input.postImages,
+          image: public_id,
           Author: {
             connect: {
               id: ctx.session.user.id,

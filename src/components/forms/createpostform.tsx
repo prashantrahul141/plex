@@ -14,7 +14,11 @@ import { useRouter } from 'next/router';
 
 interface IFormInput {
   postText: string;
-  postImages: string | null;
+  postImages: {
+    public_id: string;
+    version_number: number;
+    signature: string;
+  } | null;
 }
 
 const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
@@ -77,8 +81,15 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
         if (cloudinaryResponse.status === 200 && cloudinaryResponse.data) {
           await makePost({
             ...data,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-            postImages: cloudinaryResponse.data.public_id,
+
+            postImages: {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+              public_id: cloudinaryResponse.data.public_id,
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+              version_number: cloudinaryResponse.data.version,
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+              signature: cloudinaryResponse.data.signature,
+            },
           });
         }
       }
