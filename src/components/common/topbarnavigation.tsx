@@ -18,7 +18,12 @@ const TopBarNavigation: FC<{
   return (
     <nav className='relative flex h-12 w-full max-w-6xl select-none pt-2 backdrop-blur-sm backdrop-brightness-75'>
       <Link href={'/'} className='absolute left-2 select-none'>
-        <Image alt='Plex' src={'/favicon.ico'} width={32} height={32}></Image>
+        <Image
+          priority
+          alt='Plex'
+          src={'/favicon.ico'}
+          width={32}
+          height={32}></Image>
       </Link>
 
       <div
