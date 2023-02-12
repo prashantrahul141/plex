@@ -68,27 +68,33 @@ model User {
     followers  Follows[] @relation("following")
     followings Follows[] @relation("follower")
 
-    authorPosts PostsOnAuthor[] @relation("authorPosts")
-    likedPosts  PostsOnAuthor[] @relation("likedPosts")
-    Comment     Comment[]
+    authorPosts Post[] @relation("authorPosts")
+
+    Comment       Comment[]
+    LikedByAuthor LikedByAuthor[]
 }
 
-model PostsOnAuthor {
-    id String @id @default(cuid())
+model LikedByAuthor {
+    post   Post   @relation(fields: [postId], references: [id])
+    postId String
 
-    authorPosts   User   @relation("authorPosts", fields: [authorPostsId], references: [id])
-    authorPostsId String
+    user   User   @relation(fields: [userId], references: [id])
+    userId String
 
-    likedPosts   User   @relation("likedPosts", fields: [likedPostsId], references: [id])
-    likedPostsId String
+    @@id([postId, userId])
 }
 
 // Posts by author
 model Post {
-    id      String    @id @default(cuid())
-    text    String    @default("")
-    image   String?
-    Comment Comment[]
+    id       String    @id @default(cuid())
+    text     String    @default("")
+    image    String?
+    Comments Comment[]
+
+    Author   User?   @relation("authorPosts", fields: [authorId], references: [id])
+    authorId String?
+
+    LikedByAuthor LikedByAuthor[]
 }
 
 // Comments by author
