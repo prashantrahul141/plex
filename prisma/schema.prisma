@@ -51,7 +51,7 @@ model User {
     username       String    @unique @default(cuid())
     email          String    @unique
     emailVerified  DateTime?
-    image          String?   @default("/static/defaultAvatar.png")
+    image          String    @default("/static/defaultAvatar.png")
     joinedOn       DateTime  @default(now())
     authorVerified Boolean   @default(false)
 
