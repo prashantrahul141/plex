@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react';
 import SideBarNavigation from './sidebarnavigation';
 import { useRouter } from 'next/router';
 import LoadingComponent from '@components/common/loadingcomponent';
+import AdditionalWidgets from '@components/common/additionalWidgets';
 
 type pages =
   | 'home'
@@ -25,9 +26,9 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
 
   if (status === 'authenticated') {
     return (
-      <>
-        <div className='flex w-full flex-col gap-2 sm:flex-row sm:gap-0'>
-          <div className='z-50 w-full sm:hidden'>
+      <div className='h-full w-full'>
+        <div className='mx-auto flex w-screen flex-col gap-2 sm:w-max sm:flex-row sm:gap-0'>
+          <div className='z-50 w-full min-w-max sm:hidden'>
             <TopBarNavigation
               activeTab={page}
               authorAvatar={
@@ -59,9 +60,11 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
               </motion.div>
             </div>
           </AnimatePresence>
+          <div className='hidden lg:block'>
+            <AdditionalWidgets></AdditionalWidgets>
+          </div>
         </div>
-        <div></div>
-      </>
+      </div>
     );
   } else if (status === 'unauthenticated') {
     void router.push('/');
