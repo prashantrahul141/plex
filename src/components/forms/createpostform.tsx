@@ -176,7 +176,7 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
                   }
                 }}>
                 <MdDeleteForever
-                  className='text-red-400 group-hover:text-themePrimary-50/80'
+                  className='text-red-400 group-hover:text-themePrimary-50'
                   size={24}></MdDeleteForever>
               </button>
             </div>
