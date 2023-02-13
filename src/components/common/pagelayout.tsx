@@ -11,6 +11,7 @@ import SideBarNavigation from '@components/common/sidebarnavigation';
 import { useRouter } from 'next/router';
 import LoadingComponent from '@components/common/loadingcomponent';
 import AdditionalWidgets from '@components/common/additionalWidgets';
+import UserProfileView from '@components/views/userProfileVIew';
 
 type pages =
   | 'home'
@@ -58,6 +59,19 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
                 )}
                 {page === 'bookmarks' && <BookmarksList></BookmarksList>}
                 {page === 'settings' && <SettingsForm></SettingsForm>}
+
+                {page === 'profile' && (
+                  <UserProfileView
+                    isCurrentUser={true}
+                    session={session}
+                    router={router}></UserProfileView>
+                )}
+                {page === 'user' && (
+                  <UserProfileView
+                    isCurrentUser={false}
+                    session={session}
+                    router={router}></UserProfileView>
+                )}
               </motion.div>
             </div>
           </AnimatePresence>
