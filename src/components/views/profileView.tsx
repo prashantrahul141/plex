@@ -19,7 +19,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
       <main className='w-full max-w-fit'>
         <header className='relative'>
           <Image
-            className='select-none'
+            className='h-60 select-none'
             onClick={() => {
               setShowBigImageBanner(true);
             }}
