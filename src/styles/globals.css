@@ -12,16 +12,16 @@
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
 }
 
 *::-webkit-scrollbar-track {
-  background: rgba(240, 247, 255, 0.15);
-  border-radius: 5px;
+  background: rgba(240, 247, 255, 0.01);
+  border-radius: 1px;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: rgba(180, 212, 252, 0.4);
-  border-radius: 14px;
+  background-color: rgba(180, 212, 252, 0.1);
+  border-radius: 2px;
 }
 
 @tailwind components;
