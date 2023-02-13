@@ -39,7 +39,7 @@ const SideBarNavigation: FC<{
           {showCreatePostForm && (
             <HiPencil size={32} className='navbar-icon-active'></HiPencil>
           )}
-          <span className='absolute left-full ml-1 hidden rounded-md bg-themePrimary-50/70 px-1  font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
+          <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1  font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
             Create
           </span>
         </i>
@@ -53,7 +53,7 @@ const SideBarNavigation: FC<{
                 {activeTab.toLowerCase() === eachTab.name.toLowerCase()
                   ? eachTab.activateIcon
                   : eachTab.inactivateIcon}
-                <span className='absolute left-full ml-1 hidden rounded-md bg-themePrimary-50/70 px-1  font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
+                <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1  font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
                   {eachTab.name}
                 </span>
               </i>
@@ -71,7 +71,7 @@ const SideBarNavigation: FC<{
               width={50}
               height={50}
               alt={authorName}></Image>
-            <span className='absolute left-full ml-1 hidden rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
+            <span className='absolute left-full z-50 ml-1 hidden w-max rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
               {authorName}
             </span>
           </i>
