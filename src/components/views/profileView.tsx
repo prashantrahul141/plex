@@ -5,7 +5,7 @@ import BigImageView from './bigImageView';
 import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { MdVerified, MdLink, MdDateRange } from 'react-icons/md';
-import type { IReturnUser } from 'src/constants';
+import type { IReturnUser } from 'src/types';
 
 const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
   const [showBigImageAvatar, setShowBigImageAvatar] = useState(false);
