@@ -2,14 +2,15 @@ import type { FC } from 'react';
 import { api } from '@utils/api';
 import ProfileView from './profileView';
 import LoadingComponent from '@components/common/loadingcomponent';
-import type { NextRouter } from 'next/dist/client/router';
 import type { Session } from 'next-auth';
+import { useRouter } from 'next/router';
 
 const UserProfileView: FC<{
   isCurrentUser: boolean;
-  router: NextRouter;
   session: Session;
-}> = ({ isCurrentUser, router, session }) => {
+}> = ({ isCurrentUser, session }) => {
+  const router = useRouter();
+
   // sets idToFind to username or id of current user.
   let idToFind = '#';
   if (isCurrentUser) {

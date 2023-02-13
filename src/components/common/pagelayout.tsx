@@ -63,14 +63,12 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
                 {page === 'profile' && (
                   <UserProfileView
                     isCurrentUser={true}
-                    session={session}
-                    router={router}></UserProfileView>
+                    session={session}></UserProfileView>
                 )}
                 {page === 'user' && (
                   <UserProfileView
                     isCurrentUser={false}
-                    session={session}
-                    router={router}></UserProfileView>
+                    session={session}></UserProfileView>
                 )}
               </motion.div>
             </div>
