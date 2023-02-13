@@ -20,6 +20,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
       <main className='w-full max-w-fit'>
         <header className='relative'>
           <Image
+            priority
             className='h-60 select-none'
             onClick={() => {
               setShowBigImageBanner(true);
@@ -32,6 +33,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
             onClick={() => {
               setShowBigImageAvatar(true);
             }}
+            priority
             className='absolute -bottom-12 left-2  w-24 select-none rounded-full border-[5px] border-baseBackground-100 sm:w-28'
             src={data.foundUser.image}
             width={200}
