@@ -6,7 +6,7 @@ const UserProfilePage: FC = () => {
   return (
     <>
       <HeadComp headTitle='User'></HeadComp>
-      <PageLayout page={'bookmarks'}></PageLayout>
+      <PageLayout page={'user'}></PageLayout>
     </>
   );
 };
