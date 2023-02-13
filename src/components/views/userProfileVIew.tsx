@@ -1,58 +1,54 @@
 import type { FC } from 'react';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import { api } from '@utils/api';
 import ProfileView from './profileView';
-import type { IReturnUser } from 'src/constants';
 import LoadingComponent from '@components/common/loadingcomponent';
+import type { NextRouter } from 'next/dist/client/router';
+import type { Session } from 'next-auth';
 
-const UserProfileView: FC = () => {
-  const [currentUser, setCurrentUser] = useState<IReturnUser>();
-  const router = useRouter();
-
-  const { username } = router.query;
-  let getUsername = '#';
-  if (Array.isArray(username) && username[0] !== undefined) {
-    getUsername = username[0];
-  } else if (typeof username === 'undefined') {
-    getUsername = '#';
-  }
-  const getUserQuery = api.user.get.useQuery(
-    { username: getUsername },
-    { enabled: false }
-  );
-
-  if (typeof window !== 'undefined') {
-    getUserQuery
-      .refetch()
-      .then((queryResult) => {
-        if (queryResult.data && queryResult.data.foundUser !== null) {
-          setCurrentUser(queryResult.data);
-        } else {
-          void router.push('/404');
-        }
-      })
-      .catch(() => {
-        void router.push('/404');
-      });
-  }
-
-  if (currentUser !== undefined && currentUser.foundUser !== null) {
-    return (
-      <>
-        <ProfileView data={currentUser}></ProfileView>
-      </>
-    );
+const UserProfileView: FC<{
+  isCurrentUser: boolean;
+  router: NextRouter;
+  session: Session;
+}> = ({ isCurrentUser, router, session }) => {
+  // sets idToFind to username or id of current user.
+  let idToFind = '#';
+  if (isCurrentUser) {
+    // if author's profile
+    idToFind = session.user.id;
   } else {
+    // if viewing other's profile
+    const { username } = router.query;
+    if (typeof username === 'string') {
+      idToFind = username;
+    } else if (Array.isArray(username) && username[0] !== undefined) {
+      idToFind = username[0];
+    } else if (typeof username === 'undefined') {
+      idToFind = '#';
+    }
+  }
+
+  const getUserQuery = isCurrentUser
+    ? api.user.getFromId.useQuery({ id: idToFind })
+    : api.user.get.useQuery({ username: idToFind });
+
+  if (getUserQuery.status !== 'success') {
+    return (
+      <div className='flex h-full w-full items-center justify-center'>
+        <div className='h-8 w-8'>
+          <LoadingComponent></LoadingComponent>
+        </div>
+      </div>
+    );
+  }
+  if (getUserQuery.data.foundUser === null) {
     void router.push('/404');
+    return <></>;
   }
 
   return (
-    <div className='flex h-full w-full items-center justify-center'>
-      <div className='h-8 w-8'>
-        <LoadingComponent></LoadingComponent>
-      </div>
-    </div>
+    <>
+      <ProfileView data={getUserQuery.data}></ProfileView>
+    </>
   );
 };
 
