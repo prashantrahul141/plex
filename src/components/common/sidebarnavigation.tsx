@@ -62,7 +62,7 @@ const SideBarNavigation: FC<{
         );
       })}
 
-      <div className='my-8 flex'>
+      <div className='mb-9 flex flex-grow items-end'>
         <Link href={'/profile'}>
           <i className='group relative flex items-center'>
             <Image
