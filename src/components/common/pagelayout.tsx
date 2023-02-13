@@ -29,7 +29,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
   if (status === 'authenticated') {
     return (
       <div className='mx-auto flex h-screen w-screen flex-col gap-2 sm:w-max sm:flex-row sm:gap-0'>
-        <div className='z-50 block h-screen w-full min-w-max sm:hidden'>
+        <div className='z-50 block w-full min-w-max sm:hidden'>
           <TopBarNavigation
             activeTab={page}
             authorAvatar={
