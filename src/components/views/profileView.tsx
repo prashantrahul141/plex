@@ -10,11 +10,12 @@ import type { IReturnUser } from 'src/types';
 const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
   const [showBigImageAvatar, setShowBigImageAvatar] = useState(false);
   const [showBigImageBanner, setShowBigImageBanner] = useState(false);
-  const urlHost = data.foundUser?.url
-    ? new URL(data.foundUser?.url).hostname
-    : '';
 
   if (data.foundUser !== null) {
+    const urlHost = data.foundUser.url
+      ? new URL(data.foundUser.url).hostname
+      : '';
+
     return (
       <main className='w-full max-w-fit'>
         <header className='relative'>
