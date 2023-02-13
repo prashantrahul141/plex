@@ -28,54 +28,52 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
 
   if (status === 'authenticated') {
     return (
-      <div className='h-full w-full'>
-        <div className='mx-auto flex w-screen flex-col gap-2 sm:w-max sm:flex-row sm:gap-0'>
-          <div className='z-50 w-full min-w-max sm:hidden'>
-            <TopBarNavigation
-              activeTab={page}
-              authorAvatar={
-                session.user.image || '/public/static/defaultAvatar.png'
-              }
-              authorName={session.user.name || 'user'}></TopBarNavigation>
+      <div className='mx-auto flex h-screen w-screen flex-col gap-2 sm:w-max sm:flex-row sm:gap-0'>
+        <div className='z-50 block h-screen w-full min-w-max sm:hidden'>
+          <TopBarNavigation
+            activeTab={page}
+            authorAvatar={
+              session.user.image || '/public/static/defaultAvatar.png'
+            }
+            authorName={session.user.name || 'user'}></TopBarNavigation>
+        </div>
+
+        <div className='hidden sm:block'>
+          <SideBarNavigation
+            activeTab={page}
+            authorAvatar={
+              session.user.image || '/public/static/defaultAvatar.png'
+            }
+            authorName={session.user.name || 'user'}></SideBarNavigation>
+        </div>
+
+        <AnimatePresence>
+          <div className='max-w-2xl overflow-auto'>
+            <motion.div className=''>
+              {page === 'home' && <PostList></PostList>}
+
+              {page === 'trending' && <TrendingList></TrendingList>}
+              {page === 'notifications' && (
+                <NotificationsList></NotificationsList>
+              )}
+              {page === 'bookmarks' && <BookmarksList></BookmarksList>}
+              {page === 'settings' && <SettingsForm></SettingsForm>}
+
+              {page === 'profile' && (
+                <UserProfileView
+                  isCurrentUser={true}
+                  session={session}></UserProfileView>
+              )}
+              {page === 'user' && (
+                <UserProfileView
+                  isCurrentUser={false}
+                  session={session}></UserProfileView>
+              )}
+            </motion.div>
           </div>
-
-          <div className='hidden sm:block'>
-            <SideBarNavigation
-              activeTab={page}
-              authorAvatar={
-                session.user.image || '/public/static/defaultAvatar.png'
-              }
-              authorName={session.user.name || 'user'}></SideBarNavigation>
-          </div>
-
-          <AnimatePresence>
-            <div className='max-w-2xl flex-grow'>
-              <motion.div className=''>
-                {page === 'home' && <PostList></PostList>}
-
-                {page === 'trending' && <TrendingList></TrendingList>}
-                {page === 'notifications' && (
-                  <NotificationsList></NotificationsList>
-                )}
-                {page === 'bookmarks' && <BookmarksList></BookmarksList>}
-                {page === 'settings' && <SettingsForm></SettingsForm>}
-
-                {page === 'profile' && (
-                  <UserProfileView
-                    isCurrentUser={true}
-                    session={session}></UserProfileView>
-                )}
-                {page === 'user' && (
-                  <UserProfileView
-                    isCurrentUser={false}
-                    session={session}></UserProfileView>
-                )}
-              </motion.div>
-            </div>
-          </AnimatePresence>
-          <div className='hidden lg:block'>
-            <AdditionalWidgets></AdditionalWidgets>
-          </div>
+        </AnimatePresence>
+        <div className='hidden lg:block'>
+          <AdditionalWidgets></AdditionalWidgets>
         </div>
       </div>
     );
