@@ -4,6 +4,7 @@ import ProfileView from './profileView';
 import LoadingComponent from '@components/common/loadingcomponent';
 import type { Session } from 'next-auth';
 import { useRouter } from 'next/router';
+import HeadComp from '@components/common/headcomponent';
 
 const UserProfileView: FC<{
   isCurrentUser: boolean;
@@ -48,6 +49,7 @@ const UserProfileView: FC<{
 
   return (
     <>
+      <HeadComp headTitle={getUserQuery.data.foundUser.name}></HeadComp>
       <ProfileView data={getUserQuery.data}></ProfileView>
     </>
   );
