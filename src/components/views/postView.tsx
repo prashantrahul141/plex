@@ -123,7 +123,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
 
         <Link
           href={`/${data.post.Author.username}/${data.post.id}`}
-          className='mb-2 block font-mukta font-thin leading-snug tracking-wide'>
+          className='mb-2 block select-text font-mukta font-thin leading-snug tracking-wide'>
           {data.post.text}
         </Link>
 
