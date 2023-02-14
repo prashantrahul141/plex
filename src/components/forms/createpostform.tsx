@@ -101,7 +101,7 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
 
   return (
     <form
-      className='relative w-full max-w-md rounded-lg border border-themePrimary-100/10 bg-baseBackground-100/95 px-2 py-4'
+      className='max-w-screen relative w-96 rounded-lg border border-themePrimary-100/10 bg-baseBackground-100/95 px-2 py-4'
       onSubmit={handleSubmit(submitForm)}>
       {uploadingImageProgress && (
         <>
