@@ -49,8 +49,13 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
 
         <AnimatePresence>
           <div className='max-w-2xl overflow-auto  sm:min-w-[42rem] md:border-r md:border-themePrimary-100/40'>
-            <motion.div className=''>
-              {page === 'home' && <PostList></PostList>}
+            <h2 className='mx-3 my-4 hidden font-mukta text-2xl capitalize text-themePrimary-50/80 sm:block'>
+              {page}
+            </h2>
+            <motion.div>
+              {page === 'home' && (
+                <PostList authorId={session.user.id}></PostList>
+              )}
 
               {page === 'trending' && <TrendingList></TrendingList>}
               {page === 'notifications' && (
