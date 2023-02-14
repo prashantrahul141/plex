@@ -5,6 +5,10 @@
 
 @tailwind base;
 
+/* * {
+  @apply outline outline-themePrimary-50;
+} */
+
 /* Firefox */
 * {
   scrollbar-width: thin;
