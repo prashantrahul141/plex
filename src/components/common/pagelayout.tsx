@@ -49,7 +49,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
 
         <AnimatePresence>
           <div className='max-w-2xl overflow-auto  sm:min-w-[42rem] md:border-r md:border-themePrimary-100/40'>
-            <h2 className='mx-3 my-4 hidden font-mukta text-2xl capitalize text-themePrimary-50/80 sm:block'>
+            <h2 className='hidden border-b border-themePrimary-100/40 px-3 py-4 font-mukta text-2xl capitalize tracking-wide text-themePrimary-50/80 sm:block'>
               {page}
             </h2>
             <motion.div>
