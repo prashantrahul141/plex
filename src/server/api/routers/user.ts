@@ -1,9 +1,9 @@
 import { prisma } from 'src/server/db';
 import { z } from 'zod';
-import { createTRPCRouter, publicProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 
 export const UserRouter = createTRPCRouter({
-  getFromId: publicProcedure
+  getFromId: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -37,7 +37,7 @@ export const UserRouter = createTRPCRouter({
       };
     }),
 
-  get: publicProcedure
+  get: protectedProcedure
     .input(
       z.object({
         username: z.string(),
