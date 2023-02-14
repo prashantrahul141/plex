@@ -142,4 +142,51 @@ export const PostRouter = createTRPCRouter({
 
       return { posts };
     }),
+
+  like: protectedProcedure
+    .input(z.object({ postId: z.string(), addLike: z.boolean() }))
+    .query(async ({ input, ctx }) => {
+      const likedAlready = await prisma.likedByAuthor.findUnique({
+        where: {
+          postId_userId: { postId: input.postId, userId: ctx.session.user.id },
+        },
+      });
+
+      if (input.addLike) {
+        if (!likedAlready) {
+          await prisma.likedByAuthor.create({
+            data: {
+              post: {
+                connect: {
+                  id: input.postId,
+                },
+              },
+              user: {
+                connect: {
+                  id: ctx.session.user.id,
+                },
+              },
+            },
+          });
+
+          return { status: 'ADDEDLIKE' } as const;
+        }
+        return { status: 'ALREADYLIKED' } as const;
+      } else {
+        if (likedAlready) {
+          await prisma.likedByAuthor.delete({
+            where: {
+              postId_userId: {
+                postId: input.postId,
+                userId: ctx.session.user.id,
+              },
+            },
+          });
+
+          return { status: 'REMOVEDLIKE' } as const;
+        }
+
+        return { status: 'ALREADYNOTLIKED' } as const;
+      }
+    }),
 });
