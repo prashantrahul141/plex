@@ -50,7 +50,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
         </div>
 
         <AnimatePresence>
-          <div className='max-w-2xl overflow-auto  sm:min-w-[42rem] md:border-r md:border-themePrimary-100/40'>
+          <div className='max-w-lg overflow-auto  sm:min-w-[40rem] md:border-r md:border-themePrimary-100/40'>
             <h2 className='hidden border-b border-themePrimary-100/40 px-3 py-4 font-mukta text-2xl capitalize tracking-wide text-themePrimary-50/90 sm:block'>
               {['user', 'profile'].includes(page) ? layoutTitle : page}
             </h2>
