@@ -19,6 +19,7 @@ const config = {
       'avatars.githubusercontent.com',
       'lh3.googleusercontent.com',
       'media.discordapp.net',
+      'res.cloudinary.com',
     ],
     remotePatterns: [
       {
@@ -44,6 +45,12 @@ const config = {
         hostname: 'avatars.githubusercontent.com',
         port: '',
         pathname: '/u/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
