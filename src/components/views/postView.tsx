@@ -130,9 +130,9 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
         {data.post.image !== null && (
           <div className='select-none' onClick={() => setShowBigImage(true)}>
             <Image
-              className='max-h-[30rem] rounded-2xl'
-              width={1000}
-              height={1000}
+              className='max-h-[30rem] w-max rounded-2xl border border-themePrimary-300/20 object-contain'
+              width={800}
+              height={800}
               src={postImageLink}
               alt={data.post.text}></Image>
           </div>
