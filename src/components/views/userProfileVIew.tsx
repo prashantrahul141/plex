@@ -5,6 +5,7 @@ import LoadingComponent from '@components/common/loadingcomponent';
 import type { Session } from 'next-auth';
 import { useRouter } from 'next/router';
 import HeadComp from '@components/common/headcomponent';
+import PostList from '@components/lists/postsLists';
 
 const UserProfileView: FC<{
   isCurrentUser: boolean;
@@ -53,6 +54,9 @@ const UserProfileView: FC<{
     <>
       <HeadComp headTitle={getUserQuery.data.foundUser.name}></HeadComp>
       <ProfileView data={getUserQuery.data}></ProfileView>
+      <PostList
+        userId={getUserQuery.data.foundUser.id}
+        authorId={session.user.id}></PostList>
     </>
   );
 };
