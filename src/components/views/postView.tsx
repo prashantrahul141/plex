@@ -10,11 +10,16 @@ import { MdDeleteForever, MdVerified } from 'react-icons/md';
 import BigImageView from './bigImageView';
 import CommonAlert from '@components/common/commonAlert';
 import type { IReturnPost } from 'src/types';
+import { env } from 'src/env/client.mjs';
 
 const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   data,
   currentUserID,
 }) => {
+  const postImageLink = `https://res.cloudinary.com/${
+    env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME
+  }/image/upload/${data.post.image || '#'}.jpg`;
+
   const [postLikedState, setPostLiked] = useState(
     data.post.LikedByAuthor.length > 0
   );
@@ -32,7 +37,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   };
 
   return (
-    <div className='outline-theme flex w-full gap-1 p-2 text-themePrimary-50/95 outline outline-1 outline-themePrimary-100/20'>
+    <div className='outline-theme group flex w-full gap-1 p-2 text-themePrimary-50/95 outline outline-1 outline-themePrimary-100/20'>
       <div className='mr-2'>
         <Link href={`/${data.post.Author.username}`} className='w-fit'>
           <Image
@@ -44,8 +49,8 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
         </Link>
       </div>
 
-      <div className='group w-full'>
-        <div className='relative flex'>
+      <div className=' w-full'>
+        <div className='relative flex items-center'>
           <Link
             href={`/${data.post.Author.username}`}
             className='flex items-center'>
@@ -56,8 +61,8 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
             {data.post.Author.authorVerified && (
               <h6 className='group/verified relative'>
                 <MdVerified></MdVerified>
-                <span className='absolute left-1/2 top-6 hidden w-28 -translate-x-1/2 rounded-md bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide group-hover/verified:block'>
-                  This user this verified by the plex team.
+                <span className='absolute left-1/2 top-6 hidden w-max -translate-x-1/2 rounded-md bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide group-hover/verified:block'>
+                  This user is verified by the plex team.
                 </span>
               </h6>
             )}
@@ -78,7 +83,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
           {authorAdmin && (
             <button
               onClick={() => setShowHamMenuOptions(!showHamMenuOptions)}
-              className='absolute right-4 top-1/2 hidden rounded-full p-2 hover:bg-themePrimary-50/10 group-hover:block'>
+              className='absolute right-4 top-1/2 hidden rounded-full px-2 hover:bg-themePrimary-50/10 group-hover:block'>
               <SlOptions></SlOptions>
             </button>
           )}
@@ -96,7 +101,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
                     type: 'spring',
                     duration: 0.3,
                   }}
-                  className='absolute z-10 rounded-md border border-themePrimary-300/50 py-1 text-themePrimary-50/80 backdrop-blur-[2px] backdrop-brightness-90'>
+                  className='absolute z-10 rounded-md border border-themePrimary-300/50 bg-baseBackground-100/95 py-1 text-themePrimary-50/80'>
                   <button className='group/btn flex items-center justify-center py-1 px-2 font-mukta text-base font-light leading-none tracking-wide hover:bg-red-500/80 hover:text-themePrimary-50'>
                     <MdDeleteForever className=' group-hover/btn:text-themePrimary-50'></MdDeleteForever>
                     &nbsp; Delete
@@ -116,10 +121,10 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
         {data.post.image !== null && (
           <div className='select-none' onClick={() => setShowBigImage(true)}>
             <Image
-              className='rounded-2xl'
+              className='max-h-[30rem] rounded-2xl'
               width={1000}
               height={1000}
-              src={data.post.image}
+              src={postImageLink}
               alt={data.post.text}></Image>
           </div>
         )}
@@ -172,7 +177,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
       <AnimatePresence>
         {showCopyShareLink && (
           <CommonAlert
-            alertText='Copied post link!'
+            alertText='Copied link!'
             alertType='success'></CommonAlert>
         )}
       </AnimatePresence>
@@ -181,7 +186,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
         {showBigImage && data.post.image !== null && (
           <BigImageView
             callBackFun={(_state: boolean) => setShowBigImage(_state)}
-            imageUrl={data.post.image}></BigImageView>
+            imageUrl={postImageLink}></BigImageView>
         )}
       </AnimatePresence>
     </div>
