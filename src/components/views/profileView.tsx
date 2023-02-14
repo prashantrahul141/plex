@@ -6,10 +6,27 @@ import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { MdVerified, MdLink, MdDateRange } from 'react-icons/md';
 import type { IReturnUser } from 'src/types';
+import { api } from '@utils/api';
 
 const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
   const [showBigImageAvatar, setShowBigImageAvatar] = useState(false);
   const [showBigImageBanner, setShowBigImageBanner] = useState(false);
+  const [follwingState, setFollwingState] = useState(
+    data.foundUser?.followers.length
+      ? data.foundUser.followers.length > 0
+      : false
+  );
+  const followQuery = api.user.follow.useQuery(
+    {
+      addFollow: !follwingState,
+      followId: data.foundUser?.id || '#',
+    },
+    { enabled: false }
+  );
+  const followHandle = async () => {
+    setFollwingState(!follwingState);
+    await followQuery.refetch();
+  };
 
   if (data.foundUser !== null) {
     const urlHost = data.foundUser.url
@@ -47,8 +64,10 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
             </Link>
           )}
           {!data.isAuthor && (
-            <button className='btn absolute -bottom-12 right-2 w-fit rounded-3xl px-3  font-mukta text-sm '>
-              {false ? 'Following' : 'Follow'}
+            <button
+              onClick={async () => followHandle()}
+              className='btn absolute -bottom-12 right-2 w-fit rounded-3xl px-3  font-mukta text-sm '>
+              {follwingState ? 'Following' : 'Follow'}
               {/* {isFollowed ? 'Following' : 'Follow'} */}
             </button>
           )}
