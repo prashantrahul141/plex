@@ -76,9 +76,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
                   isCurrentUser={true}
                   session={session}></UserProfileView>
               )}
-              {page === 'edit profile' && (
-                <EditProfileForm session={session}></EditProfileForm>
-              )}
+              {page === 'edit profile' && <EditProfileForm></EditProfileForm>}
 
               {page === 'user' && (
                 <UserProfileView
