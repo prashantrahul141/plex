@@ -32,8 +32,8 @@ const UserProfileView: FC<{
   }
 
   const getUserQuery = isCurrentUser
-    ? api.user.getFromId.useQuery({ id: idToFind })
-    : api.user.get.useQuery({ username: idToFind });
+    ? api.user.getForShowFromId.useQuery({ id: idToFind })
+    : api.user.getForShow.useQuery({ username: idToFind });
 
   if (getUserQuery.status !== 'success') {
     return (

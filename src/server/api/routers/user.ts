@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 
 export const UserRouter = createTRPCRouter({
-  getFromId: protectedProcedure
+  getForShowFromId: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -39,7 +39,7 @@ export const UserRouter = createTRPCRouter({
       };
     }),
 
-  get: protectedProcedure
+  getForShow: protectedProcedure
     .input(
       z.object({
         username: z.string(),
