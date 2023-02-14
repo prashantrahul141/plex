@@ -19,7 +19,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
 }) => {
   const postImageLink = `https://res.cloudinary.com/${
     env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME
-  }/image/upload/${data.post.image || '#'}.jpg`;
+  }/image/upload/${data.post.image || '#'}`;
 
   const [postLikedState, setPostLiked] = useState(
     data.post.LikedByAuthor.length > 0
