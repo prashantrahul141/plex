@@ -9,7 +9,8 @@ import HeadComp from '@components/common/headcomponent';
 const UserProfileView: FC<{
   isCurrentUser: boolean;
   session: Session;
-}> = ({ isCurrentUser, session }) => {
+  setLayoutTitleCallback: (target: string) => void;
+}> = ({ isCurrentUser, session, setLayoutTitleCallback }) => {
   const router = useRouter();
 
   // sets idToFind to username or id of current user.
@@ -46,6 +47,7 @@ const UserProfileView: FC<{
     void router.push('/404');
     return <></>;
   }
+  setLayoutTitleCallback(getUserQuery.data.foundUser.name);
 
   return (
     <>
