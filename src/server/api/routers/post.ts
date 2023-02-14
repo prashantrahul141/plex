@@ -72,4 +72,74 @@ export const PostRouter = createTRPCRouter({
   view: protectedProcedure.input(z.object({ postId: z.string() })).query(() => {
     return {};
   }),
+
+  list: protectedProcedure
+    .input(z.object({ skip: z.number().default(0) }))
+    .query(async ({ input, ctx }) => {
+      const posts = await prisma.post.findMany({
+        take: 20,
+        skip: input.skip,
+        orderBy: { createdOn: 'asc' },
+        include: {
+          LikedByAuthor: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
+          _count: {
+            select: {
+              Comments: true,
+              LikedByAuthor: true,
+            },
+          },
+          Author: {
+            select: {
+              id: true,
+              image: true,
+              name: true,
+              username: true,
+              authorVerified: true,
+            },
+          },
+        },
+      });
+      return { posts };
+    }),
+
+  listFromUserId: protectedProcedure
+    .input(z.object({ userId: z.string(), skip: z.number().default(0) }))
+    .query(async ({ input, ctx }) => {
+      const posts = await prisma.post.findMany({
+        take: 20,
+        skip: input.skip,
+        orderBy: { createdOn: 'asc' },
+        where: {
+          authorId: input.userId,
+        },
+        include: {
+          LikedByAuthor: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
+          _count: {
+            select: {
+              Comments: true,
+              LikedByAuthor: true,
+            },
+          },
+          Author: {
+            select: {
+              id: true,
+              image: true,
+              name: true,
+              username: true,
+              authorVerified: true,
+            },
+          },
+        },
+      });
+
+      return { posts };
+    }),
 });
