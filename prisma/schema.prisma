@@ -51,7 +51,7 @@ model User {
     username       String    @unique @default(cuid())
     email          String    @unique
     emailVerified  DateTime?
-    image          String    @default("/static/defaultAvatar.png")
+    image          String    @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed")
     joinedOn       DateTime  @default(now())
     authorVerified Boolean   @default(false)
 
@@ -59,7 +59,7 @@ model User {
     settingsId String
 
     url    String?
-    banner String  @default("/static/defaultBanner.png")
+    banner String  @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultbanner_vfhdgt")
     bio    String?
 
     accounts Account[]
