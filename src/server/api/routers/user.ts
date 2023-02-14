@@ -75,6 +75,26 @@ export const UserRouter = createTRPCRouter({
       };
     }),
 
+  getForEdit: protectedProcedure.query(async ({ ctx }) => {
+    const UserData = await prisma.user.findUnique({
+      where: {
+        id: ctx.session.user.id,
+      },
+      select: {
+        name: true,
+        username: true,
+        image: true,
+        url: true,
+        banner: true,
+        bio: true,
+      },
+    });
+
+    if (UserData) {
+      return { UserData };
+    }
+  }),
+
   follow: protectedProcedure
     .input(z.object({ followId: z.string(), addFollow: z.boolean() }))
     .query(async ({ input, ctx }) => {
