@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import LoadingComponent from '@components/common/loadingcomponent';
 import AdditionalWidgets from '@components/common/additionalWidgets';
 import UserProfileView from '@components/views/userProfileVIew';
+import EditProfileForm from '@components/forms/editprofileform';
 
 type pages =
   | 'home'
@@ -21,7 +22,8 @@ type pages =
   | 'bookmarks'
   | 'settings'
   | 'profile'
-  | 'user';
+  | 'user'
+  | 'edit profile';
 
 const PageLayout: FC<{ page: pages }> = ({ page }) => {
   const { data: session, status } = useSession();
@@ -74,6 +76,10 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
                   isCurrentUser={true}
                   session={session}></UserProfileView>
               )}
+              {page === 'edit profile' && (
+                <EditProfileForm session={session}></EditProfileForm>
+              )}
+
               {page === 'user' && (
                 <UserProfileView
                   setLayoutTitleCallback={(target: string) =>
