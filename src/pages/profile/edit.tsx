@@ -7,7 +7,7 @@ const ProfileEditPage: NextPage = () => {
     <>
       <HeadComp headTitle='Edit Profile'></HeadComp>
 
-      <PageLayout page={'profile'}></PageLayout>
+      <PageLayout page={'edit profile'}></PageLayout>
     </>
   );
 };
