@@ -48,7 +48,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
         </div>
 
         <AnimatePresence>
-          <div className='max-w-2xl overflow-auto'>
+          <div className='max-w-2xl overflow-auto  sm:min-w-[42rem] md:border-r md:border-themePrimary-100/40'>
             <motion.div className=''>
               {page === 'home' && <PostList></PostList>}
 
