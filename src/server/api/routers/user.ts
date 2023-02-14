@@ -23,13 +23,15 @@ export const UserRouter = createTRPCRouter({
           url: true,
           bio: true,
           joinedOn: true,
+          followers: {
+            where: {
+              followerId: ctx.session.user.id,
+            },
+          },
           authorVerified: true,
           _count: { select: { followers: true, followings: true } },
         },
       });
-      if (foundUser) {
-        foundUser.id;
-      }
 
       return {
         foundUser,
@@ -57,17 +59,68 @@ export const UserRouter = createTRPCRouter({
           url: true,
           bio: true,
           joinedOn: true,
+          followers: {
+            where: {
+              followerId: ctx.session.user.id,
+            },
+          },
           authorVerified: true,
           _count: { select: { followers: true, followings: true } },
         },
       });
-      if (foundUser) {
-        foundUser.id;
-      }
 
       return {
         foundUser,
         isAuthor: foundUser ? foundUser.id === ctx.session?.user.id : false,
       };
+    }),
+
+  follow: protectedProcedure
+    .input(z.object({ followId: z.string(), addFollow: z.boolean() }))
+    .query(async ({ input, ctx }) => {
+      if (input.followId !== ctx.session.user.id) {
+        const alreadyFollow = await prisma.follows.findUnique({
+          where: {
+            followerId_followingId: {
+              followerId: ctx.session.user.id,
+              followingId: input.followId,
+            },
+          },
+        });
+        if (input.addFollow) {
+          if (!alreadyFollow) {
+            await prisma.follows.create({
+              data: {
+                follower: {
+                  connect: {
+                    id: ctx.session.user.id,
+                  },
+                },
+                following: {
+                  connect: {
+                    id: input.followId,
+                  },
+                },
+              },
+            });
+
+            return { status: 'ADDEDFOLLOW' } as const;
+          }
+          return { status: 'ALREADYFOLLOW' } as const;
+        } else {
+          if (alreadyFollow) {
+            await prisma.follows.delete({
+              where: {
+                followerId_followingId: {
+                  followerId: ctx.session.user.id,
+                  followingId: input.followId,
+                },
+              },
+            });
+            return { status: 'REMOVEDFOLLOW' } as const;
+          }
+          return { status: 'ALREADYNOTFOLLOW' } as const;
+        }
+      }
     }),
 });
