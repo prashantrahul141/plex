@@ -36,7 +36,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
       <div className='mr-2'>
         <Link href={`/${data.post.Author.username}`} className='w-fit'>
           <Image
-            className='mt-1 w-12 rounded-full'
+            className='mt-1 w-12 min-w-[2.7rem] rounded-full'
             src={data.post.Author.image}
             alt={data.post.Author.name}
             width={100}
