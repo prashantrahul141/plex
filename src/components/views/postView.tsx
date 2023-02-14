@@ -9,39 +9,22 @@ import { BiCommentDetail, BiShare } from 'react-icons/bi';
 import { MdDeleteForever, MdVerified } from 'react-icons/md';
 import BigImageView from './bigImageView';
 import CommonAlert from '@components/common/commonAlert';
+import type { IReturnPost } from 'src/types';
 
-const PostView: FC<{
-  postId: string;
-  authorAvatar: string;
-  authorName: string;
-  authorUsername: string;
-  authorVerified: boolean;
-  postedDate: string;
-  postText: string;
-  postImage: string | null;
-  likesCount: number;
-  postLiked: boolean;
-  commentsCount: number;
-  authorAdmin: boolean;
-}> = ({
-  postId,
-  authorAvatar,
-  authorName,
-  authorUsername,
-  authorVerified,
-  postedDate,
-  postText,
-  postImage,
-  likesCount,
-  postLiked,
-  commentsCount,
-  authorAdmin,
+const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
+  data,
+  currentUserID,
 }) => {
-  const [postLikedState, setPostLiked] = useState(postLiked);
-  const [likesCountState, setLikesCountState] = useState(likesCount);
+  const [postLikedState, setPostLiked] = useState(
+    data.post.LikedByAuthor.length > 0
+  );
+  const [likesCountState, setLikesCountState] = useState(
+    data.post._count.LikedByAuthor
+  );
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
   const [showBigImage, setShowBigImage] = useState(false);
   const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
+  const authorAdmin = currentUserID === data.post.Author.id;
 
   const handleLike = () => {
     setPostLiked(!postLikedState);
@@ -49,13 +32,13 @@ const PostView: FC<{
   };
 
   return (
-    <div className='flex w-full gap-1 text-themePrimary-50/95'>
-      <div>
-        <Link href={`/${authorUsername}`} className='mr-1 w-fit'>
+    <div className='outline-theme flex w-full gap-1 p-2 text-themePrimary-50/95 outline outline-1 outline-themePrimary-100/20'>
+      <div className='mr-2'>
+        <Link href={`/${data.post.Author.username}`} className='w-fit'>
           <Image
-            className='mt-1 w-14 min-w-[48px] rounded-full'
-            src={authorAvatar}
-            alt={authorName}
+            className='mt-1 w-12 rounded-full'
+            src={data.post.Author.image}
+            alt={data.post.Author.name}
             width={100}
             height={100}></Image>
         </Link>
@@ -63,12 +46,14 @@ const PostView: FC<{
 
       <div className='group w-full'>
         <div className='relative flex'>
-          <Link href={`/${authorUsername}`} className='flex items-center'>
+          <Link
+            href={`/${data.post.Author.username}`}
+            className='flex items-center'>
             <h5 className='font-mukta text-themePrimary-50/95 hover:underline'>
-              {authorName}
+              {data.post.Author.name}
             </h5>
             &nbsp;
-            {authorVerified && (
+            {data.post.Author.authorVerified && (
               <h6 className='group/verified relative'>
                 <MdVerified></MdVerified>
                 <span className='absolute left-1/2 top-6 hidden w-28 -translate-x-1/2 rounded-md bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide group-hover/verified:block'>
@@ -78,15 +63,15 @@ const PostView: FC<{
             )}
             &nbsp;
             <h6 className='font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline'>
-              @{authorUsername}
+              @{data.post.Author.username}
             </h6>
             &nbsp;
-            <span className='text-2xl leading-none text-themePrimary-50/95'>
+            <span className='text-2xl leading-none text-themePrimary-50/70'>
               ·
             </span>
             &nbsp;
             <h6 className='cursor-default font-ibmplex text-xs tracking-tighter text-themePrimary-100/70'>
-              {postedDate.toString()}
+              {data.post.createdOn.toDateString()}
             </h6>
           </Link>
 
@@ -123,19 +108,19 @@ const PostView: FC<{
         </div>
 
         <Link
-          href={`/${authorUsername}/${postId}`}
+          href={`/${data.post.Author.username}/${data.post.id}`}
           className='mb-2 block font-mukta font-thin leading-snug tracking-wide'>
-          {postText}
+          {data.post.text}
         </Link>
 
-        {postImage !== null && (
+        {data.post.image !== null && (
           <div className='select-none' onClick={() => setShowBigImage(true)}>
             <Image
               className='rounded-2xl'
               width={1000}
               height={1000}
-              src={postImage}
-              alt={postText}></Image>
+              src={data.post.image}
+              alt={data.post.text}></Image>
           </div>
         )}
 
@@ -145,10 +130,10 @@ const PostView: FC<{
               className='flex w-fit cursor-pointer items-center justify-center hover:text-themePrimary-50'
               onClick={handleLike}>
               {postLikedState && (
-                <AiTwotoneHeart className='text-xl text-red-500 sm:text-2xl'></AiTwotoneHeart>
+                <AiTwotoneHeart className='text-lg text-red-500'></AiTwotoneHeart>
               )}
               {!postLikedState && (
-                <AiOutlineHeart className='text-xl sm:text-2xl'></AiOutlineHeart>
+                <AiOutlineHeart className='text-lg'></AiOutlineHeart>
               )}
               &nbsp;{likesCountState}
             </span>
@@ -156,11 +141,11 @@ const PostView: FC<{
 
           <div className='flex flex-grow  items-center justify-center'>
             <Link
-              href={`${authorUsername}/${postId}`}
+              href={`${data.post.Author.username}/${data.post.id}`}
               className='flex w-fit cursor-pointer items-center justify-center hover:text-themePrimary-50'>
-              <BiCommentDetail className='text-xl sm:text-2xl'></BiCommentDetail>
+              <BiCommentDetail className='text-lg'></BiCommentDetail>
               &nbsp;
-              {commentsCount}
+              {data.post._count.Comments}
             </Link>
           </div>
 
@@ -169,7 +154,7 @@ const PostView: FC<{
               onClick={async () => {
                 await navigator.clipboard.writeText(
                   typeof window !== 'undefined'
-                    ? `${window.location.host}/${authorUsername}/${postId}`
+                    ? `${window.location.host}/${data.post.Author.username}/${data.post.id}`
                     : '/'
                 );
                 setShowCopyShareLink(true);
@@ -178,7 +163,7 @@ const PostView: FC<{
                 }, 3000);
               }}
               className='w-fit cursor-pointer items-center justify-center hover:text-themePrimary-50'>
-              <BiShare className='text-xl sm:text-2xl'></BiShare>
+              <BiShare className='text-lg'></BiShare>
             </button>
           </div>
         </div>
@@ -193,10 +178,10 @@ const PostView: FC<{
       </AnimatePresence>
 
       <AnimatePresence>
-        {showBigImage && postImage !== null && (
+        {showBigImage && data.post.image !== null && (
           <BigImageView
             callBackFun={(_state: boolean) => setShowBigImage(_state)}
-            imageUrl={postImage}></BigImageView>
+            imageUrl={data.post.image}></BigImageView>
         )}
       </AnimatePresence>
     </div>
