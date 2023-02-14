@@ -17,7 +17,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
       : '';
 
     return (
-      <main className='w-full max-w-fit'>
+      <main className='w-full max-w-fit border-b border-themePrimary-100/40 pb-5'>
         <header className='relative'>
           <Image
             priority
