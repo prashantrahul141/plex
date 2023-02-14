@@ -11,6 +11,7 @@ import BigImageView from './bigImageView';
 import CommonAlert from '@components/common/commonAlert';
 import type { IReturnPost } from 'src/types';
 import { env } from 'src/env/client.mjs';
+import { api } from '@utils/api';
 
 const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   data,
@@ -30,10 +31,18 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   const [showBigImage, setShowBigImage] = useState(false);
   const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
   const authorAdmin = currentUserID === data.post.Author.id;
+  const likeQuery = api.post.like.useQuery(
+    {
+      addLike: !postLikedState,
+      postId: data.post.id,
+    },
+    { enabled: false }
+  );
 
-  const handleLike = () => {
+  const handleLike = async () => {
     setPostLiked(!postLikedState);
     setLikesCountState(likesCountState + (postLikedState ? -1 : 1));
+    await likeQuery.refetch();
   };
 
   return (
