@@ -37,4 +37,13 @@ interface IReturnPost {
   };
 }
 
-export type { IReturnUser, IReturnPost };
+interface IReturnUserEdit {
+  name: string;
+  username: string;
+  image: string;
+  url: string | null;
+  banner: string;
+  bio: string | null;
+}
+
+export type { IReturnUser, IReturnPost, IReturnUserEdit };
