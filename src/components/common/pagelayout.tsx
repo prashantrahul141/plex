@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { FC, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import NotificationsList from '@components/lists/notificationsList';
 import PostList from '@components/lists/postsLists';
@@ -25,6 +25,7 @@ type pages =
 const PageLayout: FC<{ page: pages }> = ({ page }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [layoutTitle, setLayoutTitle] = useState('');
 
   if (status === 'authenticated') {
     return (
@@ -49,8 +50,8 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
 
         <AnimatePresence>
           <div className='max-w-2xl overflow-auto  sm:min-w-[42rem] md:border-r md:border-themePrimary-100/40'>
-            <h2 className='hidden border-b border-themePrimary-100/40 px-3 py-4 font-mukta text-2xl capitalize tracking-wide text-themePrimary-50/80 sm:block'>
-              {page}
+            <h2 className='hidden border-b border-themePrimary-100/40 px-3 py-4 font-mukta text-2xl capitalize tracking-wide text-themePrimary-50/90 sm:block'>
+              {['user', 'profile'].includes(page) ? layoutTitle : page}
             </h2>
             <motion.div>
               {page === 'home' && (
@@ -66,11 +67,17 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
 
               {page === 'profile' && (
                 <UserProfileView
+                  setLayoutTitleCallback={(target: string) =>
+                    setLayoutTitle(target)
+                  }
                   isCurrentUser={true}
                   session={session}></UserProfileView>
               )}
               {page === 'user' && (
                 <UserProfileView
+                  setLayoutTitleCallback={(target: string) =>
+                    setLayoutTitle(target)
+                  }
                   isCurrentUser={false}
                   session={session}></UserProfileView>
               )}
