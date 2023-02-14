@@ -86,10 +86,11 @@ model LikedByAuthor {
 
 // Posts by author
 model Post {
-    id       String    @id @default(cuid())
-    text     String    @default("")
-    image    String?
-    Comments Comment[]
+    id        String    @id @default(cuid())
+    text      String    @default("")
+    image     String?
+    createdOn DateTime  @default(now())
+    Comments  Comment[]
 
     Author   User   @relation("authorPosts", fields: [authorId], references: [id])
     authorId String
