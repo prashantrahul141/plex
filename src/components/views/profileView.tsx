@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import BigImageView from './bigImageView';
 import { AnimatePresence } from 'framer-motion';
@@ -11,22 +12,30 @@ import { api } from '@utils/api';
 const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
   const [showBigImageAvatar, setShowBigImageAvatar] = useState(false);
   const [showBigImageBanner, setShowBigImageBanner] = useState(false);
-  const [follwingState, setFollwingState] = useState(
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingState, setFollwingState] = useState(
     data.foundUser?.followers.length
       ? data.foundUser.followers.length > 0
       : false
   );
   const followQuery = api.user.follow.useQuery(
     {
-      addFollow: !follwingState,
+      addFollow: !followingState,
       followId: data.foundUser?.id || '#',
     },
     { enabled: false }
   );
   const followHandle = async () => {
-    setFollwingState(!follwingState);
     await followQuery.refetch();
+    setFollwingState((prevState) => !prevState);
+    setFollowersCount((prevCount) => prevCount + (followingState ? -1 : 1));
   };
+
+  useEffect(() => {
+    if (data.foundUser !== null) {
+      setFollowersCount(data.foundUser._count.followers);
+    }
+  }, [data.foundUser]);
 
   if (data.foundUser !== null) {
     const urlHost = data.foundUser.url
@@ -66,9 +75,12 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
           {!data.isAuthor && (
             <button
               onClick={async () => followHandle()}
-              className='btn absolute -bottom-12 right-2 w-fit rounded-3xl px-3  font-mukta text-sm '>
-              {follwingState ? 'Following' : 'Follow'}
-              {/* {isFollowed ? 'Following' : 'Follow'} */}
+              className={`btn absolute -bottom-12 right-2 w-fit rounded-3xl px-3 font-mukta text-sm ${
+                !followingState
+                  ? 'bg-themePrimary-400/90 text-themePrimary-50/95 hover:bg-themePrimary-400'
+                  : ''
+              }`}>
+              {followingState ? 'Following' : 'Follow'}
             </button>
           )}
         </header>
@@ -113,16 +125,16 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
           </h6>
 
           <h6 className='flex items-center gap-4'>
-            <span className='flex items-baseline gap-1'>
-              <span className='font-ibmplex font-bold leading-none text-themePrimary-50'>
-                {data.foundUser._count.followers}
+            <span className='flex items-baseline gap-1 text-sm'>
+              <span className='font-ibmplex  font-bold leading-none text-themePrimary-50'>
+                {followersCount}
               </span>
-              <span className='font-mukta text-sm font-thin tracking-wider text-themePrimary-50/60'>
+              <span className='font-mukta font-thin tracking-wider text-themePrimary-50/60'>
                 Followers
               </span>
             </span>
 
-            <span className='flex items-baseline gap-1'>
+            <span className='flex  items-baseline gap-1 text-sm'>
               <span className='font-ibmplex font-bold leading-none text-themePrimary-50'>
                 {data.foundUser._count.followings}
               </span>
