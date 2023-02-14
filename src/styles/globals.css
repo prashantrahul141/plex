@@ -11,12 +11,12 @@
 
 /* Firefox */
 * {
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 7px;
+  width: 0px;
 }
 
 *::-webkit-scrollbar-track {
