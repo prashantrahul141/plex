@@ -1,4 +1,4 @@
-import type { Post, LikedByAuthor } from '@prisma/client';
+import type { Post, LikedByAuthor, Follows } from '@prisma/client';
 
 interface IReturnUser {
   foundUser: {
@@ -7,6 +7,7 @@ interface IReturnUser {
       followers: number;
       followings: number;
     };
+    followers: Follows[];
     id: string;
     name: string;
     image: string;
