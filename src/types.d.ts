@@ -1,3 +1,5 @@
+import type { Post, LikedByAuthor } from '@prisma/client';
+
 interface IReturnUser {
   foundUser: {
     username: string;
@@ -17,4 +19,21 @@ interface IReturnUser {
   isAuthor: boolean;
 }
 
-export type { IReturnUser };
+interface IReturnPost {
+  post: Post & {
+    LikedByAuthor: LikedByAuthor[];
+    _count: {
+      LikedByAuthor: number;
+      Comments: number;
+    };
+    Author: {
+      id: string;
+      name: string;
+      username: string;
+      image: string;
+      authorVerified: boolean;
+    };
+  };
+}
+
+export type { IReturnUser, IReturnPost };
