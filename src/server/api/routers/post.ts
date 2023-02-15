@@ -240,4 +240,45 @@ export const PostRouter = createTRPCRouter({
         return { status: 'ALREADYNOTBOOKMARKED' };
       }
     }),
+
+  getBookmarks: protectedProcedure.query(async ({ ctx }) => {
+    const bookmarkedPosts = await prisma.bookmarkedByAuthor.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+      select: {
+        post: {
+          include: {
+            BookmarkedByAuthor: {
+              where: {
+                userId: ctx.session.user.id,
+              },
+            },
+            LikedByAuthor: {
+              where: {
+                userId: ctx.session.user.id,
+              },
+            },
+            _count: {
+              select: {
+                Comments: true,
+                LikedByAuthor: true,
+              },
+            },
+            Author: {
+              select: {
+                id: true,
+                image: true,
+                name: true,
+                username: true,
+                authorVerified: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return { bookmarkedPosts };
+  }),
 });
