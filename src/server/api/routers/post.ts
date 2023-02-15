@@ -5,6 +5,7 @@ import { env } from 'src/env/server.mjs';
 import { prisma } from 'src/server/db';
 
 export const PostRouter = createTRPCRouter({
+  // gets image signature for client to upload
   getSignature: protectedProcedure.input(z.object({})).query(() => {
     const timestamp = Math.round(new Date().getTime() / 1000);
     const signature = cloudinary.utils.api_sign_request(
@@ -17,6 +18,7 @@ export const PostRouter = createTRPCRouter({
     return { timestamp: timestamp.toString(), signature };
   }),
 
+  // creates new post
   create: protectedProcedure
     .input(
       z.object({
@@ -69,10 +71,12 @@ export const PostRouter = createTRPCRouter({
       return { createdPost };
     }),
 
+  // view a specific post
   view: protectedProcedure.input(z.object({ postId: z.string() })).query(() => {
     return {};
   }),
 
+  // list posts for home page
   list: protectedProcedure
     .input(z.object({ skip: z.number().default(0) }))
     .query(async ({ input, ctx }) => {
@@ -111,6 +115,7 @@ export const PostRouter = createTRPCRouter({
       return { posts };
     }),
 
+  // list post from a specific userid
   listFromUserId: protectedProcedure
     .input(z.object({ userId: z.string(), skip: z.number().default(0) }))
     .query(async ({ input, ctx }) => {
@@ -153,6 +158,7 @@ export const PostRouter = createTRPCRouter({
       return { posts };
     }),
 
+  // like a post
   like: protectedProcedure
     .input(z.object({ postId: z.string(), addLike: z.boolean() }))
     .mutation(async ({ input, ctx }) => {
@@ -200,6 +206,7 @@ export const PostRouter = createTRPCRouter({
       }
     }),
 
+  // bookmark a post
   bookMark: protectedProcedure
     .input(z.object({ postId: z.string(), addBookmark: z.boolean() }))
     .mutation(async ({ input, ctx }) => {
@@ -241,6 +248,7 @@ export const PostRouter = createTRPCRouter({
       }
     }),
 
+  // get user bookmarks
   getBookmarks: protectedProcedure.query(async ({ ctx }) => {
     const bookmarkedPosts = await prisma.bookmarkedByAuthor.findMany({
       where: {
