@@ -34,25 +34,34 @@ const EditProfileUsernameForm: FC<{
         setExistsAlready(data);
         setLoadingUsernameCheck(false);
       })
-      .catch((data) => {
-        console.log(data);
+      .catch((err) => {
+        console.log(err);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usernameState]);
 
   return (
-    <div className='relative flex items-center'>
+    <div className='relative mb-1 flex items-center'>
       <input
         type='text'
         title='username'
-        className='input mb-1'
+        className='input'
         placeholder='Your username here'
         defaultValue={currentUsername}
         {...register('username', {
           required: { value: true, message: 'Forgot to type your username?' },
           minLength: {
             value: 3,
-            message: 'username cannot be shorter than 3 letters',
+            message: 'username cannot be shorter than 3 characters.',
+          },
+          maxLength: {
+            value: 16,
+            message: 'username cannot be longer than 16 characters',
+          },
+          pattern: {
+            value: /^[a-zA-Z][a-zA-Z0-9_]+$/,
+            message:
+              "Username can only contain letters, numbers and '_'. And should only start with letters.",
           },
           validate: () => {
             return existsAlready;
