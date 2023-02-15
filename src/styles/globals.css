@@ -45,7 +45,7 @@
   }
 
   .btn {
-    @apply w-full select-none rounded-sm border border-themePrimary-300/40 p-2 font-mukta leading-6 tracking-wider text-themePrimary-50/70 transition-all duration-150 ease-in-out hover:border-themePrimary-300/50 hover:bg-gradient-to-br hover:from-transparent hover:to-themePrimary-50/5 hover:text-themePrimary-50 hover:shadow-2xl hover:shadow-themePrimary-300/20;
+    @apply w-full select-none rounded-sm border border-themePrimary-300/40 p-2 font-mukta leading-6 tracking-wider text-themePrimary-50/70 transition-all duration-150 ease-in-out hover:border-themePrimary-300/50 hover:bg-gradient-to-br hover:from-transparent hover:to-themePrimary-50/5 hover:text-themePrimary-50 hover:shadow-lg hover:shadow-baseBackground-100/80;
   }
 
   .textarea {
