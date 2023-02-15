@@ -2,10 +2,19 @@ import type { FC } from 'react';
 import { api } from '@utils/api';
 import { useRouter } from 'next/router';
 import LoadingComponent from '@components/common/loadingcomponent';
+import { useForm } from 'react-hook-form';
+import EditProfileUsernameForm from './editprofileusernameform';
+import type { IEditFormInput } from 'src/types';
+import ErrorMessage from '@components/common/errorMessage';
 
 const EditProfileForm: FC = () => {
   const UserData = api.user.getForEdit.useQuery();
   const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IEditFormInput>({ mode: 'all' });
 
   if (UserData.status !== 'success') {
     return (
@@ -17,12 +26,52 @@ const EditProfileForm: FC = () => {
     );
   }
 
-  if (UserData.data !== undefined && UserData.data.UserData === null) {
+  if (UserData.data === undefined || UserData.data === undefined) {
     void router.push('/404');
     return <></>;
   }
 
-  return <></>;
+  const submitForm = () => {
+    console.log('s');
+  };
+
+  return (
+    <form className='w-full p-8' onSubmit={handleSubmit(submitForm)}>
+      <fieldset className='mb-4'>
+        <input
+          type='text'
+          title='name'
+          className='input mb-1'
+          placeholder='Your name here'
+          defaultValue={UserData.data.name}
+          {...register('name', {
+            required: { value: true, message: 'Forgot to type your name?' },
+            minLength: {
+              value: 2,
+              message: 'Name cannot be shorter than 2 letters',
+            },
+          })}
+        />
+
+        {errors.name && (
+          <ErrorMessage message={errors.name.message}></ErrorMessage>
+        )}
+      </fieldset>
+      <fieldset className='mb-4 '>
+        <EditProfileUsernameForm
+          currentUsername={UserData.data.username}
+          register={register}></EditProfileUsernameForm>
+
+        {errors.username && errors.username.type !== 'validate' && (
+          <ErrorMessage message={errors.username.message}></ErrorMessage>
+        )}
+      </fieldset>
+
+      <button type='submit' className='btn' title='Upgrade Profile'>
+        Upgrade Profile
+      </button>
+    </form>
+  );
 };
 
 export default EditProfileForm;
