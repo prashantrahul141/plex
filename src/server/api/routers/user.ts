@@ -91,7 +91,7 @@ export const UserRouter = createTRPCRouter({
     });
 
     if (UserData) {
-      return { UserData };
+      return UserData;
     }
   }),
 
