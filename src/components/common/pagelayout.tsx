@@ -65,7 +65,9 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
               {page === 'notifications' && (
                 <NotificationsList></NotificationsList>
               )}
-              {page === 'bookmarks' && <BookmarksList></BookmarksList>}
+              {page === 'bookmarks' && (
+                <BookmarksList authorId={session.user.id}></BookmarksList>
+              )}
               {page === 'settings' && <SettingsForm></SettingsForm>}
 
               {page === 'profile' && (
