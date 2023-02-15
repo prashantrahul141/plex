@@ -81,6 +81,11 @@ export const PostRouter = createTRPCRouter({
         skip: input.skip,
         orderBy: { createdOn: 'asc' },
         include: {
+          BookmarkedByAuthor: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
           LikedByAuthor: {
             where: {
               userId: ctx.session.user.id,
@@ -117,6 +122,11 @@ export const PostRouter = createTRPCRouter({
           authorId: input.userId,
         },
         include: {
+          BookmarkedByAuthor: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
           LikedByAuthor: {
             where: {
               userId: ctx.session.user.id,
