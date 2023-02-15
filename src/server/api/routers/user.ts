@@ -75,6 +75,19 @@ export const UserRouter = createTRPCRouter({
       };
     }),
 
+  // checks if a username exists or not.
+  checkUsername: protectedProcedure
+    .input(z.object({ username: z.string() }))
+    .query(async ({ input }) => {
+      const foundUser = await prisma.user.findUnique({
+        where: {
+          username: input.username,
+        },
+      });
+
+      return foundUser ? true : false;
+    }),
+
   getForEdit: protectedProcedure.query(async ({ ctx }) => {
     const UserData = await prisma.user.findUnique({
       where: {
