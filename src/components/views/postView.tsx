@@ -103,7 +103,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
           {authorAdmin && (
             <button
               onClick={() => setShowHamMenuOptions(!showHamMenuOptions)}
-              className='absolute right-4 top-1/2 hidden rounded-full px-2 hover:bg-themePrimary-50/10 group-hover:block'>
+              className='absolute right-4 top-1/2 block rounded-full px-2 hover:bg-themePrimary-50/10 group-hover:block sm:hidden'>
               <SlOptions></SlOptions>
             </button>
           )}
