@@ -29,7 +29,9 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   const [likesCountState, setLikesCountState] = useState(
     data.post._count.LikedByAuthor
   );
-  const [bookmarkedState, setBookmarkedState] = useState(false);
+  const [bookmarkedState, setBookmarkedState] = useState(
+    data.post.BookmarkedByAuthor.length > 0
+  );
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
   const [showBigImage, setShowBigImage] = useState(false);
   const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
