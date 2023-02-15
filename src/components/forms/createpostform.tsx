@@ -3,7 +3,6 @@ import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { BsImage } from 'react-icons/bs';
-import { BiErrorCircle } from 'react-icons/bi';
 import { MdDeleteForever } from 'react-icons/md';
 import { AnimatePresence, motion } from 'framer-motion';
 import { env } from 'src/env/client.mjs';
@@ -12,6 +11,7 @@ import type { AxiosProgressEvent } from 'axios';
 import axios from 'axios';
 import LoadingComponent from '@components/common/loadingcomponent';
 import { useRouter } from 'next/router';
+import ErrorMessage from '@components/common/errorMessage';
 
 interface IFormInput {
   postText: string;
@@ -134,14 +134,7 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
         })}></textarea>
 
       {errors.postText && (
-        <div title={errors.postText.message}>
-          <span
-            role='alert'
-            className='ml-1 flex w-fit items-center gap-1 rounded-md border border-red-500/40 bg-red-100/90 px-1 font-mukta text-sm text-red-700'>
-            <BiErrorCircle></BiErrorCircle>
-            {errors.postText.message}
-          </span>
-        </div>
+        <ErrorMessage message={errors.postText.message}></ErrorMessage>
       )}
 
       <AnimatePresence>
