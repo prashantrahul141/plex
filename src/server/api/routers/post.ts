@@ -189,4 +189,45 @@ export const PostRouter = createTRPCRouter({
         return { status: 'ALREADYNOTLIKED' } as const;
       }
     }),
+
+  bookMark: protectedProcedure
+    .input(z.object({ postId: z.string(), addBookmark: z.boolean() }))
+    .query(async ({ input, ctx }) => {
+      const alreadyBookmarked = await prisma.bookmarkedByAuthor.findUnique({
+        where: {
+          postId_userId: { postId: input.postId, userId: ctx.session.user.id },
+        },
+      });
+
+      if (input.addBookmark) {
+        if (!alreadyBookmarked) {
+          await prisma.bookmarkedByAuthor.create({
+            data: {
+              user: { connect: { id: ctx.session.user.id } },
+              post: {
+                connect: {
+                  id: input.postId,
+                },
+              },
+            },
+          });
+
+          return { status: 'ADDEDBOOKMARK' } as const;
+        }
+        return { status: 'ALREADYBOOKMARKED' } as const;
+      } else {
+        if (alreadyBookmarked) {
+          await prisma.bookmarkedByAuthor.delete({
+            where: {
+              postId_userId: {
+                postId: input.postId,
+                userId: ctx.session.user.id,
+              },
+            },
+          });
+          return { status: 'REMOVEDBOOKMARK' };
+        }
+        return { status: 'ALREADYNOTBOOKMARKED' };
+      }
+    }),
 });
