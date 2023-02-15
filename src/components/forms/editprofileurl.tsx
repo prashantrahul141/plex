@@ -1,7 +1,30 @@
 import type { FC } from 'react';
+import type { UseFormRegister } from 'react-hook-form';
+import type { IEditFormInput } from 'src/types';
 
-const EditProfileURL: FC = () => {
-  return <input type='text'></input>;
+const EditProfileURL: FC<{
+  register: UseFormRegister<IEditFormInput>;
+  currentUrl: string | null;
+}> = ({ register }) => {
+  const validateURL = (url: string | null) => {
+    if (url === '' || url === null) {
+      return true;
+    }
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  return (
+    <input
+      className='input mb-1'
+      type='url'
+      placeholder='https://yourwebsite.com'
+      {...register('url', { validate: validateURL })}></input>
+  );
 };
 
 export default EditProfileURL;
