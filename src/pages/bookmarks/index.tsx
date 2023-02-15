@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import HeadComp from '@components/common/headcomponent';
-import PageLayout from '@components/common/pagelayout';
+import PageLayout from '@components/layouts/pagelayout';
 
 const BookmarksPage: NextPage = () => {
   return (

@@ -1,5 +1,5 @@
 import HeadComp from '@components/common/headcomponent';
-import PageLayout from '@components/common/pagelayout';
+import PageLayout from '@components/layouts/pagelayout';
 import type { FC } from 'react';
 
 const UserProfilePage: FC = () => {
