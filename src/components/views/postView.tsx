@@ -7,6 +7,8 @@ import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
 import { SlOptions } from 'react-icons/sl';
 import { BiCommentDetail, BiShare } from 'react-icons/bi';
 import { MdDeleteForever, MdVerified } from 'react-icons/md';
+import { BsBookmarkCheckFill } from 'react-icons/bs';
+import { CiBookmarkPlus } from 'react-icons/ci';
 import BigImageView from './bigImageView';
 import CommonAlert from '@components/common/commonAlert';
 import type { IReturnPost } from 'src/types';
@@ -27,6 +29,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   const [likesCountState, setLikesCountState] = useState(
     data.post._count.LikedByAuthor
   );
+  const [bookmarkedState, setBookmarkedState] = useState(false);
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
   const [showBigImage, setShowBigImage] = useState(false);
   const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
@@ -38,11 +41,23 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
     },
     { enabled: false }
   );
+  const bookmarkQuery = api.post.bookMark.useQuery(
+    {
+      addBookmark: !bookmarkedState,
+      postId: data.post.id,
+    },
+    { enabled: false }
+  );
 
   const handleLike = async () => {
     setPostLiked(!postLikedState);
     setLikesCountState(likesCountState + (postLikedState ? -1 : 1));
     await likeQuery.refetch();
+  };
+
+  const handleBookmark = async () => {
+    setBookmarkedState(!bookmarkedState);
+    await bookmarkQuery.refetch();
   };
 
   return (
@@ -138,26 +153,32 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
           </div>
         )}
 
-        <div className='mt-2 flex select-none font-ibmplex text-sm leading-none text-themePrimary-50/70'>
-          <button className='flex flex-grow cursor-default items-center justify-center'>
-            <span
-              className='flex w-fit cursor-pointer items-center justify-center hover:text-themePrimary-50'
-              onClick={handleLike}>
-              {postLikedState && (
-                <AiTwotoneHeart className='text-lg text-red-500'></AiTwotoneHeart>
-              )}
-              {!postLikedState && (
-                <AiOutlineHeart className='text-lg'></AiOutlineHeart>
-              )}
+        <div className='flex select-none pt-1 font-ibmplex text-sm leading-none text-themePrimary-50/70'>
+          <div className='flex flex-grow items-center justify-center'>
+            <button
+              className='group/icon flex w-fit cursor-pointer items-center justify-center hover:text-red-500'
+              onClick={handleLike}
+              title='Like'>
+              <span className=' flex w-fit cursor-pointer items-center justify-center  rounded-full p-1 hover:bg-red-500/20  group-hover/icon:bg-red-500/20'>
+                {postLikedState && (
+                  <AiTwotoneHeart className='text-lg text-red-500'></AiTwotoneHeart>
+                )}
+                {!postLikedState && (
+                  <AiOutlineHeart className='text-lg'></AiOutlineHeart>
+                )}
+              </span>
               &nbsp;{likesCountState}
-            </span>
-          </button>
+            </button>
+          </div>
 
           <div className='flex flex-grow  items-center justify-center'>
             <Link
+              title='Comments'
               href={`${data.post.Author.username}/${data.post.id}`}
-              className='flex w-fit cursor-pointer items-center justify-center hover:text-themePrimary-50'>
-              <BiCommentDetail className='text-lg'></BiCommentDetail>
+              className='group/icon flex w-fit cursor-pointer items-center justify-center hover:text-themePrimary-300'>
+              <span className='rounded-full p-1 text-lg group-hover/icon:bg-themePrimary-300/10'>
+                <BiCommentDetail className=''></BiCommentDetail>
+              </span>
               &nbsp;
               {data.post._count.Comments}
             </Link>
@@ -176,8 +197,23 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
                   setShowCopyShareLink(false);
                 }, 3000);
               }}
-              className='w-fit cursor-pointer items-center justify-center hover:text-themePrimary-50'>
+              title='Share'
+              className='w-fit cursor-pointer  items-center justify-center rounded-full p-1 text-lg hover:bg-green-300/10  hover:text-green-400'>
               <BiShare className='text-lg'></BiShare>
+            </button>
+          </div>
+
+          <div className='flex flex-grow items-center justify-center'>
+            <button
+              onClick={handleBookmark}
+              className='rounded-full p-1 text-lg hover:bg-themePrimary-300/10 hover:text-themePrimary-300'
+              title='Bookmark'>
+              {bookmarkedState && (
+                <BsBookmarkCheckFill className='text-[0.9rem]'></BsBookmarkCheckFill>
+              )}
+              {!bookmarkedState && (
+                <CiBookmarkPlus className=' '></CiBookmarkPlus>
+              )}
             </button>
           </div>
         </div>
