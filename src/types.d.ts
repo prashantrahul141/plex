@@ -1,4 +1,9 @@
-import type { Post, LikedByAuthor, Follows } from '@prisma/client';
+import type {
+  Post,
+  LikedByAuthor,
+  BookmarkedByAuthor,
+  Follows,
+} from '@prisma/client';
 
 interface IReturnUser {
   foundUser: {
@@ -23,6 +28,7 @@ interface IReturnUser {
 interface IReturnPost {
   post: Post & {
     LikedByAuthor: LikedByAuthor[];
+    BookmarkedByAuthor: BookmarkedByAuthor[];
     _count: {
       LikedByAuthor: number;
       Comments: number;
