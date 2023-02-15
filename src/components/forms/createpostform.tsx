@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { BsImage } from 'react-icons/bs';
+import { BiErrorCircle } from 'react-icons/bi';
 import { MdDeleteForever } from 'react-icons/md';
 import { AnimatePresence, motion } from 'framer-motion';
 import { env } from 'src/env/client.mjs';
@@ -31,7 +32,7 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>({ mode: 'all' });
 
   const [postImageState, setPostImageState] = useState<File | null>(null);
   const [postImageObjectUrlState, setPostImageObjectUrlState] = useState<
@@ -125,26 +126,20 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
         placeholder='Your thoughts here'
         className='textarea mb-1'
         {...register('postText', {
-          required: true,
-          maxLength: 150,
+          required: { value: true, message: 'Forgot to type something here?' },
+          maxLength: {
+            value: 150,
+            message: '   A post cannot be longer than 150 characters :/',
+          },
         })}></textarea>
 
-      {errors.postText?.type === 'required' && (
-        <div>
+      {errors.postText && (
+        <div title={errors.postText.message}>
           <span
             role='alert'
-            className='ml-1 rounded-md bg-red-300 px-1 font-mukta text-xs text-red-700'>
-            Forgot to type something here?
-          </span>
-        </div>
-      )}
-
-      {errors.postText?.type === 'maxLength' && (
-        <div>
-          <span
-            role='alert'
-            className='ml-1 rounded-md bg-red-300 px-1 font-mukta text-xs text-red-700'>
-            A post cannot be longer than 150 characters :/
+            className='ml-1 flex w-fit items-center gap-1 rounded-md border border-red-500/40 bg-red-100/90 px-1 font-mukta text-sm text-red-700'>
+            <BiErrorCircle></BiErrorCircle>
+            {errors.postText.message}
           </span>
         </div>
       )}
