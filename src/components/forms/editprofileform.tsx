@@ -3,9 +3,10 @@ import { api } from '@utils/api';
 import { useRouter } from 'next/router';
 import LoadingComponent from '@components/common/loadingcomponent';
 import { useForm } from 'react-hook-form';
-import EditProfileUsernameForm from './editprofileusernameform';
+import EditProfileUsernameForm from '@components/forms/editprofileusernameform';
 import type { IEditFormInput } from 'src/types';
 import ErrorMessage from '@components/common/errorMessage';
+import EditProfileURL from '@components/forms/editprofileurl';
 
 const EditProfileForm: FC = () => {
   const UserData = api.user.getForEdit.useQuery();
@@ -71,6 +72,18 @@ const EditProfileForm: FC = () => {
 
         {errors.username && errors.username.type !== 'validate' && (
           <ErrorMessage message={errors.username.message}></ErrorMessage>
+        )}
+      </fieldset>
+
+      <fieldset className='mb-4'>
+        <EditProfileURL
+          currentUrl={UserData.data.url}
+          register={register}></EditProfileURL>
+        {errors.url && errors.url.type !== 'validate' && (
+          <ErrorMessage message={errors.url.message}></ErrorMessage>
+        )}
+        {errors.url && errors.url.type === 'validate' && (
+          <ErrorMessage message='Not a valid url.'></ErrorMessage>
         )}
       </fieldset>
 
