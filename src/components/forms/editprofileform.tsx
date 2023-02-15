@@ -49,7 +49,11 @@ const EditProfileForm: FC = () => {
             required: { value: true, message: 'Forgot to type your name?' },
             minLength: {
               value: 2,
-              message: 'Name cannot be shorter than 2 letters',
+              message: 'Name cannot be shorter than 2 characters.',
+            },
+            maxLength: {
+              value: 20,
+              message: 'Names cannot be longer than 20 characters.',
             },
           })}
         />
@@ -58,7 +62,8 @@ const EditProfileForm: FC = () => {
           <ErrorMessage message={errors.name.message}></ErrorMessage>
         )}
       </fieldset>
-      <fieldset className='mb-4 '>
+
+      <fieldset className='mb-4'>
         <EditProfileUsernameForm
           watch={watch}
           currentUsername={UserData.data.username}
@@ -69,7 +74,27 @@ const EditProfileForm: FC = () => {
         )}
       </fieldset>
 
-      <button type='submit' className='btn' title='Upgrade Profile'>
+      <fieldset className='mb-4'>
+        <textarea
+          title='bio'
+          className='textarea mb-1'
+          placeholder='About you'
+          defaultValue={UserData.data.bio || ''}
+          {...register('bio', {
+            maxLength: {
+              value: 100,
+              message: 'People prefer short bio over longer ones!',
+            },
+          })}
+        />
+        {errors.bio && (
+          <ErrorMessage message={errors.bio.message}></ErrorMessage>
+        )}
+      </fieldset>
+
+      <fieldset className='mb-4'></fieldset>
+
+      <button type='submit' className='btn' title='Update Profile'>
         Update Profile
       </button>
     </form>
