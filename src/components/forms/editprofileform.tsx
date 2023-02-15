@@ -11,6 +11,7 @@ const EditProfileForm: FC = () => {
   const UserData = api.user.getForEdit.useQuery();
   const router = useRouter();
   const {
+    watch,
     register,
     handleSubmit,
     formState: { errors },
@@ -59,6 +60,7 @@ const EditProfileForm: FC = () => {
       </fieldset>
       <fieldset className='mb-4 '>
         <EditProfileUsernameForm
+          watch={watch}
           currentUsername={UserData.data.username}
           register={register}></EditProfileUsernameForm>
 
@@ -68,7 +70,7 @@ const EditProfileForm: FC = () => {
       </fieldset>
 
       <button type='submit' className='btn' title='Upgrade Profile'>
-        Upgrade Profile
+        Update Profile
       </button>
     </form>
   );
