@@ -155,7 +155,7 @@ export const PostRouter = createTRPCRouter({
 
   like: protectedProcedure
     .input(z.object({ postId: z.string(), addLike: z.boolean() }))
-    .query(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const likedAlready = await prisma.likedByAuthor.findUnique({
         where: {
           postId_userId: { postId: input.postId, userId: ctx.session.user.id },
@@ -202,7 +202,7 @@ export const PostRouter = createTRPCRouter({
 
   bookMark: protectedProcedure
     .input(z.object({ postId: z.string(), addBookmark: z.boolean() }))
-    .query(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const alreadyBookmarked = await prisma.bookmarkedByAuthor.findUnique({
         where: {
           postId_userId: { postId: input.postId, userId: ctx.session.user.id },

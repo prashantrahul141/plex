@@ -36,30 +36,24 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   const [showBigImage, setShowBigImage] = useState(false);
   const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
   const authorAdmin = currentUserID === data.post.Author.id;
-  const likeQuery = api.post.like.useQuery(
-    {
-      addLike: !postLikedState,
-      postId: data.post.id,
-    },
-    { enabled: false }
-  );
-  const bookmarkQuery = api.post.bookMark.useQuery(
-    {
-      addBookmark: !bookmarkedState,
-      postId: data.post.id,
-    },
-    { enabled: false }
-  );
+  const likeQuery = api.post.like.useMutation();
+  const bookmarkQuery = api.post.bookMark.useMutation();
 
   const handleLike = async () => {
     setPostLiked(!postLikedState);
     setLikesCountState(likesCountState + (postLikedState ? -1 : 1));
-    await likeQuery.refetch();
+    await likeQuery.mutateAsync({
+      addLike: !postLikedState,
+      postId: data.post.id,
+    });
   };
 
   const handleBookmark = async () => {
     setBookmarkedState(!bookmarkedState);
-    await bookmarkQuery.refetch();
+    await bookmarkQuery.mutateAsync({
+      addBookmark: !bookmarkedState,
+      postId: data.post.id,
+    });
   };
 
   return (
