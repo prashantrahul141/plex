@@ -139,7 +139,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
                 {data.foundUser._count.followings}
               </span>
               <span className='font-mukta font-thin tracking-wider  text-themePrimary-50/60'>
-                Follows
+                Followings
               </span>
             </span>
           </h6>
