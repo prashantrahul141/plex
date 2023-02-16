@@ -42,14 +42,19 @@ const EditProfileForm: FC = () => {
   return (
     <form className='w-full p-8' onSubmit={handleSubmit(submitForm)}>
       <fieldset className='mb-1'>
-        <EditProfileImageForm
-          watch={watch}
-          register={register}
-          currentAvatar={UserData.data.image}></EditProfileImageForm>
-        <EditProfileBannerForm
-          watch={watch}
-          register={register}
-          currentBanner={UserData.data.banner}></EditProfileBannerForm>
+        <div className='flex items-center justify-center'>
+          <EditProfileImageForm
+            watch={watch}
+            register={register}
+            currentAvatar={UserData.data.image}></EditProfileImageForm>
+        </div>
+
+        <div className='my-4 max-h-64 w-full min-w-full select-none items-center justify-center rounded-md bg-baseBackground-200/50 object-contain'>
+          <EditProfileBannerForm
+            watch={watch}
+            register={register}
+            currentBanner={UserData.data.banner}></EditProfileBannerForm>
+        </div>
       </fieldset>
 
       <fieldset className='mb-4'>
