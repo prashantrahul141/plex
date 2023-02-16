@@ -112,7 +112,9 @@ const EditImageUploader: FC<{
 
       <div className='flex border-b border-themePrimary-50/30'>
         <div className='px-4 py-2 text-center font-mukta text-base tracking-wide text-themePrimary-50/95'>
-          Update Profile Picture
+          {uploadType === 'banner'
+            ? 'Update Banner Picture'
+            : 'Update Profile Picture'}
         </div>
         <div className=' flex flex-grow items-center justify-end pr-4'>
           <AiFillCloseCircle
