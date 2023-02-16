@@ -57,8 +57,6 @@ interface IEditFormInput {
   username: string;
   url: string | null;
   bio: string | null;
-  image: string | null;
-  banner: string | null;
 }
 
 interface IFormInput {
