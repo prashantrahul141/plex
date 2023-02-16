@@ -7,7 +7,7 @@ import EditProfileUsernameForm from '@components/forms/editprofile/editprofileus
 import type { IEditFormInput } from 'src/types';
 import ErrorMessage from '@components/common/errorMessage';
 import EditProfileURL from '@components/forms/editprofileurl';
-import EditProfileImageForm from '@components/forms/editprofile/editprofileimages';
+import EditProfileImageForm from '@components/forms/editprofile/editprofileimage';
 import EditProfileBannerForm from './editprofilebannerform';
 
 const EditProfileForm: FC = () => {
