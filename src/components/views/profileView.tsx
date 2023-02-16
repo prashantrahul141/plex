@@ -47,7 +47,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
         <header className='relative'>
           <Image
             priority
-            className='max-h-80 min-w-full select-none bg-baseBackground-200/50 object-contain'
+            className='max-h-64 min-w-full select-none bg-baseBackground-200/50 object-contain'
             onClick={() => {
               setShowBigImageBanner(true);
             }}
@@ -55,16 +55,18 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
             width={1000}
             height={1000}
             alt='Banner'></Image>
+
           <Image
             onClick={() => {
               setShowBigImageAvatar(true);
             }}
             priority
-            className='absolute -bottom-12 left-2  w-24 select-none rounded-full border-[5px] border-baseBackground-100 sm:w-28'
+            className='absolute left-2 -bottom-12 h-32 w-32 rounded-full border-[5px] border-baseBackground-100 object-fill'
             src={data.foundUser.image}
             width={200}
             height={200}
-            alt={data.foundUser.image}></Image>
+            alt={'Profile picture'}></Image>
+
           {data.isAuthor && (
             <Link href='/profile/edit'>
               <button className='btn absolute -bottom-12 right-2 w-fit rounded-3xl px-3  font-mukta text-sm '>
@@ -150,7 +152,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
             <BigImageView
               imageUrl={data.foundUser.image}
               callBackFun={(_state: boolean) => setShowBigImageAvatar(_state)}
-              width={200}></BigImageView>
+              width={500}></BigImageView>
           )}
           {showBigImageBanner && (
             <BigImageView
