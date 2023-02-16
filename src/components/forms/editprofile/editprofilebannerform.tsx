@@ -14,14 +14,17 @@ const EditProfileImageForm: FC<{
   const [showUploadForm, setShowUploadForm] = useState(false);
 
   return (
-    <>
-      <Image
-        className='cursor-pointer'
-        alt='Avatar'
+    <div className='flex w-full items-center justify-center'>
+      <div
         onClick={() => setShowUploadForm(true)}
-        src={currentBanner}
-        width={120}
-        height={120}></Image>
+        className='w-full cursor-pointer items-center justify-center'>
+        <Image
+          alt='Avatar'
+          className='mx-auto'
+          src={currentBanner}
+          width={120}
+          height={120}></Image>
+      </div>
 
       <AnimatePresence>
         {showUploadForm && (
@@ -42,7 +45,7 @@ const EditProfileImageForm: FC<{
           </>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 };
 export default EditProfileImageForm;
