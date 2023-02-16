@@ -3,11 +3,12 @@ import { api } from '@utils/api';
 import { useRouter } from 'next/router';
 import LoadingComponent from '@components/common/loadingcomponent';
 import { useForm } from 'react-hook-form';
-import EditProfileUsernameForm from '@components/forms/editprofileusernameform';
+import EditProfileUsernameForm from '@components/forms/editprofile/editprofileusernameform';
 import type { IEditFormInput } from 'src/types';
 import ErrorMessage from '@components/common/errorMessage';
 import EditProfileURL from '@components/forms/editprofileurl';
-import EditProfileImagesForm from '@components/forms/editprofileimages';
+import EditProfileImageForm from '@components/forms/editprofile/editprofileimages';
+import EditProfileBannerForm from './editprofilebannerform';
 
 const EditProfileForm: FC = () => {
   const UserData = api.user.getForEdit.useQuery();
@@ -41,9 +42,14 @@ const EditProfileForm: FC = () => {
   return (
     <form className='w-full p-8' onSubmit={handleSubmit(submitForm)}>
       <fieldset className='mb-1'>
-        <EditProfileImagesForm
-          currentAvatar={UserData.data.image}
-          currentBanner={UserData.data.banner}></EditProfileImagesForm>
+        <EditProfileImageForm
+          watch={watch}
+          register={register}
+          currentAvatar={UserData.data.image}></EditProfileImageForm>
+        <EditProfileBannerForm
+          watch={watch}
+          register={register}
+          currentBanner={UserData.data.banner}></EditProfileBannerForm>
       </fieldset>
 
       <fieldset className='mb-4'>

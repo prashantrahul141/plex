@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import LoadingComponent from '@components/common/loadingcomponent';
 import AdditionalWidgets from '@components/common/additionalWidgets';
 import UserProfileView from '@components/views/userProfileVIew';
-import EditProfileForm from '@components/forms/editprofileform';
+import EditProfileForm from '@components/forms/editprofile/editprofileform';
 
 type pages =
   | 'home'
