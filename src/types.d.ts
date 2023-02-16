@@ -55,10 +55,10 @@ interface IReturnUserEdit {
 interface IEditFormInput {
   name: string;
   username: string;
-  image: string;
   url: string | null;
-  banner: string;
   bio: string | null;
+  image: string | null;
+  banner: string | null;
 }
 
 export type { IReturnUser, IReturnPost, IReturnUserEdit, IEditFormInput };
