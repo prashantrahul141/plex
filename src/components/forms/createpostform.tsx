@@ -12,15 +12,7 @@ import axios from 'axios';
 import LoadingComponent from '@components/common/loadingcomponent';
 import { useRouter } from 'next/router';
 import ErrorMessage from '@components/common/errorMessage';
-
-interface IFormInput {
-  postText: string;
-  postImages: {
-    public_id: string;
-    version_number: number;
-    signature: string;
-  } | null;
-}
+import type { IFormInput } from 'src/types';
 
 const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
   formSetCallback,

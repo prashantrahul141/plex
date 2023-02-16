@@ -61,4 +61,19 @@ interface IEditFormInput {
   banner: string | null;
 }
 
-export type { IReturnUser, IReturnPost, IReturnUserEdit, IEditFormInput };
+interface IFormInput {
+  postText: string;
+  postImages: {
+    public_id: string;
+    version_number: number;
+    signature: string;
+  } | null;
+}
+
+export type {
+  IReturnUser,
+  IReturnPost,
+  IReturnUserEdit,
+  IEditFormInput,
+  IFormInput,
+};
