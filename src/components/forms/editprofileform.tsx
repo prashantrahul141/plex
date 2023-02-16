@@ -7,6 +7,7 @@ import EditProfileUsernameForm from '@components/forms/editprofileusernameform';
 import type { IEditFormInput } from 'src/types';
 import ErrorMessage from '@components/common/errorMessage';
 import EditProfileURL from '@components/forms/editprofileurl';
+import EditProfileImagesForm from '@components/forms/editprofileimages';
 
 const EditProfileForm: FC = () => {
   const UserData = api.user.getForEdit.useQuery();
@@ -39,6 +40,12 @@ const EditProfileForm: FC = () => {
 
   return (
     <form className='w-full p-8' onSubmit={handleSubmit(submitForm)}>
+      <fieldset className='mb-1'>
+        <EditProfileImagesForm
+          currentAvatar={UserData.data.image}
+          currentBanner={UserData.data.banner}></EditProfileImagesForm>
+      </fieldset>
+
       <fieldset className='mb-4'>
         <input
           type='text'
@@ -104,8 +111,6 @@ const EditProfileForm: FC = () => {
           <ErrorMessage message={errors.bio.message}></ErrorMessage>
         )}
       </fieldset>
-
-      <fieldset className='mb-4'></fieldset>
 
       <button type='submit' className='btn' title='Update Profile'>
         Update Profile
