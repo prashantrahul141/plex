@@ -144,7 +144,7 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
               <img alt='Image' className='' src={postImageObjectUrlState}></img>
               <button
                 type='button'
-                className='group absolute top-2 right-2 rounded-md bg-black/40 p-[2px] hover:bg-red-600/80'
+                className='group absolute top-2 right-2 rounded-md bg-black/40 p-[2px] hover:bg-red-600'
                 onClick={() => {
                   setPostImageObjectUrlState(null);
                   setPostImageState(null);
