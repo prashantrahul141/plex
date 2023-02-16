@@ -61,7 +61,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
               setShowBigImageAvatar(true);
             }}
             priority
-            className='absolute left-2 -bottom-12 h-32 w-32 rounded-full border-[5px] border-baseBackground-100 object-fill'
+            className='absolute left-2 -bottom-12 h-32 w-32 rounded-full border-[5px] border-baseBackground-100 object-cover'
             src={data.foundUser.image}
             width={200}
             height={200}

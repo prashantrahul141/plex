@@ -66,7 +66,7 @@ const SideBarNavigation: FC<{
         <Link href={'/profile'}>
           <i className='group relative flex items-center'>
             <Image
-              className='w-8 rounded-full border-2'
+              className='h-9 w-9 rounded-full border-2 border-themePrimary-300 object-cover'
               src={authorAvatar}
               width={50}
               height={50}
