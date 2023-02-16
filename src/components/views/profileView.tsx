@@ -47,7 +47,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
         <header className='relative'>
           <Image
             priority
-            className='h-60 select-none'
+            className='max-h-80 min-w-full select-none bg-baseBackground-200/50 object-contain'
             onClick={() => {
               setShowBigImageBanner(true);
             }}
