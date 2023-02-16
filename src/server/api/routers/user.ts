@@ -1,6 +1,8 @@
 import { prisma } from 'src/server/db';
 import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { v2 as cloudinary } from 'cloudinary';
+import { env } from 'src/env/server.mjs';
 
 export const UserRouter = createTRPCRouter({
   getForShowFromId: protectedProcedure
@@ -155,5 +157,69 @@ export const UserRouter = createTRPCRouter({
           return { status: 'ALREADYNOTFOLLOW' } as const;
         }
       }
+    }),
+
+  // edit user profile picture
+  editProfilePicture: protectedProcedure
+    .input(
+      z.object({
+        url: z.string(),
+        public_id: z.string(),
+        version_number: z.number(),
+        signature: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const expectedSignature = cloudinary.utils.api_sign_request(
+        {
+          public_id: input.public_id,
+          version: input.version_number,
+        },
+        env.CLOUDINARY_CLOUDAPISECRET
+      );
+      if (expectedSignature === input.signature) {
+        await prisma.user.update({
+          data: {
+            image: input.url,
+          },
+          where: {
+            id: ctx.session.user.id,
+          },
+        });
+        return { status: 'UPDATEDPROFILEPICTURE' } as const;
+      }
+      return { status: 'FAILED' } as const;
+    }),
+
+  // edit user profile banner
+  editBannerPicture: protectedProcedure
+    .input(
+      z.object({
+        url: z.string(),
+        public_id: z.string(),
+        version_number: z.number(),
+        signature: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const expectedSignature = cloudinary.utils.api_sign_request(
+        {
+          public_id: input.public_id,
+          version: input.version_number,
+        },
+        env.CLOUDINARY_CLOUDAPISECRET
+      );
+      if (expectedSignature === input.signature) {
+        await prisma.user.update({
+          data: {
+            banner: input.url,
+          },
+          where: {
+            id: ctx.session.user.id,
+          },
+        });
+        return { status: 'UPDATEDBANNERPICTURE' } as const;
+      }
+      return { status: 'FAILED' } as const;
     }),
 });
