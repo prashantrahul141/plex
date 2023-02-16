@@ -18,10 +18,27 @@ const EditProfileUsernameForm: FC<{
     { username: usernameState },
     { enabled: false }
   );
+  const illegalUsernames = [
+    'api',
+    'bookmarks',
+    'dev',
+    'home',
+    'notificaions',
+    'profile',
+    'settings',
+    'signin',
+    'trending',
+    'welcome',
+  ];
 
   useEffect(() => {
     if (usernameState === currentUsername) {
       setExistsAlready(false);
+      return;
+    }
+
+    if (illegalUsernames.includes(usernameState)) {
+      setExistsAlready(true);
       return;
     }
     setLoadingUsernameCheck(true);
