@@ -178,6 +178,34 @@ export const UserRouter = createTRPCRouter({
         env.CLOUDINARY_CLOUDAPISECRET
       );
       if (expectedSignature === input.signature) {
+        const oldAvatarPicture = await prisma.user.findUnique({
+          where: {
+            id: ctx.session.user.id,
+          },
+          select: {
+            image: true,
+          },
+        });
+
+        if (oldAvatarPicture) {
+          const oldURL = new URL(oldAvatarPicture.image);
+
+          if (oldURL.host === 'res.cloudinary.com') {
+            const oldUrlPublicId = oldURL.pathname
+              .split('/')
+              [oldURL.pathname.split('/').length - 1]?.split('.')[0];
+
+            if (oldUrlPublicId) {
+              await cloudinary.uploader.destroy(oldUrlPublicId, {
+                // @ts-ignore
+                api_key: env.CLOUDINARY_CLUODAPIKEY,
+                api_secret: env.CLOUDINARY_CLOUDAPISECRET,
+                cloud_name: env.CLOUDINARY_CLOUDNAME,
+              });
+            }
+          }
+        }
+
         await prisma.user.update({
           data: {
             image: input.url,
@@ -186,6 +214,7 @@ export const UserRouter = createTRPCRouter({
             id: ctx.session.user.id,
           },
         });
+
         return { status: 'UPDATEDPROFILEPICTURE' } as const;
       }
       return { status: 'FAILED' } as const;
@@ -210,6 +239,34 @@ export const UserRouter = createTRPCRouter({
         env.CLOUDINARY_CLOUDAPISECRET
       );
       if (expectedSignature === input.signature) {
+        const oldBannerPicture = await prisma.user.findUnique({
+          where: {
+            id: ctx.session.user.id,
+          },
+          select: {
+            image: true,
+          },
+        });
+
+        if (oldBannerPicture) {
+          const oldURL = new URL(oldBannerPicture.image);
+
+          if (oldURL.host === 'res.cloudinary.com') {
+            const oldUrlPublicId = oldURL.pathname
+              .split('/')
+              [oldURL.pathname.split('/').length - 1]?.split('.')[0];
+
+            if (oldUrlPublicId) {
+              await cloudinary.uploader.destroy(oldUrlPublicId, {
+                // @ts-ignore
+                api_key: env.CLOUDINARY_CLUODAPIKEY,
+                api_secret: env.CLOUDINARY_CLOUDAPISECRET,
+                cloud_name: env.CLOUDINARY_CLOUDNAME,
+              });
+            }
+          }
+        }
+
         await prisma.user.update({
           data: {
             banner: input.url,
