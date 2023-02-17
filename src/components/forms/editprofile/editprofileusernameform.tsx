@@ -81,7 +81,7 @@ const EditProfileUsernameForm: FC<{
               "Username can only contain letters, numbers and '_'. And should only start with letters.",
           },
           validate: () => {
-            return existsAlready;
+            return !existsAlready;
           },
         })}
       />
