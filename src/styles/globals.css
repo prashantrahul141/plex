@@ -41,7 +41,7 @@
 
 @layer components {
   .background-gradient {
-    @apply bg-gradient-to-bl from-baseBackground-200 via-baseBackground-100 to-baseBackground-100;
+    @apply bg-gradient-to-bl from-baseBackground-200 via-baseBackground-100 to-baseBackground-100 brightness-90;
   }
 
   .btn {
