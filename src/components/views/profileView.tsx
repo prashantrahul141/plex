@@ -104,7 +104,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
             @{data.foundUser.username}
           </span>
 
-          <span className='mb-1 block font-mukta font-thin leading-none text-themePrimary-50/95'>
+          <span className='mb-1 block whitespace-pre-line font-mukta font-thin leading-snug text-themePrimary-50/95'>
             {data.foundUser.bio}
           </span>
 

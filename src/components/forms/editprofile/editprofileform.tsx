@@ -111,12 +111,12 @@ const EditProfileForm: FC = () => {
       <fieldset className='mb-4'>
         <textarea
           title='bio'
-          className='textarea mb-1'
+          className='textarea mb-1 whitespace-pre-line'
           placeholder='About you'
           defaultValue={UserDataQuery.data.bio || ''}
           {...register('bio', {
             maxLength: {
-              value: 100,
+              value: 200,
               message: 'People prefer short bio over longer ones!',
             },
           })}
