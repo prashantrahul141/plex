@@ -35,7 +35,7 @@
   html,
   body {
     all: unset;
-    @apply bg-baseBackground-100 selection:bg-themePrimary-100/10;
+    @apply bg-baseBackground-100;
   }
 }
 
