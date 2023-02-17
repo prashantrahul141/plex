@@ -9,6 +9,12 @@ export function CustomPrismaAdapter(p: PrismaClient): Adapter {
         data: {
           ...data,
           settings: { create: {} },
+          notifications: {
+            create: {
+              text: 'Welcome to Plex, View your profile here.',
+              url: '/profile',
+            },
+          },
         },
       }),
 
