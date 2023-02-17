@@ -6,9 +6,9 @@ import { useForm } from 'react-hook-form';
 import EditProfileUsernameForm from '@components/forms/editprofile/editprofileusernameform';
 import type { IEditFormInput } from 'src/types';
 import ErrorMessage from '@components/common/errorMessage';
-import EditProfileURL from '@components/forms/editprofileurl';
+import EditProfileURL from '@components/forms/editprofile/editprofileurl';
 import EditProfileImageForm from '@components/forms/editprofile/editprofileimage';
-import EditProfileBannerForm from './editprofilebannerform';
+import EditProfileBannerForm from '@components/forms/editprofile/editprofilebannerform';
 
 const EditProfileForm: FC = () => {
   const UserDataQuery = api.user.getForEdit.useQuery();
