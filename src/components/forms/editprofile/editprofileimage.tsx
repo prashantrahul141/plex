@@ -16,7 +16,7 @@ const EditProfileImageForm: FC<{
   return (
     <>
       <Image
-        className='h-28 w-28 cursor-pointer rounded-full object-cover'
+        className='h-28 w-28 cursor-pointer rounded-full object-cover hover:brightness-90'
         alt='Avatar'
         onClick={() => setShowUploadForm(true)}
         src={currentAvatar}

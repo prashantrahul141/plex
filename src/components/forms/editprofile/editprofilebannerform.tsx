@@ -20,7 +20,7 @@ const EditProfileBannerForm: FC<{
         className='relative h-64 w-full cursor-pointer items-center justify-center'>
         <Image
           alt='Avatar'
-          className='mx-auto h-max w-max object-contain'
+          className='mx-auto h-max w-max object-contain hover:brightness-90'
           src={currentBanner}
           fill></Image>
       </div>
