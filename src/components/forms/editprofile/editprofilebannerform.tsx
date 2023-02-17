@@ -22,6 +22,7 @@ const EditProfileBannerForm: FC<{
           alt='Avatar'
           className='mx-auto h-max w-max object-contain hover:brightness-90'
           src={currentBanner}
+          sizes='500'
           fill></Image>
       </div>
 
