@@ -6,7 +6,7 @@ import type { IEditFormInput } from 'src/types';
 import EditImageUploader from './editimageuploader';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const EditProfileImageForm: FC<{
+const EditProfileBannerForm: FC<{
   watch: UseFormWatch<IEditFormInput>;
   currentBanner: string;
   register: UseFormRegister<IEditFormInput>;
@@ -17,13 +17,12 @@ const EditProfileImageForm: FC<{
     <div className='flex w-full items-center justify-center'>
       <div
         onClick={() => setShowUploadForm(true)}
-        className='w-full cursor-pointer items-center justify-center'>
+        className='relative h-64 w-full cursor-pointer items-center justify-center'>
         <Image
           alt='Avatar'
-          className='mx-auto'
+          className='mx-auto h-max w-max object-contain'
           src={currentBanner}
-          width={120}
-          height={120}></Image>
+          fill></Image>
       </div>
 
       <AnimatePresence>
@@ -48,4 +47,4 @@ const EditProfileImageForm: FC<{
     </div>
   );
 };
-export default EditProfileImageForm;
+export default EditProfileBannerForm;
