@@ -73,6 +73,8 @@ model User {
     Comment            Comment[]
     LikedByAuthor      LikedByAuthor[]
     bookmarkedByAuthor BookmarkedByAuthor[]
+
+    notifications Notification[]
 }
 
 model BookmarkedByAuthor {
@@ -136,4 +138,18 @@ model Follows {
     followingId String
 
     @@id([followerId, followingId])
+}
+
+// Notification Model
+model Notification {
+    id String @id @default(cuid())
+
+    User   User   @relation(fields: [userId], references: [id])
+    userId String
+
+    iconImage String   @default("/favicon.ico")
+    text      String   @default("")
+    url       String   @default("/")
+    seen      Boolean  @default(false)
+    createdOn DateTime @default(now())
 }
