@@ -20,7 +20,7 @@ const HeadComp: FC<{ headTitle?: string }> = ({ headTitle = undefined }) => {
         {/* <link rel='manifest' href='/manifest.json'></link> */}
         <meta name='darkreader-lock' />
         <meta content='Plex' property='og:title' />
-        <meta content='Get together with friends.' property='og:description' />
+        <meta content='Get together.' property='og:description' />
         <meta content='http://localhost:3000' property='og:url' />
         <meta content='' property='og:image' />
         <meta content='#448fef' data-react-helmet='true' name='theme-color' />
