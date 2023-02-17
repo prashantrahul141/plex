@@ -126,13 +126,23 @@ const EditProfileForm: FC = () => {
         )}
       </fieldset>
 
-      <button
-        onClick={handleSubmit(submitForm)}
-        type='submit'
-        className='btn'
-        title='Update Profile'>
-        Update Profile
-      </button>
+      <fieldset className='flex justify-end gap-2'>
+        <button
+          className='btn max-w-[10rem]'
+          type='button'
+          title='Cancel'
+          onClick={() => void router.push('/profile')}>
+          Cancel
+        </button>
+
+        <button
+          onClick={handleSubmit(submitForm)}
+          type='submit'
+          className='btn max-w-[10rem] bg-themePrimary-400/90 text-themePrimary-50/95 hover:bg-themePrimary-400'
+          title='Update Profile'>
+          Update Profile
+        </button>
+      </fieldset>
     </form>
   );
 };
