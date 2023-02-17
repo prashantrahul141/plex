@@ -13,10 +13,11 @@ const SideBarNavigation: FC<{
   authorName: string;
 }> = ({ activeTab, authorAvatar, authorName }) => {
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
+  const iconSize = 28;
 
   return (
     <nav className='flex h-screen w-max flex-col border-r border-themePrimary-100/40 px-4 pt-4 lg:px-12'>
-      <div className='mb-8 mt-2 select-none'>
+      <div className='mb-8 mt-2 flex select-none justify-center xl:justify-start'>
         <Link href={'/'}>
           <Image
             priority
@@ -28,16 +29,16 @@ const SideBarNavigation: FC<{
       </div>
 
       <div
-        className='my-3 flex cursor-pointer'
+        className='my-3 flex cursor-pointer justify-center xl:justify-start'
         onClick={() => setShowCreatePostForm(true)}>
         <i className='group relative flex items-center'>
           {!showCreatePostForm && (
             <HiOutlinePencil
-              size={32}
+              size={iconSize}
               className='navbar-icon-inactive'></HiOutlinePencil>
           )}
           {showCreatePostForm && (
-            <HiPencil size={32} className='navbar-icon-active'></HiPencil>
+            <HiPencil size={iconSize} className='navbar-icon-active'></HiPencil>
           )}
           <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block xl:group-hover:hidden'>
             Create
@@ -53,11 +54,11 @@ const SideBarNavigation: FC<{
         </i>
       </div>
 
-      {getNavMenuTabs().map((eachTab, index) => {
+      {getNavMenuTabs(iconSize).map((eachTab, index) => {
         return (
           <div
             key={index}
-            className={`my-2 flex rounded-md px-1 py-1 ${
+            className={`my-2 flex justify-center rounded-md px-1 py-1 xl:justify-start ${
               activeTab.toLowerCase() === eachTab.name.toLowerCase()
                 ? 'bg-themePrimary-50/10'
                 : ''
@@ -94,7 +95,7 @@ const SideBarNavigation: FC<{
           }`}>
           <i className='group relative flex items-center'>
             <Image
-              className='h-9 w-9 rounded-full border-2 border-themePrimary-300 object-cover'
+              className='h-8 w-8 rounded-full border-2 border-themePrimary-300 object-cover'
               src={authorAvatar}
               width={50}
               height={50}
@@ -103,7 +104,7 @@ const SideBarNavigation: FC<{
               {authorName}
             </span>
             <span
-              className={`ml-2 hidden font-mukta text-lg font-thin not-italic tracking-wide xl:block ${
+              className={`ml-2 hidden font-mukta text-base font-thin not-italic tracking-wide xl:block ${
                 activeTab.toLowerCase() === 'profile'
                   ? 'text-themePrimary-50'
                   : 'text-themePrimary-50/80'
