@@ -2,12 +2,13 @@ import Image from 'next/image';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import BigImageView from './bigImageView';
+import BigImageView from '../bigImageView';
 import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { MdVerified, MdLink, MdDateRange } from 'react-icons/md';
 import type { IReturnUser } from 'src/types';
 import { api } from '@utils/api';
+import ProfileViewBio from './profileViewBio';
 
 const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
   const [showBigImageAvatar, setShowBigImageAvatar] = useState(false);
@@ -104,9 +105,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
             @{data.foundUser.username}
           </span>
 
-          <span className='mb-1 block whitespace-pre-line font-mukta font-thin leading-snug text-themePrimary-50/95'>
-            {data.foundUser.bio}
-          </span>
+          <ProfileViewBio bioText={data.foundUser.bio}></ProfileViewBio>
 
           <h6 className='flex flex-col sm:flex-row sm:gap-2'>
             {data.foundUser.url !== null && (
