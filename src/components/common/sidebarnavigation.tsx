@@ -15,7 +15,7 @@ const SideBarNavigation: FC<{
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
 
   return (
-    <nav className='flex h-screen w-max flex-col border-r border-themePrimary-100/40 px-4 pt-4'>
+    <nav className='flex h-screen w-max flex-col border-r border-themePrimary-100/40 px-4 pt-4 lg:px-12'>
       <div className='mb-8 mt-2 select-none'>
         <Link href={'/'}>
           <Image
@@ -39,7 +39,15 @@ const SideBarNavigation: FC<{
           {showCreatePostForm && (
             <HiPencil size={32} className='navbar-icon-active'></HiPencil>
           )}
-          <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1  font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
+          <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block xl:group-hover:hidden'>
+            Create
+          </span>
+          <span
+            className={`ml-2 hidden font-mukta text-xl font-thin not-italic tracking-wide xl:block ${
+              showCreatePostForm
+                ? 'text-themePrimary-50'
+                : 'text-themePrimary-50/80'
+            }`}>
             Create
           </span>
         </i>
@@ -47,13 +55,27 @@ const SideBarNavigation: FC<{
 
       {getNavMenuTabs().map((eachTab, index) => {
         return (
-          <div key={index} className='my-3 flex'>
+          <div
+            key={index}
+            className={`my-2 flex rounded-md px-1 py-1 ${
+              activeTab.toLowerCase() === eachTab.name.toLowerCase()
+                ? 'bg-themePrimary-50/10'
+                : ''
+            }`}>
             <Link href={eachTab.link}>
               <i className='group relative flex items-center'>
                 {activeTab.toLowerCase() === eachTab.name.toLowerCase()
                   ? eachTab.activateIcon
                   : eachTab.inactivateIcon}
-                <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1  font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
+                <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm  not-italic leading-relaxed text-black group-hover:block xl:group-hover:hidden'>
+                  {eachTab.name}
+                </span>
+                <span
+                  className={`ml-2 hidden font-mukta text-xl font-thin not-italic tracking-wide xl:block ${
+                    activeTab.toLowerCase() === eachTab.name.toLowerCase()
+                      ? 'text-themePrimary-50'
+                      : 'text-themePrimary-50/60'
+                  }`}>
                   {eachTab.name}
                 </span>
               </i>
@@ -63,7 +85,13 @@ const SideBarNavigation: FC<{
       })}
 
       <div className='mb-9 flex flex-grow items-end'>
-        <Link href={'/profile'}>
+        <Link
+          href={'/profile'}
+          className={`rounded-md px-2 py-1 ${
+            activeTab.toLowerCase() === 'profile'
+              ? 'bg-themePrimary-50/10 text-themePrimary-50'
+              : 'text-themePrimary-50/60'
+          }`}>
           <i className='group relative flex items-center'>
             <Image
               className='h-9 w-9 rounded-full border-2 border-themePrimary-300 object-cover'
@@ -71,7 +99,15 @@ const SideBarNavigation: FC<{
               width={50}
               height={50}
               alt={authorName}></Image>
-            <span className='absolute left-full z-50 ml-1 hidden w-max rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block'>
+            <span className='absolute left-full z-50 ml-1 hidden w-max rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block xl:group-hover:hidden'>
+              {authorName}
+            </span>
+            <span
+              className={`ml-2 hidden font-mukta text-lg font-thin not-italic tracking-wide xl:block ${
+                activeTab.toLowerCase() === 'profile'
+                  ? 'text-themePrimary-50'
+                  : 'text-themePrimary-50/80'
+              }`}>
               {authorName}
             </span>
           </i>
