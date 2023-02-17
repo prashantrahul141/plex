@@ -52,7 +52,11 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
         </div>
 
         <AnimatePresence>
-          <div
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ ease: 'easeInOut', duration: 0.2 }}
             key={0}
             className='max-w-lg overflow-auto sm:min-w-[40rem] md:border-r md:border-themePrimary-100/40'>
             <h2
@@ -60,7 +64,13 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
               className='hidden border-b border-themePrimary-100/40 px-3 py-4 font-mukta text-2xl capitalize tracking-wide text-themePrimary-50/90 sm:block'>
               {['user', 'profile'].includes(page) ? layoutTitle : page}
             </h2>
-            <motion.div key={2} className='h-[90%] sm:overflow-auto'>
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: '90%' }}
+              exit={{ opacity: 0 }}
+              transition={{ ease: 'easeInOut', duration: 0.2 }}
+              key={2}
+              className='h-[90%] sm:overflow-auto'>
               {page === 'home' && (
                 <PostList authorId={session.user.id}></PostList>
               )}
@@ -99,7 +109,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
                   session={session}></UserProfileView>
               )}
             </motion.div>
-          </div>
+          </motion.div>
         </AnimatePresence>
         <div className='hidden lg:block'>
           <AdditionalWidgets></AdditionalWidgets>
