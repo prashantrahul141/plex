@@ -11,7 +11,9 @@ import EditProfileImageForm from '@components/forms/editprofile/editprofileimage
 import EditProfileBannerForm from './editprofilebannerform';
 
 const EditProfileForm: FC = () => {
-  const UserData = api.user.getForEdit.useQuery();
+  const UserDataQuery = api.user.getForEdit.useQuery();
+  const EditUserDataQuery = api.user.editUserInfo.useMutation();
+
   const router = useRouter();
   const {
     watch,
@@ -20,7 +22,7 @@ const EditProfileForm: FC = () => {
     formState: { errors },
   } = useForm<IEditFormInput>({ mode: 'all' });
 
-  if (UserData.status !== 'success') {
+  if (UserDataQuery.status !== 'success') {
     return (
       <div className='flex h-full w-full items-center justify-center'>
         <div className='h-8 w-8'>
@@ -30,30 +32,31 @@ const EditProfileForm: FC = () => {
     );
   }
 
-  if (UserData.data === undefined || UserData.data === undefined) {
+  if (UserDataQuery.data === undefined || UserDataQuery.data === undefined) {
     void router.push('/404');
     return <></>;
   }
 
-  const submitForm = () => {
-    console.log('s');
+  const submitForm = async (data: IEditFormInput) => {
+    await EditUserDataQuery.mutateAsync(data);
+    void router.push('/profile');
   };
 
   return (
-    <form className='w-full p-8' onSubmit={handleSubmit(submitForm)}>
+    <form className='w-full p-8'>
       <fieldset className='mb-1'>
         <div className='flex items-center justify-center'>
           <EditProfileImageForm
             watch={watch}
             register={register}
-            currentAvatar={UserData.data.image}></EditProfileImageForm>
+            currentAvatar={UserDataQuery.data.image}></EditProfileImageForm>
         </div>
 
         <div className='max-h-54 my-4 w-full min-w-full select-none items-center justify-center rounded-md bg-baseBackground-200/50 object-contain'>
           <EditProfileBannerForm
             watch={watch}
             register={register}
-            currentBanner={UserData.data.banner}></EditProfileBannerForm>
+            currentBanner={UserDataQuery.data.banner}></EditProfileBannerForm>
         </div>
       </fieldset>
 
@@ -63,7 +66,7 @@ const EditProfileForm: FC = () => {
           title='name'
           className='input mb-1'
           placeholder='Your name here'
-          defaultValue={UserData.data.name}
+          defaultValue={UserDataQuery.data.name}
           {...register('name', {
             required: { value: true, message: 'Forgot to type your name?' },
             minLength: {
@@ -85,7 +88,7 @@ const EditProfileForm: FC = () => {
       <fieldset className='mb-4'>
         <EditProfileUsernameForm
           watch={watch}
-          currentUsername={UserData.data.username}
+          currentUsername={UserDataQuery.data.username}
           register={register}></EditProfileUsernameForm>
 
         {errors.username && errors.username.type !== 'validate' && (
@@ -95,7 +98,7 @@ const EditProfileForm: FC = () => {
 
       <fieldset className='mb-4'>
         <EditProfileURL
-          currentUrl={UserData.data.url}
+          currentUrl={UserDataQuery.data.url}
           register={register}></EditProfileURL>
         {errors.url && errors.url.type !== 'validate' && (
           <ErrorMessage message={errors.url.message}></ErrorMessage>
@@ -110,7 +113,7 @@ const EditProfileForm: FC = () => {
           title='bio'
           className='textarea mb-1'
           placeholder='About you'
-          defaultValue={UserData.data.bio || ''}
+          defaultValue={UserDataQuery.data.bio || ''}
           {...register('bio', {
             maxLength: {
               value: 100,
@@ -123,7 +126,11 @@ const EditProfileForm: FC = () => {
         )}
       </fieldset>
 
-      <button type='submit' className='btn' title='Update Profile'>
+      <button
+        onClick={handleSubmit(submitForm)}
+        type='submit'
+        className='btn'
+        title='Update Profile'>
         Update Profile
       </button>
     </form>
