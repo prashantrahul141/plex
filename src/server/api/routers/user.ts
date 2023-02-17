@@ -85,6 +85,7 @@ export const UserRouter = createTRPCRouter({
         where: {
           username: input.username,
         },
+        select: { id: true },
       });
 
       return foundUser ? true : false;
@@ -157,6 +158,32 @@ export const UserRouter = createTRPCRouter({
           return { status: 'ALREADYNOTFOLLOW' } as const;
         }
       }
+    }),
+
+  // Edit profile
+  editUserInfo: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        username: z.string(),
+        url: z.string().nullable(),
+        bio: z.string().nullable(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      await prisma.user.update({
+        where: {
+          id: ctx.session.user.id,
+        },
+        data: {
+          name: input.name,
+          username: input.username,
+          url: input.url,
+          bio: input.bio,
+        },
+      });
+
+      return { status: 'UPDATEDPROFILE' } as const;
     }),
 
   // edit user profile picture
