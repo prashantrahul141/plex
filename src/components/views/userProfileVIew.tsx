@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { api } from '@utils/api';
-import ProfileView from './profileView';
+import ProfileView from './profileView/profileView';
 import LoadingComponent from '@components/common/loadingcomponent';
 import type { Session } from 'next-auth';
 import { useRouter } from 'next/router';
