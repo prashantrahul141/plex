@@ -202,10 +202,10 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
           <div className='flex flex-grow items-center justify-center'>
             <button
               onClick={handleBookmark}
-              className='rounded-full p-1 text-lg hover:bg-themePrimary-300/10 hover:text-themePrimary-300'
+              className='h-6 w-6 rounded-full p-1 text-lg hover:bg-themePrimary-300/10 hover:text-themePrimary-300'
               title='Bookmark'>
               {bookmarkedState && (
-                <BsBookmarkCheckFill className='text-[0.9rem]'></BsBookmarkCheckFill>
+                <BsBookmarkCheckFill className=''></BsBookmarkCheckFill>
               )}
               {!bookmarkedState && (
                 <CiBookmarkPlus className=' '></CiBookmarkPlus>
