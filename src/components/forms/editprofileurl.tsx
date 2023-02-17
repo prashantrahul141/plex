@@ -5,7 +5,7 @@ import type { IEditFormInput } from 'src/types';
 const EditProfileURL: FC<{
   register: UseFormRegister<IEditFormInput>;
   currentUrl: string | null;
-}> = ({ register }) => {
+}> = ({ register, currentUrl }) => {
   const validateURL = (url: string | null) => {
     if (url === '' || url === null) {
       return true;
@@ -23,6 +23,7 @@ const EditProfileURL: FC<{
       className='input mb-1'
       type='url'
       placeholder='https://yourwebsite.com'
+      defaultValue={currentUrl || ''}
       {...register('url', { validate: validateURL })}></input>
   );
 };
