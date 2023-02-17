@@ -42,7 +42,6 @@ const ProfileViewBio: FC<{ bioText: string | null }> = ({ bioText }) => {
         resultedBio.push(<span key={i}>{`${element} `}</span>);
       }
     }
-    console.log(resultedBio);
 
     return resultedBio;
   };
