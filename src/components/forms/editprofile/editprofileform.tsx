@@ -49,7 +49,7 @@ const EditProfileForm: FC = () => {
             currentAvatar={UserData.data.image}></EditProfileImageForm>
         </div>
 
-        <div className='my-4 max-h-64 w-full min-w-full select-none items-center justify-center rounded-md bg-baseBackground-200/50 object-contain'>
+        <div className='max-h-54 my-4 w-full min-w-full select-none items-center justify-center rounded-md bg-baseBackground-200/50 object-contain'>
           <EditProfileBannerForm
             watch={watch}
             register={register}
