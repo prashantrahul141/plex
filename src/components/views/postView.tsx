@@ -7,8 +7,7 @@ import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
 import { SlOptions } from 'react-icons/sl';
 import { BiCommentDetail, BiShare } from 'react-icons/bi';
 import { MdDeleteForever, MdVerified } from 'react-icons/md';
-import { BsBookmarkCheckFill } from 'react-icons/bs';
-import { CiBookmarkPlus } from 'react-icons/ci';
+import { BsBookmarkCheckFill, BsBookmarkHeart } from 'react-icons/bs';
 import BigImageView from './bigImageView';
 import CommonAlert from '@components/common/commonAlert';
 import type { IReturnPost } from 'src/types';
@@ -16,6 +15,7 @@ import { env } from 'src/env/client.mjs';
 import { api } from '@utils/api';
 import ReactTimeAgo from 'react-time-ago';
 import { useRouter } from 'next/router';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   data,
@@ -39,9 +39,13 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
   const [showBigImage, setShowBigImage] = useState(false);
   const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
+  const [showDeleteMenu, setShowDeleteMenu] = useState(false);
+
   const authorAdmin = currentUserID === data.post.Author.id;
+
   const likeQuery = api.post.like.useMutation();
   const bookmarkQuery = api.post.bookMark.useMutation();
+  const deleteQuery = api.post.delete.useMutation();
 
   const handleLike = async () => {
     setPostLiked(!postLikedState);
@@ -58,6 +62,11 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
       addBookmark: !bookmarkedState,
       postId: data.post.id,
     });
+  };
+
+  const handleDelete = async () => {
+    await deleteQuery.mutateAsync({ postId: data.post.id });
+    setShowDeleteMenu(false);
   };
 
   return (
@@ -120,6 +129,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
                   onClick={() => setShowHamMenuOptions(false)}
                   className='fixed top-0 left-0 h-screen w-screen'></div>
                 <motion.div
+                  key={0}
                   initial={{ top: 10, right: -20, scale: 0, opacity: 0 }}
                   animate={{ top: 30, right: 20, scale: 1, opacity: 1 }}
                   exit={{ top: 10, right: -20, scale: 0, opacity: 0 }}
@@ -128,10 +138,71 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
                     duration: 0.3,
                   }}
                   className='absolute z-10 rounded-md border border-themePrimary-300/50 bg-baseBackground-100/95 py-1 text-themePrimary-50/80'>
-                  <button className='group/btn flex items-center justify-center py-1 px-2 font-mukta text-base font-light leading-none tracking-wide hover:bg-red-500/80 hover:text-themePrimary-50'>
+                  <button
+                    onClick={() => setShowDeleteMenu(true)}
+                    className='group/btn flex items-center justify-center py-1 px-2 font-mukta text-base font-light leading-none tracking-wide hover:bg-red-500/80 hover:text-themePrimary-50'>
                     <MdDeleteForever className=' group-hover/btn:text-themePrimary-50'></MdDeleteForever>
                     &nbsp; Delete
                   </button>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {authorAdmin && showDeleteMenu && (
+              <>
+                <motion.div
+                  key={1}
+                  onClick={() => setShowDeleteMenu(false)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 0.1,
+                  }}
+                  className='fixed top-0 left-0 z-10 h-screen w-screen backdrop-brightness-75'></motion.div>
+
+                <motion.div
+                  key={2}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1, translateX: '-50%' }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{
+                    type: 'spring',
+                    duration: 0.3,
+                  }}
+                  className='absolute left-1/2 z-20 h-max w-60 rounded-md border border-themePrimary-300/50 bg-baseBackground-100/95 py-4 text-themePrimary-50/80'>
+                  <header className='flex h-fit w-full px-4'>
+                    <h2 className='flex-grow text-center font-mukta text-base tracking-wide text-themePrimary-50/95'></h2>
+
+                    <AiFillCloseCircle
+                      title='close'
+                      className='h-5 w-5 cursor-pointer text-base text-red-400 hover:text-red-500'
+                      onClick={() =>
+                        setShowDeleteMenu(false)
+                      }></AiFillCloseCircle>
+                  </header>
+                  <main className='h-max w-full px-2'>
+                    <div className='mx-2 my-4 mb-8 text-center'>
+                      <span className='font-mukta font-thin leading-none text-themePrimary-50'>
+                        Are you sure you want to permanently delete this post?
+                      </span>
+                    </div>
+                    <div className='flex gap-2'>
+                      <button
+                        className='btn py-1'
+                        onClick={() => setShowDeleteMenu(false)}>
+                        Cancel
+                      </button>
+                      <button
+                        onClick={handleDelete}
+                        className='btn border-none bg-red-500/90 py-1 text-themePrimary-50/95 hover:bg-red-500'>
+                        <span className='mx-auto flex items-center justify-center'>
+                          <MdDeleteForever></MdDeleteForever>Delete
+                        </span>
+                      </button>
+                    </div>
+                  </main>
                 </motion.div>
               </>
             )}
@@ -216,7 +287,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
                 <BsBookmarkCheckFill className=''></BsBookmarkCheckFill>
               )}
               {!bookmarkedState && (
-                <CiBookmarkPlus className=' '></CiBookmarkPlus>
+                <BsBookmarkHeart className=' '></BsBookmarkHeart>
               )}
             </button>
           </div>
