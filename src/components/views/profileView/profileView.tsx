@@ -113,9 +113,11 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
                 passHref={true}
                 target='_blank'
                 href={data.foundUser.url}
-                className='flex w-fit items-center gap-1 font-mukta font-thin text-themePrimary-50/50 hover:underline'>
+                className='flex w-fit items-center gap-1 font-mukta font-thin text-themePrimary-50/50'>
                 <MdLink></MdLink>
-                <span className='text-themePrimary-300'>{urlHost}</span>
+                <span className='text-themePrimary-300 hover:underline'>
+                  {urlHost}
+                </span>
               </Link>
             )}
 
