@@ -2,13 +2,13 @@ import Image from 'next/image';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import BigImageView from '../bigImageView';
+import BigImageView from '@components/views/bigImageView';
 import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { MdVerified, MdLink, MdDateRange } from 'react-icons/md';
 import type { IReturnUser } from 'src/types';
 import { api } from '@utils/api';
-import ProfileViewBio from './profileViewBio';
+import ProfileViewBio from '@components/views/profileView/profileViewBio';
 
 const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
   const [showBigImageAvatar, setShowBigImageAvatar] = useState(false);
