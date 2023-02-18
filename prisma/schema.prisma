@@ -78,20 +78,20 @@ model User {
 }
 
 model BookmarkedByAuthor {
-    post   Post   @relation(fields: [postId], references: [id])
+    post   Post   @relation(fields: [postId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     postId String
 
-    user   User   @relation(fields: [userId], references: [id])
+    user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     userId String
 
     @@id([postId, userId])
 }
 
 model LikedByAuthor {
-    post   Post   @relation(fields: [postId], references: [id])
+    post   Post   @relation(fields: [postId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     postId String
 
-    user   User   @relation(fields: [userId], references: [id])
+    user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
     userId String
 
     @@id([postId, userId])
@@ -105,7 +105,7 @@ model Post {
     createdOn DateTime  @default(now())
     Comments  Comment[]
 
-    Author   User   @relation("authorPosts", fields: [authorId], references: [id])
+    Author   User   @relation("authorPosts", fields: [authorId], references: [id], onDelete: Cascade)
     authorId String
 
     LikedByAuthor      LikedByAuthor[]
