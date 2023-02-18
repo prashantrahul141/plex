@@ -62,10 +62,10 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
 
   return (
     <article className='group flex w-full gap-1 border-y border-themePrimary-100/20 p-2 text-themePrimary-50/95'>
-      <div className='mr-2'>
-        <Link href={`/${data.post.Author.username}`} className='w-fit'>
+      <div className='mr-2 h-12 min-h-[3rem] w-12 min-w-[3rem]'>
+        <Link href={`/${data.post.Author.username}`} className='mt-1 h-12 w-12'>
           <Image
-            className='mt-1 h-12 min-h-[2.7rem] w-12 min-w-[2.7rem] rounded-full object-cover'
+            className='h-12 w-12 rounded-full object-cover'
             src={data.post.Author.image}
             alt={data.post.Author.name}
             width={100}
@@ -73,7 +73,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
         </Link>
       </div>
 
-      <div className=' w-full'>
+      <div className='w-full'>
         <div className='relative flex items-center'>
           <Link
             href={`/${data.post.Author.username}`}
