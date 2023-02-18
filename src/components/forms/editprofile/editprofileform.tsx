@@ -111,7 +111,7 @@ const EditProfileForm: FC = () => {
       <fieldset className='mb-4'>
         <textarea
           title='bio'
-          className='textarea mb-1 whitespace-pre-line'
+          className='textarea mb-1 h-32 whitespace-pre-line'
           placeholder='About you'
           defaultValue={UserDataQuery.data.bio || ''}
           {...register('bio', {
