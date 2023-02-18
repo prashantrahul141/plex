@@ -57,7 +57,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   };
 
   return (
-    <div className='outline-theme group flex w-full gap-1 p-2 text-themePrimary-50/95 outline outline-1 outline-themePrimary-100/20'>
+    <div className='group flex w-full gap-1 border-y border-themePrimary-100/20 p-2 text-themePrimary-50/95'>
       <div className='mr-2'>
         <Link href={`/${data.post.Author.username}`} className='w-fit'>
           <Image
@@ -134,7 +134,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
 
         <Link
           href={`/${data.post.Author.username}/${data.post.id}`}
-          className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-snug tracking-wide'>
+          className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-tight tracking-wide'>
           {data.post.text}
         </Link>
 
