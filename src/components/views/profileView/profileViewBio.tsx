@@ -14,7 +14,6 @@ const ProfileViewBio: FC<{ bioText: string | null }> = ({ bioText }) => {
     }
 
     const resultedBio: Array<JSX.Element> = [];
-
     for (let i = 0; i < bioArray.length; i++) {
       const element = bioArray[i];
 
