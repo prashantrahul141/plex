@@ -71,6 +71,31 @@ export const PostRouter = createTRPCRouter({
       return { createdPost };
     }),
 
+  // delete a specific post
+  delete: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const postToDelete = await prisma.post.findUnique({
+        where: {
+          id: input.postId,
+        },
+      });
+
+      if (postToDelete) {
+        if (postToDelete.authorId === ctx.session.user.id) {
+          await prisma.post.delete({
+            where: {
+              id: input.postId,
+            },
+          });
+          return { status: 'POSTDELETED' } as const;
+        }
+        return { status: 'UNAUTHORIZED' } as const;
+      }
+
+      return { status: 'POSTDOESNTEXIST' } as const;
+    }),
+
   // view a specific post
   view: protectedProcedure.input(z.object({ postId: z.string() })).query(() => {
     return {};
