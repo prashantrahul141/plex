@@ -61,7 +61,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   };
 
   return (
-    <div className='group flex w-full gap-1 border-y border-themePrimary-100/20 p-2 text-themePrimary-50/95'>
+    <article className='group flex w-full gap-1 border-y border-themePrimary-100/20 p-2 text-themePrimary-50/95'>
       <div className='mr-2'>
         <Link href={`/${data.post.Author.username}`} className='w-fit'>
           <Image
@@ -238,7 +238,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
             imageUrl={postImageLink}></BigImageView>
         )}
       </AnimatePresence>
-    </div>
+    </article>
   );
 };
 
