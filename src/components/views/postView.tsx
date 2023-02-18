@@ -15,6 +15,7 @@ import type { IReturnPost } from 'src/types';
 import { env } from 'src/env/client.mjs';
 import { api } from '@utils/api';
 import ReactTimeAgo from 'react-time-ago';
+import { useRouter } from 'next/router';
 
 const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   data,
@@ -23,6 +24,8 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   const postImageLink = `https://res.cloudinary.com/${
     env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME
   }/image/upload/${data.post.image || '#'}`;
+
+  const router = useRouter();
 
   const [postLikedState, setPostLiked] = useState(
     data.post.LikedByAuthor.length > 0
@@ -135,11 +138,13 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
           </AnimatePresence>
         </div>
 
-        <Link
-          href={`/${data.post.Author.username}/${data.post.id}`}
-          className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-tight tracking-wide'>
+        <span
+          onClick={() =>
+            void router.push(`/${data.post.Author.username}/${data.post.id}`)
+          }
+          className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-none tracking-wide'>
           {data.post.text}
-        </Link>
+        </span>
 
         {data.post.image !== null && (
           <div className='select-none' onClick={() => setShowBigImage(true)}>
