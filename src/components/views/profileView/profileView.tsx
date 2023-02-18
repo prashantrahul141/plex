@@ -9,6 +9,7 @@ import { MdVerified, MdLink, MdDateRange } from 'react-icons/md';
 import type { IReturnUser } from 'src/types';
 import { api } from '@utils/api';
 import ProfileViewBio from '@components/views/profileView/profileViewBio';
+import getMonthStr from '@utils/utils';
 
 const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
   const [showBigImageAvatar, setShowBigImageAvatar] = useState(false);
@@ -123,7 +124,8 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
 
             <span className='flex w-fit items-center gap-1 font-mukta font-thin text-themePrimary-50/50'>
               <MdDateRange></MdDateRange>
-              Joined {data.foundUser.joinedOn.toDateString()}
+              Joined {getMonthStr(data.foundUser.joinedOn.getMonth())}{' '}
+              {data.foundUser.joinedOn.getFullYear()}
             </span>
           </h6>
 
