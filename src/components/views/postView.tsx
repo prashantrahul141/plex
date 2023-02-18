@@ -8,7 +8,7 @@ import { SlOptions } from 'react-icons/sl';
 import { BiCommentDetail, BiShare } from 'react-icons/bi';
 import { MdDeleteForever, MdVerified } from 'react-icons/md';
 import { BsBookmarkCheckFill, BsBookmarkHeart } from 'react-icons/bs';
-import BigImageView from './bigImageView';
+import BigImageView from '@components/views/bigImageView';
 import CommonAlert from '@components/common/commonAlert';
 import type { IReturnPost } from 'src/types';
 import { env } from 'src/env/client.mjs';
