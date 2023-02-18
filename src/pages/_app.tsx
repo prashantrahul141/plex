@@ -8,6 +8,11 @@ import { motion } from 'framer-motion';
 import '../styles/globals.css';
 import BackgroundGradient from '@components/common/backgroundgradient';
 
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en.json';
+
+TimeAgo.addDefaultLocale(en);
+
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
