@@ -14,6 +14,7 @@ import CommonAlert from '@components/common/commonAlert';
 import type { IReturnPost } from 'src/types';
 import { env } from 'src/env/client.mjs';
 import { api } from '@utils/api';
+import ReactTimeAgo from 'react-time-ago';
 
 const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
   data,
@@ -96,7 +97,9 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
             </span>
             &nbsp;
             <h6 className='cursor-default font-ibmplex text-xs tracking-tighter text-themePrimary-100/70'>
-              {data.post.createdOn.toDateString()}
+              <ReactTimeAgo
+                date={data.post.createdOn}
+                timeStyle={'twitter'}></ReactTimeAgo>
             </h6>
           </Link>
 
