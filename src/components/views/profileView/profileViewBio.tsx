@@ -3,43 +3,74 @@ import Link from 'next/link';
 
 const ProfileViewBio: FC<{ bioText: string | null }> = ({ bioText }) => {
   const parseBio = (text: string) => {
-    const bioArray = text.split(' ');
+    const bioArrayLines = text.split('\n');
+
+    const bioArray: Array<string[]> = [];
+    for (let i = 0; i < bioArrayLines.length; i++) {
+      const element = bioArrayLines[i];
+      if (element) {
+        bioArray.push(element.split(' '));
+      }
+    }
+
     const resultedBio: Array<JSX.Element> = [];
 
     for (let i = 0; i < bioArray.length; i++) {
       const element = bioArray[i];
-      if (element) {
-        try {
-          const bioUrl = new URL(element);
-          resultedBio.push(
-            <Link
-              className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
-              key={i}
-              title={bioUrl.origin}
-              href={bioUrl.href}>
-              {`${bioUrl.hostname} `}
-            </Link>
-          );
-          continue;
-        } catch {}
 
-        const startLetter = element[0];
-        if (startLetter) {
-          if (startLetter === '@') {
+      if (element) {
+        for (let j = 0; j < element.length; j++) {
+          const childElement = element[j];
+
+          if (childElement) {
+            try {
+              const bioUrl = new URL(childElement);
+              resultedBio.push(
+                <>
+                  <Link
+                    className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
+                    key={i}
+                    title={bioUrl.origin}
+                    href={bioUrl.href}>
+                    {`${bioUrl.hostname}`}
+                  </Link>
+                  <span> </span>
+                </>
+              );
+              continue;
+            } catch {}
+
+            const startLetter = childElement[0];
+            if (startLetter) {
+              if (startLetter === '@') {
+                resultedBio.push(
+                  <>
+                    <Link
+                      className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
+                      key={i}
+                      title={childElement}
+                      href={`/${childElement.substring(
+                        1,
+                        childElement.length
+                      )}`}>
+                      {`${childElement}`}
+                    </Link>
+                    <span> </span>
+                  </>
+                );
+                continue;
+              }
+            }
+
             resultedBio.push(
-              <Link
-                className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
-                key={i}
-                title={element}
-                href={`/${element.substring(1, element.length)}`}>
-                {`${element} `}
-              </Link>
+              <>
+                <span key={i}>{`${childElement}`}</span>
+                <span> </span>
+              </>
             );
-            continue;
           }
         }
-
-        resultedBio.push(<span key={i}>{`${element} `}</span>);
+        resultedBio.push(<span>{'\n'}</span>);
       }
     }
 
