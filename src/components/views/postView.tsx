@@ -283,12 +283,8 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
               onClick={handleBookmark}
               className='h-6 w-6 rounded-full p-1 text-lg hover:bg-themePrimary-300/10 hover:text-themePrimary-300'
               title='Bookmark'>
-              {bookmarkedState && (
-                <BsBookmarkCheckFill className=''></BsBookmarkCheckFill>
-              )}
-              {!bookmarkedState && (
-                <BsBookmarkHeart className=' '></BsBookmarkHeart>
-              )}
+              {bookmarkedState && <BsBookmarkCheckFill></BsBookmarkCheckFill>}
+              {!bookmarkedState && <BsBookmarkHeart></BsBookmarkHeart>}
             </button>
           </div>
         </div>
