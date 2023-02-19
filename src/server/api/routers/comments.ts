@@ -76,4 +76,49 @@ export const CommentsRouter = createTRPCRouter({
 
       return createdComment;
     }),
+
+  // like a commente
+  like: protectedProcedure
+    .input(z.object({ commentId: z.string(), addLike: z.boolean() }))
+    .mutation(async ({ input, ctx }) => {
+      const likedAlready = await prisma.commentLikedByAuthor.findUnique({
+        where: {
+          commentId_userId: {
+            commentId: input.commentId,
+            userId: ctx.session.user.id,
+          },
+        },
+      });
+
+      if (input.addLike) {
+        if (!likedAlready) {
+          await prisma.commentLikedByAuthor.create({
+            data: {
+              user: { connect: { id: ctx.session.user.id } },
+              comment: {
+                connect: {
+                  id: input.commentId,
+                },
+              },
+            },
+          });
+          return { status: 'ADDEDLIKE' } as const;
+        }
+        return { status: 'ALREADYLIKED' } as const;
+      } else {
+        if (likedAlready) {
+          await prisma.commentLikedByAuthor.delete({
+            where: {
+              commentId_userId: {
+                commentId: input.commentId,
+                userId: ctx.session.user.id,
+              },
+            },
+          });
+          return { status: 'REMOVEDLIKE' } as const;
+        }
+
+        return { status: 'ALREADYNOTLIKED' } as const;
+      }
+    }),
 });
