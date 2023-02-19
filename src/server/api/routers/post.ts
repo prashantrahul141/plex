@@ -97,9 +97,57 @@ export const PostRouter = createTRPCRouter({
     }),
 
   // view a specific post
-  view: protectedProcedure.input(z.object({ postId: z.string() })).query(() => {
-    return {};
-  }),
+  view: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const foundPost = await prisma.post.findUnique({
+        where: {
+          id: input.postId,
+        },
+        include: {
+          Comments: {
+            select: {
+              commentText: true,
+              author: {
+                select: {
+                  id: true,
+                  image: true,
+                  name: true,
+                  username: true,
+                  authorVerified: true,
+                },
+              },
+            },
+          },
+          BookmarkedByAuthor: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
+          LikedByAuthor: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
+          _count: {
+            select: {
+              Comments: true,
+              LikedByAuthor: true,
+            },
+          },
+          Author: {
+            select: {
+              id: true,
+              image: true,
+              name: true,
+              username: true,
+              authorVerified: true,
+            },
+          },
+        },
+      });
+      return foundPost;
+    }),
 
   // list posts for home page
   list: protectedProcedure
