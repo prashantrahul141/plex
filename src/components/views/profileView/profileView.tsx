@@ -130,23 +130,35 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
           </h6>
 
           <h6 className='flex items-center gap-4'>
-            <span className='flex items-baseline gap-1 text-sm'>
+            <Link
+              href={
+                data.isAuthor
+                  ? '/profile/followers'
+                  : `/${data.foundUser.username}/followers`
+              }
+              className='group/follows flex items-baseline gap-1 text-sm'>
               <span className='font-ibmplex  font-bold leading-none text-themePrimary-50'>
                 {followersCount}
               </span>
-              <span className='font-mukta font-thin tracking-wider text-themePrimary-50/60'>
+              <span className='font-mukta font-thin tracking-wider text-themePrimary-50/60 group-hover/follows:underline'>
                 Followers
               </span>
-            </span>
+            </Link>
 
-            <span className='flex  items-baseline gap-1 text-sm'>
+            <Link
+              href={
+                data.isAuthor
+                  ? '/profile/followings'
+                  : `/${data.foundUser.username}/followings`
+              }
+              className='group/follows flex items-baseline gap-1 text-sm'>
               <span className='font-ibmplex font-bold leading-none text-themePrimary-50'>
                 {data.foundUser._count.followings}
               </span>
-              <span className='font-mukta font-thin tracking-wider  text-themePrimary-50/60'>
+              <span className='font-mukta font-thin tracking-wider text-themePrimary-50/60 group-hover/follows:underline'>
                 Followings
               </span>
-            </span>
+            </Link>
           </h6>
         </header>
 
