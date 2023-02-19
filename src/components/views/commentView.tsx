@@ -6,6 +6,7 @@ import type { IReturnComment } from 'src/types';
 import ReactTimeAgo from 'react-time-ago';
 import { MdVerified } from 'react-icons/md';
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
+import { api } from '@utils/api';
 
 const CommentView: FC<{ data: IReturnComment }> = ({ data }) => {
   const [commentLiked, setCommentLiked] = useState(
@@ -15,7 +16,10 @@ const CommentView: FC<{ data: IReturnComment }> = ({ data }) => {
     data._count.CommentLikedByAuthor
   );
 
-  const handleLike = () => {
+  const likeQuery = api.comments.like.useMutation();
+
+  const handleLike = async () => {
+    await likeQuery.mutateAsync({ addLike: !commentLiked, commentId: data.id });
     setCommentLiked((prev) => !prev);
     setCommentLikesCount(commentLikesCount + (commentLiked ? -1 : 1));
   };
