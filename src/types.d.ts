@@ -2,6 +2,7 @@ import type {
   Post,
   LikedByAuthor,
   BookmarkedByAuthor,
+  CommentLikedByAuthor,
   Follows,
 } from '@prisma/client';
 
@@ -80,7 +81,7 @@ interface IReturnComment {
   _count: {
     CommentLikedByAuthor: number;
   };
-  CommentLikedByAuthor: Array;
+  CommentLikedByAuthor: Array<CommentLikedByAuthor>;
   createdOn: Date;
   author: {
     id: string;
