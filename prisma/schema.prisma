@@ -75,8 +75,7 @@ model User {
     bookmarkedByAuthor   BookmarkedByAuthor[]
     CommentLikedByAuthor CommentLikedByAuthor[]
 
-    notifications           Notification[]
-    CommentDislikedByAuthor CommentDislikedByAuthor[]
+    notifications Notification[]
 }
 
 model BookmarkedByAuthor {
@@ -126,23 +125,11 @@ model Comment {
     post   Post   @relation(fields: [postId], references: [id])
     postId String
 
-    CommentLikedByAuthor    CommentLikedByAuthor[]
-    CommentDislikedByAuthor CommentDislikedByAuthor[]
+    CommentLikedByAuthor CommentLikedByAuthor[]
 }
 
 // authors liked a comment
 model CommentLikedByAuthor {
-    id String @id @default(cuid())
-
-    comment   Comment @relation(fields: [commentId], references: [id])
-    commentId String
-
-    user   User   @relation(fields: [userId], references: [id])
-    userId String
-}
-
-// authors disliked a comment
-model CommentDislikedByAuthor {
     id String @id @default(cuid())
 
     comment   Comment @relation(fields: [commentId], references: [id])
