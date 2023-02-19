@@ -1,7 +1,10 @@
 import type { FC } from 'react';
 import Link from 'next/link';
 
-const ProfileViewBio: FC<{ bioText: string | null }> = ({ bioText }) => {
+const ProfileViewBio: FC<{
+  bioText: string | null;
+  preserveWhitespace?: boolean;
+}> = ({ bioText, preserveWhitespace = true }) => {
   const parseBio = (text: string) => {
     const bioArrayLines = text.split('\n');
 
@@ -78,7 +81,10 @@ const ProfileViewBio: FC<{ bioText: string | null }> = ({ bioText }) => {
 
   if (bioText) {
     return (
-      <span className='mb-1 block whitespace-pre-line font-mukta font-thin leading-snug tracking-wide text-themePrimary-50/95'>
+      <span
+        className={`mb-1 block font-mukta font-thin leading-snug tracking-wide text-themePrimary-50/95 ${
+          preserveWhitespace ? 'whitespace-pre-line' : ''
+        }`}>
         {parseBio(bioText)}
       </span>
     );
