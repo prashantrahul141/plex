@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import type { Session } from 'next-auth';
 import LoadingComponent from '@components/common/loadingcomponent';
+import CommentList from '@components/lists/commentList';
 
 const OpenPost: FC<{ session: Session }> = ({ session }) => {
   const router = useRouter();
@@ -41,6 +42,7 @@ const OpenPost: FC<{ session: Session }> = ({ session }) => {
       <PostView
         currentUserID={session.user.id}
         data={{ post: postData.data.posts }}></PostView>
+      <CommentList postId={postData.data.posts.id}></CommentList>
     </>
   );
 };
