@@ -105,20 +105,6 @@ export const PostRouter = createTRPCRouter({
           id: input.postId,
         },
         include: {
-          Comments: {
-            select: {
-              commentText: true,
-              author: {
-                select: {
-                  id: true,
-                  image: true,
-                  name: true,
-                  username: true,
-                  authorVerified: true,
-                },
-              },
-            },
-          },
           BookmarkedByAuthor: {
             where: {
               userId: ctx.session.user.id,
