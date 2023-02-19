@@ -16,6 +16,7 @@ import UserProfileView from '@components/views/userProfileVIew';
 import EditProfileForm from '@components/forms/editprofile/editprofileform';
 import FollowsViewOnProfile from '@components/views/Follows/followsViewOnProfile';
 import FollowsVIewOnUser from '@components/views/Follows/followsViewOnUser';
+import OpenPost from '@components/views/openPost';
 
 type pages =
   | 'home'
@@ -29,7 +30,8 @@ type pages =
   | 'followers profile'
   | 'followings profile'
   | 'followers user'
-  | 'followings user';
+  | 'followings user'
+  | 'post';
 
 const PageLayout: FC<{ page: pages }> = ({ page }) => {
   const { data: session, status } = useSession();
@@ -137,6 +139,9 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
                 <FollowsVIewOnUser
                   key={13}
                   page='followings'></FollowsVIewOnUser>
+              )}
+              {page === 'post' && (
+                <OpenPost key={13} session={session}></OpenPost>
               )}
             </motion.div>
           </motion.div>
