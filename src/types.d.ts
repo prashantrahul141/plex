@@ -87,6 +87,10 @@ interface IReturnComment {
   commentText: string;
 }
 
+interface PostComment {
+  commentText: string;
+}
+
 export type {
   IReturnUser,
   IReturnPost,
