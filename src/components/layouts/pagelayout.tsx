@@ -15,6 +15,7 @@ import AdditionalWidgets from '@components/common/additionalWidgets';
 import UserProfileView from '@components/views/userProfileVIew';
 import EditProfileForm from '@components/forms/editprofile/editprofileform';
 import FollowsViewOnProfile from '@components/views/Follows/followsViewOnProfile';
+import FollowsVIewOnUser from '@components/views/Follows/followsViewOnUser';
 
 type pages =
   | 'home'
@@ -26,7 +27,9 @@ type pages =
   | 'user'
   | 'edit profile'
   | 'followers profile'
-  | 'followings profile';
+  | 'followings profile'
+  | 'followers user'
+  | 'followings user';
 
 const PageLayout: FC<{ page: pages }> = ({ page }) => {
   const { data: session, status } = useSession();
@@ -122,6 +125,18 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
                 <FollowsViewOnProfile
                   key={11}
                   page='followings'></FollowsViewOnProfile>
+              )}
+
+              {page === 'followers user' && (
+                <FollowsVIewOnUser
+                  key={12}
+                  page='followers'></FollowsVIewOnUser>
+              )}
+
+              {page === 'followings user' && (
+                <FollowsVIewOnUser
+                  key={13}
+                  page='followings'></FollowsVIewOnUser>
               )}
             </motion.div>
           </motion.div>
