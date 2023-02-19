@@ -78,6 +78,7 @@ interface IFormInput {
 }
 
 interface IReturnComment {
+  id: string;
   _count: {
     CommentLikedByAuthor: number;
   };
