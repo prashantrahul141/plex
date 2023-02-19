@@ -3,7 +3,7 @@ import { api } from '@utils/api';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import type { Session } from 'next-auth';
-import CommentForm from '@components/forms/commentform';
+import LoadingComponent from '@components/common/loadingcomponent';
 
 const OpenPost: FC<{ session: Session }> = ({ session }) => {
   const router = useRouter();
@@ -22,8 +22,13 @@ const OpenPost: FC<{ session: Session }> = ({ session }) => {
   const postData = api.post.view.useQuery({ postId: postIdToFind });
 
   if (postData.status !== 'success') {
-    void router.push('/404');
-    return <></>;
+    return (
+      <div className='flex h-full w-full items-center justify-center'>
+        <div className='h-8 w-8'>
+          <LoadingComponent></LoadingComponent>
+        </div>
+      </div>
+    );
   }
 
   if (postData.data.posts === null) {
@@ -36,7 +41,6 @@ const OpenPost: FC<{ session: Session }> = ({ session }) => {
       <PostView
         currentUserID={session.user.id}
         data={{ post: postData.data.posts }}></PostView>
-      <CommentForm></CommentForm>
     </>
   );
 };
