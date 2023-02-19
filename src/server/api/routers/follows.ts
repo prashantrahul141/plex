@@ -96,7 +96,7 @@ export const FollowsRouter = createTRPCRouter({
           },
         },
         select: {
-          follower: {
+          following: {
             select: {
               name: true,
               username: true,
@@ -110,7 +110,7 @@ export const FollowsRouter = createTRPCRouter({
 
       return {
         follows: follows.map((eachFollow) => {
-          return eachFollow.follower;
+          return eachFollow.following;
         }),
       };
     }),
