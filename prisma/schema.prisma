@@ -130,13 +130,13 @@ model Comment {
 
 // authors liked a comment
 model CommentLikedByAuthor {
-    id String @id @default(cuid())
-
     comment   Comment @relation(fields: [commentId], references: [id])
     commentId String
 
     user   User   @relation(fields: [userId], references: [id])
     userId String
+
+    @@id([commentId, userId])
 }
 
 // User settings
