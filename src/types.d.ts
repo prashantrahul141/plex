@@ -76,6 +76,17 @@ interface IFormInput {
   } | null;
 }
 
+interface IReturnComment {
+  author: {
+    id: string;
+    name: string;
+    username: string;
+    image: string;
+    authorVerified: boolean;
+  };
+  commentText: string;
+}
+
 export type {
   IReturnUser,
   IReturnPost,
@@ -83,4 +94,5 @@ export type {
   IEditFormInput,
   IFormInput,
   IReturnSmallUser,
+  IReturnComment,
 };
