@@ -70,9 +70,10 @@ model User {
 
     authorPosts Post[] @relation("authorPosts")
 
-    Comment            Comment[]
-    LikedByAuthor      LikedByAuthor[]
-    bookmarkedByAuthor BookmarkedByAuthor[]
+    Comment              Comment[]
+    LikedByAuthor        LikedByAuthor[]
+    bookmarkedByAuthor   BookmarkedByAuthor[]
+    CommentLikedByAuthor CommentLikedByAuthor[]
 
     notifications Notification[]
 }
@@ -122,6 +123,19 @@ model Comment {
 
     post   Post   @relation(fields: [postId], references: [id])
     postId String
+
+    CommentLikedByAuthor CommentLikedByAuthor[]
+}
+
+// authors liked a comment
+model CommentLikedByAuthor {
+    id String @id @default(cuid())
+
+    comment   Comment @relation(fields: [commentId], references: [id])
+    commentId String
+
+    user   User   @relation(fields: [userId], references: [id])
+    userId String
 }
 
 // User settings
