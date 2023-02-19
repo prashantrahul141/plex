@@ -51,34 +51,6 @@ interface IReturnPost {
   };
 }
 
-interface IReturnPostView {
-  post: Post & {
-    LikedByAuthor: LikedByAuthor[];
-    BookmarkedByAuthor: BookmarkedByAuthor[];
-    _count: {
-      LikedByAuthor: number;
-      Comments: number;
-    };
-    Comment: {
-      commentText: string;
-      author: {
-        id: string;
-        name: string;
-        username: string;
-        image: string;
-        authorVerified: boolean;
-      };
-    };
-    Author: {
-      id: string;
-      name: string;
-      username: string;
-      image: string;
-      authorVerified: boolean;
-    };
-  };
-}
-
 interface IReturnUserEdit {
   name: string;
   username: string;
