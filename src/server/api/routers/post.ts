@@ -100,7 +100,7 @@ export const PostRouter = createTRPCRouter({
   view: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .query(async ({ input, ctx }) => {
-      const foundPost = await prisma.post.findUnique({
+      const posts = await prisma.post.findUnique({
         where: {
           id: input.postId,
         },
@@ -132,7 +132,7 @@ export const PostRouter = createTRPCRouter({
           },
         },
       });
-      return foundPost;
+      return { posts };
     }),
 
   // list posts for home page
