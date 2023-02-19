@@ -25,7 +25,9 @@ const CommentForm: FC<{ postId: string; authorImage: string }> = ({
   };
 
   return (
-    <form className='w-full px-1 py-2' onSubmit={handleSubmit(postComment)}>
+    <form
+      className='w-full border-b border-b-themePrimary-100/30 px-1 py-6'
+      onSubmit={handleSubmit(postComment)}>
       <div className='flex w-full items-center justify-center gap-2'>
         <Image
           alt='Avatar'
