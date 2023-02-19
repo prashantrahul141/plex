@@ -18,6 +18,11 @@ export const CommentsRouter = createTRPCRouter({
               CommentLikedByAuthor: true,
             },
           },
+          CommentLikedByAuthor: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
           commentText: true,
           createdOn: true,
           author: {
