@@ -19,6 +19,7 @@ export const CommentsRouter = createTRPCRouter({
             },
           },
           commentText: true,
+          createdOn: true,
           author: {
             select: {
               id: true,
@@ -67,5 +68,7 @@ export const CommentsRouter = createTRPCRouter({
           },
         },
       });
+
+      return createdComment;
     }),
 });
