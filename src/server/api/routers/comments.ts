@@ -3,6 +3,7 @@ import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { prisma } from 'src/server/db';
 
 export const CommentsRouter = createTRPCRouter({
+  // get comments for a post
   getComments: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .query(async ({ input, ctx }) => {
@@ -12,6 +13,11 @@ export const CommentsRouter = createTRPCRouter({
         },
         select: {
           id: true,
+          _count: {
+            select: {
+              CommentLikedByAuthor: true,
+            },
+          },
           commentText: true,
           author: {
             select: {
@@ -40,5 +46,26 @@ export const CommentsRouter = createTRPCRouter({
           ? currentUser.image
           : 'https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed',
       };
+    }),
+
+  // create comment on a post
+  create: protectedProcedure
+    .input(z.object({ postId: z.string(), commentText: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const createdComment = await prisma.comment.create({
+        data: {
+          author: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
+          commentText: input.commentText,
+          post: {
+            connect: {
+              id: input.postId,
+            },
+          },
+        },
+      });
     }),
 });
