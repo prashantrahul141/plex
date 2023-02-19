@@ -99,4 +99,5 @@ export type {
   IFormInput,
   IReturnSmallUser,
   IReturnComment,
+  PostComment,
 };
