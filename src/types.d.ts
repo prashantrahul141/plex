@@ -25,6 +25,13 @@ interface IReturnUser {
   isAuthor: boolean;
 }
 
+interface IReturnSmallUser {
+  name: string;
+  username: string;
+  bio: string | null;
+  image: string;
+}
+
 interface IReturnPost {
   post: Post & {
     LikedByAuthor: LikedByAuthor[];
@@ -74,4 +81,5 @@ export type {
   IReturnUserEdit,
   IEditFormInput,
   IFormInput,
+  IReturnSmallUser,
 };
