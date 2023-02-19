@@ -80,6 +80,7 @@ interface IReturnComment {
   _count: {
     CommentLikedByAuthor: number;
   };
+  CommentLikedByAuthor: Array;
   createdOn: Date;
   author: {
     id: string;
