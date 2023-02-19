@@ -2,24 +2,11 @@ import type { FC } from 'react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { MdVerified } from 'react-icons/md';
+import type { IReturnSmallUser } from 'src/types';
 
 const SmallProfileView: FC<{
-  userAvatar: string;
-  userName: string;
-  userUsername: string;
-  userBio: string;
-  userVerified: boolean;
-  isAuthor: boolean;
-  isFollowed: boolean;
-}> = ({
-  userAvatar,
-  userName,
-  userUsername,
-  userBio,
-  userVerified,
-  isAuthor,
-  isFollowed,
-}) => {
+  data: IReturnSmallUser;
+}> = ({ data }) => {
   const [following, setFollowing] = useState(isFollowed);
 
   const handleFollow = () => {
