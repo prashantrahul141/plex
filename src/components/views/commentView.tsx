@@ -43,9 +43,9 @@ const CommentView: FC<{ data: IReturnComment }> = ({ data }) => {
           </h5>
           &nbsp;
           {data.author.authorVerified && (
-            <h6 className='group/verified relative'>
+            <h6 className='group/verified relative  text-themePrimary-50'>
               <MdVerified></MdVerified>
-              <span className='absolute left-1/2 top-6 hidden w-max -translate-x-1/2 rounded-md bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide group-hover/verified:block'>
+              <span className='absolute left-1/2 top-6 hidden w-max -translate-x-1/2 rounded-md bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide text-themePrimary-50 group-hover/verified:block'>
                 This user is verified by the plex team.
               </span>
             </h6>
