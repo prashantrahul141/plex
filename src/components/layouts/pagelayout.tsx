@@ -14,7 +14,7 @@ import LoadingComponent from '@components/common/loadingcomponent';
 import AdditionalWidgets from '@components/common/additionalWidgets';
 import UserProfileView from '@components/views/userProfileVIew';
 import EditProfileForm from '@components/forms/editprofile/editprofileform';
-import FollowsView from '@components/views/Follows/followsView';
+import FollowsViewOnProfile from '@components/views/Follows/followsViewOnProfile';
 
 type pages =
   | 'home'
@@ -113,11 +113,15 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
               )}
 
               {page === 'followers profile' && (
-                <FollowsView key={10} page='followers'></FollowsView>
+                <FollowsViewOnProfile
+                  key={10}
+                  page='followers'></FollowsViewOnProfile>
               )}
 
               {page === 'followings profile' && (
-                <FollowsView key={11} page='followings'></FollowsView>
+                <FollowsViewOnProfile
+                  key={11}
+                  page='followings'></FollowsViewOnProfile>
               )}
             </motion.div>
           </motion.div>
