@@ -90,7 +90,7 @@ interface IReturnComment {
   commentText: string;
 }
 
-interface PostComment {
+interface IPostComment {
   commentText: string;
 }
 
@@ -102,5 +102,5 @@ export type {
   IFormInput,
   IReturnSmallUser,
   IReturnComment,
-  PostComment,
+  IPostComment,
 };
