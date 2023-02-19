@@ -30,6 +30,7 @@ interface IReturnSmallUser {
   username: string;
   bio: string | null;
   image: string;
+  authorVerified: boolean;
 }
 
 interface IReturnPost {
