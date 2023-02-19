@@ -14,6 +14,7 @@ import LoadingComponent from '@components/common/loadingcomponent';
 import AdditionalWidgets from '@components/common/additionalWidgets';
 import UserProfileView from '@components/views/userProfileVIew';
 import EditProfileForm from '@components/forms/editprofile/editprofileform';
+import FollowsView from '@components/views/Follows/followsView';
 
 type pages =
   | 'home'
@@ -23,7 +24,9 @@ type pages =
   | 'settings'
   | 'profile'
   | 'user'
-  | 'edit profile';
+  | 'edit profile'
+  | 'followers profile'
+  | 'followings profile';
 
 const PageLayout: FC<{ page: pages }> = ({ page }) => {
   const { data: session, status } = useSession();
@@ -107,6 +110,14 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
                   }
                   isCurrentUser={false}
                   session={session}></UserProfileView>
+              )}
+
+              {page === 'followers profile' && (
+                <FollowsView key={10} page='followers'></FollowsView>
+              )}
+
+              {page === 'followings profile' && (
+                <FollowsView key={11} page='followings'></FollowsView>
               )}
             </motion.div>
           </motion.div>
