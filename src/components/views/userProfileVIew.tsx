@@ -5,7 +5,7 @@ import LoadingComponent from '@components/common/loadingcomponent';
 import type { Session } from 'next-auth';
 import { useRouter } from 'next/router';
 import HeadComp from '@components/common/headcomponent';
-import PostList from '@components/lists/postsLists';
+import PostList from '@components/lists/postsList';
 
 const UserProfileView: FC<{
   isCurrentUser: boolean;

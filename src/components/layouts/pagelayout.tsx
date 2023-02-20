@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import NotificationsList from '@components/lists/notificationsList';
-import PostList from '@components/lists/postsLists';
+import PostList from '@components/lists/postsList';
 import BookmarksList from '@components/lists/bookmarksList';
 import TrendingList from '@components/lists/trendingList';
 import SettingsForm from '@components/forms/settingsform';
