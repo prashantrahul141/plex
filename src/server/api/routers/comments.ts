@@ -105,18 +105,20 @@ export const CommentsRouter = createTRPCRouter({
         },
       });
 
-      await prisma.notification.create({
-        data: {
-          url: `/${input.postAuthor.username}/${input.postId}`,
-          iconImage: createdComment.author.image,
-          text: `${createdComment.author.name} commented on your post.`,
-          User: {
-            connect: {
-              id: input.postAuthor.id,
+      if (input.postAuthor.id !== ctx.session.user.id) {
+        await prisma.notification.create({
+          data: {
+            url: `/${input.postAuthor.username}/${input.postId}`,
+            iconImage: createdComment.author.image,
+            text: `${createdComment.author.name} commented on your post.`,
+            User: {
+              connect: {
+                id: input.postAuthor.id,
+              },
             },
           },
-        },
-      });
+        });
+      }
 
       return createdComment;
     }),
