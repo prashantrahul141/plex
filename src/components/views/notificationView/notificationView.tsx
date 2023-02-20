@@ -3,12 +3,21 @@ import type { Notification } from '@prisma/client';
 import ReactTimeAgo from 'react-time-ago';
 import Image from 'next/image';
 import Link from 'next/link';
+import { api } from '@utils/api';
 
 const NotificationView: FC<{ data: Notification }> = ({ data }) => {
+  const markSeenMutation = api.notification.markSeen.useMutation();
+  const markSeen = async () => {
+    await markSeenMutation.mutateAsync({ notificationId: data.id });
+  };
+
   return (
     <Link
       href={data.url}
-      className='border-y-1 flex w-full items-center justify-center gap-2 border-b border-themePrimary-50/30 px-1 py-2 hover:bg-themePrimary-50/5'>
+      onClick={markSeen}
+      className={`border-y-1 flex w-full items-center justify-center gap-2 border-b border-themePrimary-50/30 px-1 py-2 hover:bg-themePrimary-50/5 ${
+        !data.seen ? 'bg-themePrimary-50/5' : ''
+      }`}>
       <div className='h-10 w-10 text-2xl text-themePrimary-50/95'>
         <Image
           alt='Icon'
