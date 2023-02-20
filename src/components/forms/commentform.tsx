@@ -3,13 +3,13 @@ import { api } from '@utils/api';
 import Image from 'next/image';
 import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import type { IPostComment } from 'src/types';
+import type { IPostComment, IReturnComment } from 'src/types';
 
 const CommentForm: FC<{
-  refetchCallback: () => Promise<void>;
+  addCreatedComment: (createdCommenet: IReturnComment) => void;
   postId: string;
   authorImage: string;
-}> = ({ refetchCallback, authorImage, postId }) => {
+}> = ({ addCreatedComment, authorImage, postId }) => {
   const {
     register,
     handleSubmit,
@@ -19,11 +19,11 @@ const CommentForm: FC<{
   const createCommentQuery = api.comments.create.useMutation();
   const postComment = async (data: IPostComment) => {
     resetField('commentText');
-    await createCommentQuery.mutateAsync({
+    const createdComment = await createCommentQuery.mutateAsync({
       commentText: data.commentText,
       postId,
     });
-    await refetchCallback();
+    addCreatedComment(createdComment);
   };
 
   return (
