@@ -23,7 +23,7 @@ const HeadComp: FC<{ headTitle?: string }> = ({ headTitle = undefined }) => {
         <meta content='Get together.' property='og:description' />
         <meta content='http://localhost:3000' property='og:url' />
         <meta content='' property='og:image' />
-        <meta content='#448fef' data-react-helmet='true' name='theme-color' />
+        <meta content='#141d31' data-react-helmet='true' name='theme-color' />
       </Head>
     </>
   );
