@@ -34,23 +34,21 @@ interface IReturnSmallUser {
   authorVerified: boolean;
 }
 
-interface IReturnPost {
-  post: Post & {
-    LikedByAuthor: LikedByAuthor[];
-    BookmarkedByAuthor: BookmarkedByAuthor[];
-    _count: {
-      LikedByAuthor: number;
-      Comments: number;
-    };
-    Author: {
-      id: string;
-      name: string;
-      username: string;
-      image: string;
-      authorVerified: boolean;
-    };
+type TReturnPost = Post & {
+  LikedByAuthor: LikedByAuthor[];
+  BookmarkedByAuthor: BookmarkedByAuthor[];
+  _count: {
+    LikedByAuthor: number;
+    Comments: number;
   };
-}
+  Author: {
+    id: string;
+    name: string;
+    username: string;
+    image: string;
+    authorVerified: boolean;
+  };
+};
 
 interface IReturnUserEdit {
   name: string;
@@ -100,7 +98,7 @@ interface IPostComment {
 
 export type {
   IReturnUser,
-  IReturnPost,
+  TReturnPost,
   IReturnUserEdit,
   IEditFormInput,
   IFormInput,
