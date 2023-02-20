@@ -5,10 +5,11 @@ import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import type { IPostComment } from 'src/types';
 
-const CommentForm: FC<{ postId: string; authorImage: string }> = ({
-  authorImage,
-  postId,
-}) => {
+const CommentForm: FC<{
+  refetchCallback: () => Promise<void>;
+  postId: string;
+  authorImage: string;
+}> = ({ refetchCallback, authorImage, postId }) => {
   const {
     register,
     handleSubmit,
@@ -22,6 +23,7 @@ const CommentForm: FC<{ postId: string; authorImage: string }> = ({
       commentText: data.commentText,
       postId,
     });
+    await refetchCallback();
   };
 
   return (
