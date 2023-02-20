@@ -11,6 +11,7 @@ export const CommentsRouter = createTRPCRouter({
         where: {
           postId: input.postId,
         },
+        orderBy: { CommentLikedByAuthor: { _count: 'desc' } },
         select: {
           id: true,
           _count: {
