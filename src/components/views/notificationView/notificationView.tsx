@@ -22,7 +22,7 @@ const NotificationView: FC<{ data: Notification }> = ({ data }) => {
         <Image
           alt='Icon'
           src={data.iconImage}
-          className='object-cover'
+          className='min-h-[2.4rem] min-w-[2.4rem] rounded-full object-cover'
           width={100}
           height={100}></Image>
       </div>
