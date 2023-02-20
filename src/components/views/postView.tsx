@@ -10,38 +10,38 @@ import { MdDeleteForever, MdVerified } from 'react-icons/md';
 import { BsBookmarkCheckFill, BsBookmarkHeart } from 'react-icons/bs';
 import BigImageView from '@components/views/bigImageView';
 import CommonAlert from '@components/common/commonAlert';
-import type { IReturnPost } from 'src/types';
+import type { TReturnPost } from 'src/types';
 import { env } from 'src/env/client.mjs';
 import { api } from '@utils/api';
 import ReactTimeAgo from 'react-time-ago';
 import { useRouter } from 'next/router';
 import { AiFillCloseCircle } from 'react-icons/ai';
 
-const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
+const PostView: FC<{ data: TReturnPost; currentUserID: string }> = ({
   data,
   currentUserID,
 }) => {
   const postImageLink = `https://res.cloudinary.com/${
     env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME
-  }/image/upload/${data.post.image || '#'}`;
+  }/image/upload/${data.image || '#'}`;
 
   const router = useRouter();
 
   const [postLikedState, setPostLiked] = useState(
-    data.post.LikedByAuthor.length > 0
+    data.LikedByAuthor.length > 0
   );
   const [likesCountState, setLikesCountState] = useState(
-    data.post._count.LikedByAuthor
+    data._count.LikedByAuthor
   );
   const [bookmarkedState, setBookmarkedState] = useState(
-    data.post.BookmarkedByAuthor.length > 0
+    data.BookmarkedByAuthor.length > 0
   );
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
   const [showBigImage, setShowBigImage] = useState(false);
   const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
   const [showDeleteMenu, setShowDeleteMenu] = useState(false);
 
-  const authorAdmin = currentUserID === data.post.Author.id;
+  const authorAdmin = currentUserID === data.Author.id;
 
   const likeQuery = api.post.like.useMutation();
   const bookmarkQuery = api.post.bookMark.useMutation();
@@ -52,7 +52,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
     setLikesCountState(likesCountState + (postLikedState ? -1 : 1));
     await likeQuery.mutateAsync({
       addLike: !postLikedState,
-      postId: data.post.id,
+      postId: data.id,
     });
   };
 
@@ -60,23 +60,23 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
     setBookmarkedState(!bookmarkedState);
     await bookmarkQuery.mutateAsync({
       addBookmark: !bookmarkedState,
-      postId: data.post.id,
+      postId: data.id,
     });
   };
 
   const handleDelete = async () => {
-    await deleteQuery.mutateAsync({ postId: data.post.id });
+    await deleteQuery.mutateAsync({ postId: data.id });
     setShowDeleteMenu(false);
   };
 
   return (
     <article className='group flex w-full gap-1 border-y border-themePrimary-100/20 p-2 text-themePrimary-50/95'>
       <div className='mr-2 h-12 min-h-[3rem] w-12 min-w-[3rem]'>
-        <Link href={`/${data.post.Author.username}`} className='mt-1 h-12 w-12'>
+        <Link href={`/${data.Author.username}`} className='mt-1 h-12 w-12'>
           <Image
             className='h-12 w-12 rounded-full object-cover'
-            src={data.post.Author.image}
-            alt={data.post.Author.name}
+            src={data.Author.image}
+            alt={data.Author.name}
             width={100}
             height={100}></Image>
         </Link>
@@ -84,14 +84,12 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
 
       <div className='w-full'>
         <div className='relative flex items-center'>
-          <Link
-            href={`/${data.post.Author.username}`}
-            className='flex items-center'>
+          <Link href={`/${data.Author.username}`} className='flex items-center'>
             <h5 className='font-mukta text-themePrimary-50/95 hover:underline'>
-              {data.post.Author.name}
+              {data.Author.name}
             </h5>
             &nbsp;
-            {data.post.Author.authorVerified && (
+            {data.Author.authorVerified && (
               <h6 className='group/verified relative'>
                 <MdVerified></MdVerified>
                 <span className='absolute left-1/2 top-6 hidden w-max -translate-x-1/2 rounded-md bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide group-hover/verified:block'>
@@ -101,7 +99,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
             )}
             &nbsp;
             <h6 className='font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline'>
-              @{data.post.Author.username}
+              @{data.Author.username}
             </h6>
             &nbsp;
             <span className='text-2xl leading-none text-themePrimary-50/70'>
@@ -110,7 +108,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
             &nbsp;
             <h6 className='cursor-default font-ibmplex text-xs tracking-tighter text-themePrimary-100/70'>
               <ReactTimeAgo
-                date={data.post.createdOn}
+                date={data.createdOn}
                 timeStyle={'twitter'}></ReactTimeAgo>
             </h6>
           </Link>
@@ -212,20 +210,20 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
 
         <span
           onClick={() =>
-            void router.push(`/${data.post.Author.username}/${data.post.id}`)
+            void router.push(`/${data.Author.username}/${data.id}`)
           }
           className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-none tracking-wide'>
-          {data.post.text}
+          {data.text}
         </span>
 
-        {data.post.image !== null && (
+        {data.image !== null && (
           <div className='select-none' onClick={() => setShowBigImage(true)}>
             <Image
               className='max-h-[30rem] w-max rounded-2xl border border-themePrimary-300/20 object-contain'
               width={800}
               height={800}
               src={postImageLink}
-              alt={data.post.text}></Image>
+              alt={data.text}></Image>
           </div>
         )}
 
@@ -250,13 +248,13 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
           <div className='flex flex-grow  items-center justify-center'>
             <Link
               title='Comments'
-              href={`${data.post.Author.username}/${data.post.id}`}
+              href={`${data.Author.username}/${data.id}`}
               className='group/icon flex w-fit cursor-pointer items-center justify-center hover:text-themePrimary-300'>
               <span className='rounded-full p-1 text-lg group-hover/icon:bg-themePrimary-300/10'>
                 <BiCommentDetail className=''></BiCommentDetail>
               </span>
               &nbsp;
-              {data.post._count.Comments}
+              {data._count.Comments}
             </Link>
           </div>
 
@@ -265,7 +263,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
               onClick={async () => {
                 await navigator.clipboard.writeText(
                   typeof window !== 'undefined'
-                    ? `${window.location.host}/${data.post.Author.username}/${data.post.id}`
+                    ? `${window.location.host}/${data.Author.username}/${data.id}`
                     : '/'
                 );
                 setShowCopyShareLink(true);
@@ -300,7 +298,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
       </AnimatePresence>
 
       <AnimatePresence>
-        {showBigImage && data.post.image !== null && (
+        {showBigImage && data.image !== null && (
           <BigImageView
             callBackFun={(_state: boolean) => setShowBigImage(_state)}
             imageUrl={postImageLink}></BigImageView>
