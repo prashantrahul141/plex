@@ -346,6 +346,6 @@ export const PostRouter = createTRPCRouter({
       },
     });
 
-    return { bookmarkedPosts };
+    return bookmarkedPosts;
   }),
 });
