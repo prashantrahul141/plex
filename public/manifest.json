@@ -5,6 +5,36 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
+  "shortcuts": [
+    {
+      "name": "Home",
+      "short_name": "Home",
+      "description": "Home Page",
+      "url": "/home",
+      "icons": [{ "src": "/icons/home-icon-48x48.png", "sizes": "48x48" }]
+    },
+    {
+      "name": "Profile",
+      "short_name": "Profile",
+      "description": "Your Profile Page",
+      "url": "/profile",
+      "icons": [{ "src": "/icons/profile-icon-48x48.png", "sizes": "48x48" }]
+    },
+    {
+      "name": "Trending",
+      "short_name": "Trending",
+      "description": "Trending Page",
+      "url": "/trending",
+      "icons": [{ "src": "/icons/trending-icon-48x48.png", "sizes": "48x48" }]
+    },
+    {
+      "name": "Settings",
+      "short_name": "Settings",
+      "description": "Settings Page",
+      "url": "/settings",
+      "icons": [{ "src": "/icons/settings-icon-48x48.png", "sizes": "48x48" }]
+    }
+  ],
   "icons": [
     {
       "src": "icons/icon-192x192.png",
