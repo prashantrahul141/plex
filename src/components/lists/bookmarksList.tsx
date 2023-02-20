@@ -17,11 +17,11 @@ const BookmarksList: FC<{ authorId: string }> = ({ authorId }) => {
 
   return (
     <div className=''>
-      {bookmarkedPosts.data.bookmarkedPosts.map((eachPost) => {
+      {bookmarkedPosts.data.map((eachPost) => {
         return (
           <PostView
             key={eachPost.post.id}
-            data={{ post: eachPost.post }}
+            data={eachPost.post}
             currentUserID={authorId}></PostView>
         );
       })}
