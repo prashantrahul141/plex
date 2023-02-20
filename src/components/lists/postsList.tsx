@@ -5,24 +5,46 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import type { TReturnPost } from 'src/types';
+import POSTS_PER_PAGE from 'src/constantValues';
 
 const PostList: FC<{ userId?: string; authorId: string }> = ({
   userId,
   authorId,
 }) => {
-  const [skipPosts, setSkipPosts] = useState(0);
+  const [skipPosts, setSkipPosts] = useState(POSTS_PER_PAGE);
   const [postsData, setPostsData] = useState<Array<TReturnPost>>([]);
+  const [loadingPosts, setLoadingPosts] = useState(false);
 
   const postQuery = userId
+    ? api.post.listFromUserId.useQuery({ userId: userId })
+    : api.post.list.useQuery({});
+
+  const loadMorePostsQuery = userId
     ? api.post.listFromUserId.useQuery({ userId: userId, skip: skipPosts })
     : api.post.list.useQuery({ skip: skipPosts });
 
+  // initial data load
   useEffect(() => {
     if (postQuery.data && postQuery.data.posts) {
-      setPostsData((prevPosts) => [...prevPosts, ...postQuery.data.posts]);
+      setPostsData((prevPostsData) => [
+        ...prevPostsData,
+        ...postQuery.data.posts,
+      ]);
     }
-    return () => setPostsData([]);
-  }, []);
+  }, [postQuery.data]);
+
+  const loadMorePosts = async () => {
+    setLoadingPosts(true);
+    setSkipPosts((prevSkipPosts) => prevSkipPosts + POSTS_PER_PAGE);
+    await loadMorePostsQuery.refetch();
+    const newPostsData = loadMorePostsQuery.data?.posts;
+    if (newPostsData) {
+      setPostsData((prevPostsData) => {
+        return [...prevPostsData, ...newPostsData];
+      });
+    }
+    setLoadingPosts(false);
+  };
 
   if (postQuery.status !== 'success') {
     return (
@@ -36,25 +58,19 @@ const PostList: FC<{ userId?: string; authorId: string }> = ({
 
   return (
     <div className=''>
-      {postsData.map((eachPost, index) => {
-        if (index === postQuery.data.posts.length - 1) {
-          return (
-            <div key={eachPost.id} className='border border-red-400'>
-              <PostView
-                key={eachPost.id}
-                data={eachPost}
-                currentUserID={authorId}></PostView>
-            </div>
-          );
-        } else {
-          return (
-            <PostView
-              key={eachPost.id}
-              data={eachPost}
-              currentUserID={authorId}></PostView>
-          );
-        }
+      {postsData.map((eachPost) => {
+        return (
+          <PostView
+            key={eachPost.id}
+            data={eachPost}
+            currentUserID={authorId}></PostView>
+        );
       })}
+      {!loadingPosts && (
+        <button className='btn' type='button' onClick={loadMorePosts}>
+          load more
+        </button>
+      )}
     </div>
   );
 };
