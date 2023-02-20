@@ -261,11 +261,21 @@ const PostView: FC<{
           <div className='flex flex-grow items-center justify-center'>
             <button
               onClick={async () => {
-                await navigator.clipboard.writeText(
+                const shareUrl =
                   typeof window !== 'undefined'
-                    ? `${window.location.host}/${data.Author.username}/${data.id}`
-                    : '/'
-                );
+                    ? `${window.location.origin}/${data.Author.username}/${data.id}`
+                    : '/';
+
+                const shareData = {
+                  text: 'Share this post',
+                  title: 'Share this post',
+                  url: shareUrl,
+                };
+                if (navigator.canShare(shareData)) {
+                  await navigator.share(shareData);
+                }
+
+                await navigator.clipboard.writeText(shareUrl);
                 setShowCopyShareLink(true);
                 setTimeout(() => {
                   setShowCopyShareLink(false);
