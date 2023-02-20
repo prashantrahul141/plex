@@ -57,7 +57,13 @@ export const CommentsRouter = createTRPCRouter({
 
   // create comment on a post
   create: protectedProcedure
-    .input(z.object({ postId: z.string(), commentText: z.string() }))
+    .input(
+      z.object({
+        postAuthor: z.object({ id: z.string(), username: z.string() }),
+        postId: z.string(),
+        commentText: z.string(),
+      })
+    )
     .mutation(async ({ input, ctx }) => {
       const createdComment = await prisma.comment.create({
         data: {
@@ -94,6 +100,19 @@ export const CommentsRouter = createTRPCRouter({
               name: true,
               username: true,
               authorVerified: true,
+            },
+          },
+        },
+      });
+
+      await prisma.notification.create({
+        data: {
+          url: `/${input.postAuthor.username}/${input.postId}`,
+          iconImage: createdComment.author.image,
+          text: `${createdComment.author.name} commented on your post!`,
+          User: {
+            connect: {
+              id: input.postAuthor.id,
             },
           },
         },
