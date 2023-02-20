@@ -73,6 +73,30 @@ export const CommentsRouter = createTRPCRouter({
             },
           },
         },
+        select: {
+          id: true,
+          _count: {
+            select: {
+              CommentLikedByAuthor: true,
+            },
+          },
+          CommentLikedByAuthor: {
+            where: {
+              userId: ctx.session.user.id,
+            },
+          },
+          commentText: true,
+          createdOn: true,
+          author: {
+            select: {
+              id: true,
+              image: true,
+              name: true,
+              username: true,
+              authorVerified: true,
+            },
+          },
+        },
       });
 
       return createdComment;
