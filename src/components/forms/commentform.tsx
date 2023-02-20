@@ -9,7 +9,8 @@ const CommentForm: FC<{
   addCreatedComment: (createdCommenet: IReturnComment) => void;
   postId: string;
   authorImage: string;
-}> = ({ addCreatedComment, authorImage, postId }) => {
+  postAuthor: { id: string; username: string };
+}> = ({ addCreatedComment, authorImage, postId, postAuthor }) => {
   const {
     register,
     handleSubmit,
@@ -20,6 +21,7 @@ const CommentForm: FC<{
   const postComment = async (data: IPostComment) => {
     resetField('commentText');
     const createdComment = await createCommentQuery.mutateAsync({
+      postAuthor: postAuthor,
       commentText: data.commentText,
       postId,
     });
