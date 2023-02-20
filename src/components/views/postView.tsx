@@ -172,7 +172,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
                     type: 'spring',
                     duration: 0.3,
                   }}
-                  className='absolute left-1/2 z-20 h-max w-60 rounded-md border border-themePrimary-300/50 bg-baseBackground-100 py-4 text-themePrimary-50/80'>
+                  className='absolute top-0 left-1/2 z-20 h-max w-60 rounded-md border border-themePrimary-300/50 bg-baseBackground-100 py-4 text-themePrimary-50/80'>
                   <header className='flex h-fit w-full px-4'>
                     <h2 className='flex-grow text-center font-mukta text-base tracking-wide text-themePrimary-50/95'></h2>
 
