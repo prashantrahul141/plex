@@ -18,7 +18,7 @@ const TopBarNavigation: FC<{
   const unseenNotifications = api.notification.getUnseenNumber.useQuery();
 
   return (
-    <nav className='relative flex h-12 w-full max-w-6xl select-none pt-2 backdrop-blur-sm backdrop-brightness-75'>
+    <nav className='relative flex h-12 w-full select-none pt-2 backdrop-blur-sm backdrop-brightness-75'>
       <Link href={'/'} className='absolute left-2 select-none'>
         <Image
           priority
@@ -28,7 +28,7 @@ const TopBarNavigation: FC<{
           height={32}></Image>
       </Link>
 
-      <div
+      <button
         onClick={() => {
           setShowNavBarMenu(!showNavBarMenu);
         }}
@@ -140,7 +140,7 @@ const TopBarNavigation: FC<{
             </>
           )}
         </AnimatePresence>
-      </div>
+      </button>
     </nav>
   );
 };
