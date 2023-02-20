@@ -14,7 +14,7 @@ const CommentForm: FC<{ postId: string; authorImage: string }> = ({
     handleSubmit,
     resetField,
     formState: { errors },
-  } = useForm<IPostComment>({ mode: 'all' });
+  } = useForm<IPostComment>({});
   const createCommentQuery = api.comments.create.useMutation();
   const postComment = async (data: IPostComment) => {
     resetField('commentText');
