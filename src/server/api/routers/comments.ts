@@ -109,7 +109,7 @@ export const CommentsRouter = createTRPCRouter({
         data: {
           url: `/${input.postAuthor.username}/${input.postId}`,
           iconImage: createdComment.author.image,
-          text: `${createdComment.author.name} commented on your post!`,
+          text: `${createdComment.author.name} commented on your post.`,
           User: {
             connect: {
               id: input.postAuthor.id,
