@@ -41,7 +41,7 @@ const OpenPost: FC<{ session: Session }> = ({ session }) => {
     <>
       <PostView
         currentUserID={session.user.id}
-        data={{ post: postData.data.posts }}></PostView>
+        data={postData.data.posts}></PostView>
       <CommentList postId={postData.data.posts.id}></CommentList>
     </>
   );
