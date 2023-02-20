@@ -17,6 +17,9 @@
 /out/
 next-env.d.ts
 
+# pwa
+/public/*.js
+
 # production
 /build
 
