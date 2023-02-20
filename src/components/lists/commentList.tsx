@@ -7,7 +7,10 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import type { IReturnComment } from 'src/types';
 
-const CommentList: FC<{ postId: string }> = ({ postId }) => {
+const CommentList: FC<{
+  postId: string;
+  postAuthor: { id: string; username: string };
+}> = ({ postId, postAuthor }) => {
   const router = useRouter();
   const commentsQuery = api.comments.getComments.useQuery({ postId });
   const [commentsData, setCommentsData] = useState<Array<IReturnComment>>([]);
@@ -36,6 +39,7 @@ const CommentList: FC<{ postId: string }> = ({ postId }) => {
   return (
     <div>
       <CommentForm
+        postAuthor={postAuthor}
         addCreatedComment={(createdComment: IReturnComment) => {
           setCommentsData((prevCommentsData) => [
             ...prevCommentsData,
