@@ -6,6 +6,7 @@ import { getNavMenuTabs } from 'src/constants';
 import { AnimatePresence, motion } from 'framer-motion';
 import { HiOutlinePencil, HiPencil } from 'react-icons/hi';
 import CreatePostForm from '@components/forms/createpostform';
+import { api } from '@utils/api';
 
 const SideBarNavigation: FC<{
   activeTab: string;
@@ -14,6 +15,8 @@ const SideBarNavigation: FC<{
 }> = ({ activeTab, authorAvatar, authorName }) => {
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
   const iconSize = 28;
+
+  const unseenNotifications = api.notification.getUnseenNumber.useQuery();
 
   return (
     <nav className='flex h-screen w-max flex-col border-r border-themePrimary-100/40 px-4 pt-4 lg:px-12'>
@@ -71,6 +74,13 @@ const SideBarNavigation: FC<{
                 <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm  not-italic leading-relaxed text-black group-hover:block xl:group-hover:hidden'>
                   {eachTab.name}
                 </span>
+                {eachTab.name === 'Notifications' &&
+                  unseenNotifications.data &&
+                  unseenNotifications.data > 0 && (
+                    <span className='absolute top-0 right-0 z-10 flex h-fit min-h-[1.1rem] w-fit min-w-[1.1rem] items-center justify-center rounded-full bg-themePrimary-400 font-ibmplex text-[.5rem] not-italic leading-none text-themePrimary-50'>
+                      {unseenNotifications.data}
+                    </span>
+                  )}
                 <span
                   className={`ml-2 hidden font-mukta text-xl font-thin not-italic tracking-wide xl:block ${
                     activeTab.toLowerCase() === eachTab.name.toLowerCase()
