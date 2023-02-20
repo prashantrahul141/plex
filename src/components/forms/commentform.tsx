@@ -41,6 +41,10 @@ const CommentForm: FC<{ postId: string; authorImage: string }> = ({
           className='textarea h-12 flex-grow'
           placeholder='Your comment'
           {...register('commentText', {
+            required: {
+              value: true,
+              message: 'forgot to write something here?',
+            },
             maxLength: { value: 200, message: 'Too long for a comment.' },
           })}></textarea>
 
@@ -50,7 +54,7 @@ const CommentForm: FC<{ postId: string; authorImage: string }> = ({
           Comment
         </button>
       </div>
-      <div className='pl-14'>
+      <div className='pl-14 pt-2'>
         {errors.commentText && (
           <ErrorMessage message={errors.commentText.message}></ErrorMessage>
         )}
