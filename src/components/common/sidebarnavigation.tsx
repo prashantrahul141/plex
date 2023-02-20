@@ -75,7 +75,7 @@ const SideBarNavigation: FC<{
                   {eachTab.name}
                 </span>
                 {eachTab.name === 'Notifications' &&
-                  unseenNotifications.data &&
+                  unseenNotifications.data !== undefined &&
                   unseenNotifications.data > 0 && (
                     <span className='absolute top-0 right-0 z-10 flex h-fit min-h-[1.1rem] w-fit min-w-[1.1rem] items-center justify-center rounded-full bg-themePrimary-400 font-ibmplex text-[.5rem] not-italic leading-none text-themePrimary-50'>
                       {unseenNotifications.data}
