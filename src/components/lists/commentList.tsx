@@ -36,8 +36,11 @@ const CommentList: FC<{ postId: string }> = ({ postId }) => {
   return (
     <div>
       <CommentForm
-        refetchCallback={async () => {
-          await commentsQuery.refetch();
+        addCreatedComment={(createdComment: IReturnComment) => {
+          setCommentsData((prevCommentsData) => [
+            ...prevCommentsData,
+            createdComment,
+          ]);
         }}
         postId={postId}
         authorImage={commentsQuery.data.currenUserImage}></CommentForm>
