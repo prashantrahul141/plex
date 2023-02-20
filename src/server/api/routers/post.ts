@@ -3,6 +3,7 @@ import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { v2 as cloudinary } from 'cloudinary';
 import { env } from 'src/env/server.mjs';
 import { prisma } from 'src/server/db';
+import POSTS_PER_PAGE from 'src/constantValues';
 
 export const PostRouter = createTRPCRouter({
   // gets image signature for client to upload
@@ -140,7 +141,7 @@ export const PostRouter = createTRPCRouter({
     .input(z.object({ skip: z.number().default(0) }))
     .query(async ({ input, ctx }) => {
       const posts = await prisma.post.findMany({
-        take: 20,
+        take: POSTS_PER_PAGE,
         skip: input.skip,
         orderBy: { createdOn: 'asc' },
         include: {
@@ -179,7 +180,7 @@ export const PostRouter = createTRPCRouter({
     .input(z.object({ userId: z.string(), skip: z.number().default(0) }))
     .query(async ({ input, ctx }) => {
       const posts = await prisma.post.findMany({
-        take: 20,
+        take: POSTS_PER_PAGE,
         skip: input.skip,
         orderBy: { createdOn: 'asc' },
         where: {
