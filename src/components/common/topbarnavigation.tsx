@@ -6,6 +6,7 @@ import { getNavMenuTabs } from 'src/constants';
 import { AnimatePresence, motion } from 'framer-motion';
 import CreatePostForm from '@components/forms/createpostform';
 import { HiOutlinePencil } from 'react-icons/hi';
+import { api } from '@utils/api';
 
 const TopBarNavigation: FC<{
   activeTab: string;
@@ -14,6 +15,7 @@ const TopBarNavigation: FC<{
 }> = ({ activeTab, authorAvatar, authorName }) => {
   const [showNavBarMenu, setShowNavBarMenu] = useState(false);
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
+  const unseenNotifications = api.notification.getUnseenNumber.useQuery();
 
   return (
     <nav className='relative flex h-12 w-full max-w-6xl select-none pt-2 backdrop-blur-sm backdrop-brightness-75'>
@@ -94,6 +96,13 @@ const TopBarNavigation: FC<{
                         }`}>
                         {eachMenuTab.name}
                       </span>
+                      {eachMenuTab.name === 'Notifications' &&
+                        unseenNotifications.data !== undefined &&
+                        unseenNotifications.data > 0 && (
+                          <span className='right-0 z-10 ml-1 flex h-fit min-h-[1.1rem] w-fit min-w-[1.1rem] items-center justify-center rounded-full bg-themePrimary-400 font-ibmplex text-[.5rem] not-italic leading-none text-themePrimary-50'>
+                            {unseenNotifications.data}
+                          </span>
+                        )}
                     </Link>
                   );
                 })}
