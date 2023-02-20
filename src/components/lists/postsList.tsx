@@ -2,6 +2,7 @@ import LoadingComponent from '@components/common/loadingcomponent';
 import PostView from '@components/views/postView';
 import { api } from '@utils/api';
 import type { FC } from 'react';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import type { TReturnPost } from 'src/types';
@@ -14,6 +15,8 @@ const PostList: FC<{ userId?: string; authorId: string }> = ({
   const [skipPosts, setSkipPosts] = useState(POSTS_PER_PAGE);
   const [postsData, setPostsData] = useState<Array<TReturnPost>>([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
+  const [isMore, setIsMore] = useState(true);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const postQuery = userId
     ? api.post.listFromUserId.useQuery({ userId: userId })
@@ -31,20 +34,51 @@ const PostList: FC<{ userId?: string; authorId: string }> = ({
         ...postQuery.data.posts,
       ]);
     }
+    return () => {
+      setPostsData([]);
+    };
   }, [postQuery.data]);
 
   const loadMorePosts = async () => {
-    setLoadingPosts(true);
-    setSkipPosts((prevSkipPosts) => prevSkipPosts + POSTS_PER_PAGE);
-    await loadMorePostsQuery.refetch();
-    const newPostsData = loadMorePostsQuery.data?.posts;
-    if (newPostsData) {
-      setPostsData((prevPostsData) => {
-        return [...prevPostsData, ...newPostsData];
-      });
+    if (isMore) {
+      setSkipPosts((prevSkipPosts) => prevSkipPosts + POSTS_PER_PAGE);
+      await loadMorePostsQuery.refetch();
+      const newPostsData = loadMorePostsQuery.data?.posts;
+      if (newPostsData) {
+        if (newPostsData.length === 0) {
+          setIsMore(false);
+        }
+        if (isMore) {
+          setPostsData((prevPostsData) => {
+            return [...prevPostsData, ...newPostsData];
+          });
+        }
+      }
     }
     setLoadingPosts(false);
   };
+
+  // adding intersection observer
+  useEffect(() => {
+    const cachedRef = loadMoreRef.current;
+    if (cachedRef) {
+      const observer = new IntersectionObserver((Entry) => {
+        if (Entry[0]?.isIntersecting && !loadingPosts) {
+          setLoadingPosts(true);
+          loadMorePosts()
+            .then(() => {
+              console.log();
+            })
+            .catch(() => {
+              console.log();
+            });
+        }
+      });
+      observer.observe(cachedRef);
+      return () => observer.unobserve(cachedRef);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadMoreRef.current]);
 
   if (postQuery.status !== 'success') {
     return (
@@ -66,10 +100,15 @@ const PostList: FC<{ userId?: string; authorId: string }> = ({
             currentUserID={authorId}></PostView>
         );
       })}
-      {!loadingPosts && (
-        <button className='btn' type='button' onClick={loadMorePosts}>
-          load more
-        </button>
+      {!loadingPosts && isMore && (
+        <div className='h-2 w-2' ref={loadMoreRef}></div>
+      )}
+      {loadingPosts && (
+        <div className='flex h-12 w-full items-center justify-center'>
+          <div className='h-8 w-8'>
+            <LoadingComponent></LoadingComponent>
+          </div>
+        </div>
       )}
     </div>
   );
