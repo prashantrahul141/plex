@@ -17,10 +17,10 @@ import ReactTimeAgo from 'react-time-ago';
 import { useRouter } from 'next/router';
 import { AiFillCloseCircle } from 'react-icons/ai';
 
-const PostView: FC<{ data: TReturnPost; currentUserID: string }> = ({
-  data,
-  currentUserID,
-}) => {
+const PostView: FC<{
+  data: TReturnPost;
+  currentUserID: string;
+}> = ({ data, currentUserID }) => {
   const postImageLink = `https://res.cloudinary.com/${
     env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME
   }/image/upload/${data.image || '#'}`;
