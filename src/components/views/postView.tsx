@@ -117,7 +117,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
 
           {authorAdmin && (
             <button
-              title="Post Menu"
+              title='Post Menu'
               onClick={() => setShowHamMenuOptions(!showHamMenuOptions)}
               className='absolute right-4 top-1/2 block rounded-full px-2 hover:bg-themePrimary-50/10 group-hover:block sm:hidden'>
               <SlOptions></SlOptions>
@@ -138,7 +138,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
                     type: 'spring',
                     duration: 0.3,
                   }}
-                  className='absolute z-10 rounded-md border border-themePrimary-300/50 bg-baseBackground-100/95 py-1 text-themePrimary-50/80'>
+                  className='absolute z-10 rounded-md border border-themePrimary-300/50 bg-baseBackground-100 py-1 text-themePrimary-50/80'>
                   <button
                     onClick={() => setShowDeleteMenu(true)}
                     className='group/btn flex items-center justify-center py-1 px-2 font-mukta text-base font-light leading-none tracking-wide hover:bg-red-500/80 hover:text-themePrimary-50'>
@@ -172,7 +172,7 @@ const PostView: FC<{ data: IReturnPost; currentUserID: string }> = ({
                     type: 'spring',
                     duration: 0.3,
                   }}
-                  className='absolute left-1/2 z-20 h-max w-60 rounded-md border border-themePrimary-300/50 bg-baseBackground-100/95 py-4 text-themePrimary-50/80'>
+                  className='absolute left-1/2 z-20 h-max w-60 rounded-md border border-themePrimary-300/50 bg-baseBackground-100 py-4 text-themePrimary-50/80'>
                   <header className='flex h-fit w-full px-4'>
                     <h2 className='flex-grow text-center font-mukta text-base tracking-wide text-themePrimary-50/95'></h2>
 

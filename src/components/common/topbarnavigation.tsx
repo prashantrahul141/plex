@@ -56,7 +56,7 @@ const TopBarNavigation: FC<{
                   type: 'spring',
                   duration: 0.3,
                 }}
-                className={`absolute z-10 rounded-md border border-themePrimary-50/10 bg-baseBackground-100/95 p-2`}>
+                className={`absolute z-10 rounded-md border border-themePrimary-50/10 bg-baseBackground-100 p-2`}>
                 <div
                   onClick={() => setShowCreatePostForm(true)}
                   className={`flex items-center rounded-md py-1 px-2 `}>

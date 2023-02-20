@@ -7,7 +7,7 @@ const TrendingSideView: FC<{
   subText?: string;
 }> = ({ hashTag, postsNumber, subText }) => {
   return (
-    <article className='rounded-xs group bg-baseBackground-100/80 p-2 hover:bg-baseBackground-100/95'>
+    <article className='rounded-xs group bg-baseBackground-100/80 p-2 hover:bg-baseBackground-100'>
       <Link className='' href={`/trending?query=${hashTag}`}>
         <span className=' font-ibmplex text-xs text-themePrimary-50/40'>
           {postsNumber} Posts
