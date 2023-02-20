@@ -17,7 +17,7 @@ const HeadComp: FC<{ headTitle?: string }> = ({ headTitle = undefined }) => {
           charSet='UTF-8'
           content='A Social Media Application.'
         />
-        {/* <link rel='manifest' href='/manifest.json'></link> */}
+        <link rel='manifest' href='/manifest.json'></link>
         <meta name='darkreader-lock' />
         <meta content='Plex' property='og:title' />
         <meta content='Get together.' property='og:description' />
