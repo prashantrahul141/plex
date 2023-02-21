@@ -64,7 +64,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ ease: 'easeInOut', duration: 0.2 }}
+            transition={{ ease: 'easeInOut', duration: 0.1 }}
             key={0}
             className='max-w-lg overflow-auto sm:min-w-[40rem] md:border-r md:border-themePrimary-100/40'>
             <h2
