@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -22,9 +23,14 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
 
   const {
     register,
+    setFocus,
     formState: { errors },
     handleSubmit,
   } = useForm<IFormInput>({ mode: 'all' });
+
+  useEffect(() => {
+    setFocus('postText');
+  }, [setFocus]);
 
   const [postImageState, setPostImageState] = useState<File | null>(null);
   const [postImageObjectUrlState, setPostImageObjectUrlState] = useState<
