@@ -7,6 +7,7 @@ import ReactTimeAgo from 'react-time-ago';
 import { MdVerified } from 'react-icons/md';
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
 import { api } from '@utils/api';
+import CommentViewText from '@components/views/commentView/commentViewText';
 
 const CommentView: FC<{ data: IReturnComment }> = ({ data }) => {
   const [commentLiked, setCommentLiked] = useState(
@@ -66,7 +67,7 @@ const CommentView: FC<{ data: IReturnComment }> = ({ data }) => {
           </h6>
         </Link>
         <span className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-none tracking-wide text-themePrimary-50/95'>
-          {data.commentText}
+          <CommentViewText text={data.commentText}></CommentViewText>
         </span>
 
         <div className='mt-3 select-none text-themePrimary-50/80'>
