@@ -271,15 +271,16 @@ const PostView: FC<{
                   title: 'Share this post',
                   url: shareUrl,
                 };
-                if (navigator.canShare(shareData)) {
-                  await navigator.share(shareData);
-                }
 
                 await navigator.clipboard.writeText(shareUrl);
                 setShowCopyShareLink(true);
                 setTimeout(() => {
                   setShowCopyShareLink(false);
                 }, 3000);
+
+                if (navigator.canShare(shareData)) {
+                  await navigator.share(shareData);
+                }
               }}
               title='Share'
               className='w-fit cursor-pointer  items-center justify-center rounded-full p-1 text-lg hover:bg-green-300/10  hover:text-green-400'>
