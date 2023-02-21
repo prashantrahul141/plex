@@ -1,82 +1,62 @@
 import type { FC } from 'react';
 import Link from 'next/link';
+import reactStringReplace from 'react-string-replace';
 
 const ProfileViewBio: FC<{
   bioText: string | null;
   preserveWhitespace?: boolean;
 }> = ({ bioText, preserveWhitespace = true }) => {
   const parseBio = (text: string) => {
-    const bioArrayLines = text.split('\n');
+    const mentionedText = reactStringReplace(text, /(@\S+)/gi, (match, i) => {
+      return (
+        <Link
+          title={match}
+          key={match + i.toString()}
+          className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
+          href={`/${match.substring(1, match.length)}`}>
+          {match}
+        </Link>
+      );
+    });
 
-    const bioArray: Array<string[]> = [];
-    for (let i = 0; i < bioArrayLines.length; i++) {
-      const element = bioArrayLines[i];
-      if (element) {
-        bioArray.push(element.split(' '));
+    const hashtagedText = reactStringReplace(
+      mentionedText,
+      /(#\S+)/gi,
+      (match, i) => {
+        return (
+          <Link
+            key={match + i.toString()}
+            title={match}
+            className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
+            href={`/trending?q=${match.substring(1, match.length)}`}>
+            {match}
+          </Link>
+        );
       }
-    }
+    );
 
-    const resultedBio: Array<JSX.Element> = [];
-    for (let i = 0; i < bioArray.length; i++) {
-      const element = bioArray[i];
-
-      if (element) {
-        for (let j = 0; j < element.length; j++) {
-          const childElement = element[j];
-
-          if (childElement) {
-            try {
-              const bioUrl = new URL(childElement);
-              resultedBio.push(
-                <>
-                  <Link
-                    className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
-                    key={i}
-                    title={bioUrl.origin}
-                    href={bioUrl.href}>
-                    {`${bioUrl.hostname}`}
-                  </Link>
-                  <span> </span>
-                </>
-              );
-              continue;
-            } catch {}
-
-            const startLetter = childElement[0];
-            if (startLetter) {
-              if (startLetter === '@') {
-                resultedBio.push(
-                  <>
-                    <Link
-                      className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
-                      key={i}
-                      title={childElement}
-                      href={`/${childElement.substring(
-                        1,
-                        childElement.length
-                      )}`}>
-                      {`${childElement}`}
-                    </Link>
-                    <span> </span>
-                  </>
-                );
-                continue;
-              }
-            }
-
-            resultedBio.push(
-              <>
-                <span key={i}>{`${childElement}`}</span>
-                <span> </span>
-              </>
-            );
-          }
+    const urlText = reactStringReplace(
+      hashtagedText,
+      /(https?:\/\/\S+)/g,
+      (match, i) => {
+        try {
+          const url = new URL(match);
+          return (
+            <Link
+              title={match}
+              key={match + i.toString()}
+              className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
+              href={url}>
+              {url.hostname}
+            </Link>
+          );
+        } catch {
+          return match;
         }
-        resultedBio.push(<span>{'\n'}</span>);
       }
-    }
+    );
 
-    return resultedBio;
+    return urlText;
   };
 
   if (bioText) {
