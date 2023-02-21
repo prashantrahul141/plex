@@ -69,7 +69,9 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
             className='max-w-lg overflow-auto sm:min-w-[40rem] md:border-r md:border-themePrimary-100/40'>
             <h2
               key={1}
-              className='hidden border-b border-themePrimary-100/40 px-3 py-4 font-mukta text-2xl capitalize tracking-wide text-themePrimary-50/90 sm:block'>
+              className={`hidden border-b border-themePrimary-100/40 px-3 py-4 font-mukta text-2xl tracking-wide text-themePrimary-50/90 sm:block ${
+                !['user', 'profile'].includes(page) ? `capitalize` : ``
+              }`}>
               {['user', 'profile'].includes(page) ? layoutTitle : page}
             </h2>
             <motion.div
