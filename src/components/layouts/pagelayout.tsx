@@ -73,9 +73,9 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
               {['user', 'profile'].includes(page) ? layoutTitle : page}
             </h2>
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: '90%' }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, height: 0, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, height: '90%', filter: 'blur(0px)' }}
+              exit={{ opacity: 0, filter: 'blur(10px)' }}
               transition={{ ease: 'easeInOut', duration: 0.2 }}
               key={2}
               className='h-[90%] sm:overflow-auto'>
