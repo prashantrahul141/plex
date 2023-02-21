@@ -30,7 +30,7 @@ const CommentForm: FC<{
 
   return (
     <form
-      className='w-full border-b border-b-themePrimary-100/30 px-1 py-6'
+      className='w-full border-b border-b-themePrimary-100/20 px-1 py-6'
       onSubmit={handleSubmit(postComment)}>
       <div className='flex w-full items-center justify-center gap-2'>
         <Image
