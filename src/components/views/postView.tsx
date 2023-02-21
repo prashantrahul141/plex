@@ -20,7 +20,8 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 const PostView: FC<{
   data: TReturnPost;
   currentUserID: string;
-}> = ({ data, currentUserID }) => {
+  imagePrioriy?: boolean;
+}> = ({ data, currentUserID, imagePrioriy = false }) => {
   const postImageLink = `https://res.cloudinary.com/${
     env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME
   }/image/upload/${data.image || '#'}`;
@@ -74,6 +75,7 @@ const PostView: FC<{
       <div className='mr-2 h-12 min-h-[3rem] w-12 min-w-[3rem]'>
         <Link href={`/${data.Author.username}`} className='mt-1 h-12 w-12'>
           <Image
+            priority={imagePrioriy}
             className='h-12 w-12 rounded-full object-cover'
             src={data.Author.image}
             alt={data.Author.name}
@@ -219,6 +221,7 @@ const PostView: FC<{
         {data.image !== null && (
           <div className='select-none' onClick={() => setShowBigImage(true)}>
             <Image
+              priority={imagePrioriy}
               className='max-h-[30rem] w-max rounded-2xl border border-themePrimary-300/20 object-contain'
               width={800}
               height={800}
