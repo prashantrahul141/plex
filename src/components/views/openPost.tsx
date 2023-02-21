@@ -40,6 +40,7 @@ const OpenPost: FC<{ session: Session }> = ({ session }) => {
   return (
     <>
       <PostView
+        imagePrioriy={true}
         currentUserID={session.user.id}
         data={postData.data.posts}></PostView>
       <CommentList

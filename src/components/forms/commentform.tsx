@@ -34,6 +34,7 @@ const CommentForm: FC<{
       onSubmit={handleSubmit(postComment)}>
       <div className='flex w-full items-center justify-center gap-2'>
         <Image
+          priority={true}
           alt='Avatar'
           src={authorImage}
           width={50}

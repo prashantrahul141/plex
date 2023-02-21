@@ -26,9 +26,13 @@ const BigImageView: FC<{
             <div className='relative z-50 h-screen w-screen'>
               <div className='absolute top-1/2 left-1/2 h-[95%] w-[95%] -translate-y-1/2 -translate-x-1/2 sm:w-[80%] '>
                 <Image
+                  priority={true}
                   className='absolute top-1/2 left-1/2 object-contain'
                   src={imageUrl}
                   fill
+                  sizes='(max-width: 768px) 100vw,
+                  (max-width: 1200px) 50vw,
+                  33vw'
                   alt='Image'></Image>
               </div>
             </div>
@@ -37,6 +41,7 @@ const BigImageView: FC<{
           {width !== undefined && (
             <Image
               className='absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'
+              priority={true}
               src={imageUrl}
               width={width}
               height={width}
