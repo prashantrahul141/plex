@@ -111,6 +111,26 @@ model Post {
 
     LikedByAuthor      LikedByAuthor[]
     BookmarkedByAuthor BookmarkedByAuthor[]
+    HashtagOnPost      HashtagOnPost[]
+}
+
+// Hashtag model 
+model Hashtag {
+    id            String          @id @default(cuid())
+    text          String          @default("")
+    createdOn     DateTime        @default(now())
+    HashtagOnPost HashtagOnPost[]
+}
+
+// hashtag on post
+model HashtagOnPost {
+    post   Post   @relation(fields: [postId], references: [id])
+    postId String
+
+    Hashtag   Hashtag @relation(fields: [hashtagId], references: [id])
+    hashtagId String
+
+    @@id([hashtagId, postId])
 }
 
 // Comments by author
