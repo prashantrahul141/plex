@@ -1,6 +1,6 @@
 import LoadingComponent from '@components/common/loadingcomponent';
 import CommentForm from '@components/forms/commentform';
-import CommentView from '@components/views/commentView';
+import CommentView from '@components/views/commentView/commentView';
 import { api } from '@utils/api';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
