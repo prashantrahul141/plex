@@ -66,12 +66,8 @@ const PostList: FC<{ userId?: string; authorId: string }> = ({
         if (Entry[0]?.isIntersecting && !loadingPosts) {
           setLoadingPosts(true);
           loadMorePosts()
-            .then(() => {
-              console.log();
-            })
-            .catch(() => {
-              console.log();
-            });
+            .then(() => undefined)
+            .catch(() => undefined);
         }
       });
       observer.observe(cachedRef);
@@ -92,9 +88,10 @@ const PostList: FC<{ userId?: string; authorId: string }> = ({
 
   return (
     <div className=''>
-      {postsData.map((eachPost) => {
+      {postsData.map((eachPost, index) => {
         return (
           <PostView
+            imagePrioriy={index % POSTS_PER_PAGE < 4}
             key={eachPost.id}
             data={eachPost}
             currentUserID={authorId}></PostView>
