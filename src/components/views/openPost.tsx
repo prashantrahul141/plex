@@ -1,4 +1,4 @@
-import PostView from '@components/views/postView';
+import PostView from '@components/views/postView/postView';
 import { api } from '@utils/api';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';

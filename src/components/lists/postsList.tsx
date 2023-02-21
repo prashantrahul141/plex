@@ -1,5 +1,5 @@
 import LoadingComponent from '@components/common/loadingcomponent';
-import PostView from '@components/views/postView';
+import PostView from '@components/views/postView/postView';
 import { api } from '@utils/api';
 import type { FC } from 'react';
 import { useRef } from 'react';

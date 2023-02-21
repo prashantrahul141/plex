@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { api } from '@utils/api';
 import LoadingComponent from '@components/common/loadingcomponent';
-import PostView from '@components/views/postView';
+import PostView from '@components/views/postView/postView';
 
 const BookmarksList: FC<{ authorId: string }> = ({ authorId }) => {
   const bookmarkedPosts = api.post.getBookmarks.useQuery();
