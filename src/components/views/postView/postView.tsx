@@ -11,7 +11,6 @@ import { BsBookmarkCheckFill, BsBookmarkHeart } from 'react-icons/bs';
 import BigImageView from '@components/views/bigImageView';
 import CommonAlert from '@components/common/commonAlert';
 import type { TReturnPost } from 'src/types';
-import { env } from 'src/env/client.mjs';
 import { api } from '@utils/api';
 import ReactTimeAgo from 'react-time-ago';
 import { useRouter } from 'next/router';
@@ -23,10 +22,6 @@ const PostView: FC<{
   currentUserID: string;
   imagePrioriy?: boolean;
 }> = ({ data, currentUserID, imagePrioriy = false }) => {
-  const postImageLink = `https://res.cloudinary.com/${
-    env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME
-  }/image/upload/${data.image || '#'}`;
-
   const router = useRouter();
 
   const [postLikedState, setPostLiked] = useState(
@@ -226,7 +221,7 @@ const PostView: FC<{
               className='max-h-[30rem] w-max rounded-2xl border border-themePrimary-300/20 object-contain'
               width={800}
               height={800}
-              src={postImageLink}
+              src={data.image}
               alt={data.text}></Image>
           </div>
         )}
@@ -316,7 +311,7 @@ const PostView: FC<{
         {showBigImage && data.image !== null && (
           <BigImageView
             callBackFun={(_state: boolean) => setShowBigImage(_state)}
-            imageUrl={postImageLink}></BigImageView>
+            imageUrl={data.image}></BigImageView>
         )}
       </AnimatePresence>
     </article>
