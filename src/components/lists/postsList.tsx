@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import type { TReturnPost } from 'src/types';
-import POSTS_PER_PAGE from 'src/constantValues';
+import { POSTS_PER_PAGE } from 'src/constantValues';
 
 const PostList: FC<{ userId?: string; authorId: string }> = ({
   userId,
