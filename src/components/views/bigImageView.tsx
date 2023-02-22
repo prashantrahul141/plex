@@ -24,7 +24,7 @@ const BigImageView: FC<{
           transition={{ duration: 0.5, type: 'spring' }}>
           {width === undefined && (
             <div className='relative z-50 h-screen w-screen'>
-              <div className='absolute top-1/2 left-1/2 h-[95%] w-[95%] -translate-y-1/2 -translate-x-1/2 sm:w-[80%] '>
+              <div className='absolute top-1/2 left-1/2 h-[92%] w-[92%] -translate-y-1/2 -translate-x-1/2 sm:w-[80%] '>
                 <Image
                   priority={true}
                   className='absolute top-1/2 left-1/2 object-contain'
