@@ -4,6 +4,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import { env } from 'src/env/server.mjs';
 import { prisma } from 'src/server/db';
 import POSTS_PER_PAGE from 'src/constantValues';
+import reactStringReplace from 'react-string-replace';
 
 export const PostRouter = createTRPCRouter({
   // gets image signature for client to upload
@@ -49,6 +50,31 @@ export const PostRouter = createTRPCRouter({
         }
       }
 
+      const alreadyAddedHashtags: Array<string> = [];
+      const hashtagsOnPost: Array<{
+        Hashtag: {
+          connectOrCreate: {
+            where: { text: string };
+            create: { text: string };
+          };
+        };
+      }> = [];
+
+      reactStringReplace(input.postText, /(#\S+)/gi, (match) => {
+        if (!alreadyAddedHashtags.includes(match)) {
+          alreadyAddedHashtags.push(match);
+          hashtagsOnPost.push({
+            Hashtag: {
+              connectOrCreate: {
+                where: { text: match },
+                create: { text: match },
+              },
+            },
+          });
+        }
+        return '';
+      });
+
       const createdPost = await prisma.post.create({
         data: {
           text: input.postText,
@@ -57,6 +83,9 @@ export const PostRouter = createTRPCRouter({
             connect: {
               id: ctx.session.user.id,
             },
+          },
+          HashtagOnPost: {
+            create: hashtagsOnPost,
           },
         },
         select: {
