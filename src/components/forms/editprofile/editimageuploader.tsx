@@ -103,7 +103,7 @@ const EditImageUploader: FC<{
         <div className='absolute top-0 left-0 z-50 h-full w-full max-w-md rounded backdrop-brightness-50'>
           <div className='absolute top-1/2 left-1/2 h-10 w-10 -translate-y-1/2 -translate-x-1/2 text-center'>
             <LoadingComponent></LoadingComponent>
-            <p className='mt-1 rounded-md bg-black/20 px-2 py-1 font-ibmplex text-sm tracking-wider  text-themePrimary-50'>
+            <p className='p2-1 mt-1 w-fit rounded-md bg-black/20 px-2 font-ibmplex text-sm tracking-wider  text-themePrimary-50'>
               {parseInt((uploadingImageProgress * 100).toString())}%
             </p>
           </div>
