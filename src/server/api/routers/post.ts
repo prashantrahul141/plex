@@ -3,7 +3,7 @@ import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { v2 as cloudinary } from 'cloudinary';
 import { env } from 'src/env/server.mjs';
 import { prisma } from 'src/server/db';
-import POSTS_PER_PAGE from 'src/constantValues';
+import { HASHTAG_REGEX_EXP, POSTS_PER_PAGE } from 'src/constantValues';
 import reactStringReplace from 'react-string-replace';
 
 export const PostRouter = createTRPCRouter({
@@ -60,7 +60,7 @@ export const PostRouter = createTRPCRouter({
         };
       }> = [];
 
-      reactStringReplace(input.postText, /(#\S+)/gi, (match) => {
+      reactStringReplace(input.postText, HASHTAG_REGEX_EXP, (match) => {
         if (!alreadyAddedHashtags.includes(match)) {
           alreadyAddedHashtags.push(match);
           hashtagsOnPost.push({

@@ -1,27 +1,36 @@
 import type { FC } from 'react';
 import Link from 'next/link';
 import reactStringReplace from 'react-string-replace';
+import {
+  HASHTAG_REGEX_EXP,
+  URL_REGEX_EXP,
+  USERNAME_REGEX_EXP,
+} from 'src/constantValues';
 
 const ProfileViewBio: FC<{
   bioText: string | null;
   preserveWhitespace?: boolean;
 }> = ({ bioText, preserveWhitespace = true }) => {
   const parseBio = (text: string) => {
-    const mentionedText = reactStringReplace(text, /(@\S+)/gi, (match, i) => {
-      return (
-        <Link
-          title={match}
-          key={match + i.toString()}
-          className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
-          href={`/${match.substring(1, match.length)}`}>
-          {match}
-        </Link>
-      );
-    });
+    const mentionedText = reactStringReplace(
+      text,
+      USERNAME_REGEX_EXP,
+      (match, i) => {
+        return (
+          <Link
+            title={match}
+            key={match + i.toString()}
+            className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
+            href={`/${match.substring(1, match.length)}`}>
+            {match}
+          </Link>
+        );
+      }
+    );
 
     const hashtagedText = reactStringReplace(
       mentionedText,
-      /(#\S+)/gi,
+      HASHTAG_REGEX_EXP,
       (match, i) => {
         return (
           <Link
@@ -37,7 +46,7 @@ const ProfileViewBio: FC<{
 
     const urlText = reactStringReplace(
       hashtagedText,
-      /(https?:\/\/\S+)/g,
+      URL_REGEX_EXP,
       (match, i) => {
         try {
           const url = new URL(match);
