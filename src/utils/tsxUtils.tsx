@@ -14,7 +14,7 @@ export const hashtagReplace = (
     return (
       <Link
         key={match + i.toString()}
-        title={match}
+        title={'#' + match}
         className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
         href={`/trending?q=${match}`}>
         #{match}
@@ -29,7 +29,7 @@ export const usernameReplace = (
   return reactStringReplace(text, USERNAME_REGEX_EXP, (match, i) => {
     return (
       <Link
-        title={match}
+        title={'@' + match}
         key={match + i.toString()}
         className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
         href={`/${match}`}>
