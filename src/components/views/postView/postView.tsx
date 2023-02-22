@@ -3,19 +3,17 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
 import { SlOptions } from 'react-icons/sl';
-import { BiCommentDetail, BiShare } from 'react-icons/bi';
 import { MdDeleteForever, MdVerified } from 'react-icons/md';
-import { BsBookmarkCheckFill, BsBookmarkHeart } from 'react-icons/bs';
 import BigImageView from '@components/views/bigImageView';
 import CommonAlert from '@components/common/commonAlert';
 import type { TReturnPost } from 'src/types';
 import { api } from '@utils/api';
 import ReactTimeAgo from 'react-time-ago';
 import { useRouter } from 'next/router';
-import { AiFillCloseCircle } from 'react-icons/ai';
 import PostViewText from '@components/views/postView/postViewText';
+import PostViewInteractions from './postViewInteractions';
+import PostViewDeleteMenu from './postViewDeleteMenu';
 
 const PostView: FC<{
   data: TReturnPost;
@@ -24,15 +22,6 @@ const PostView: FC<{
 }> = ({ data, currentUserID, imagePrioriy = false }) => {
   const router = useRouter();
 
-  const [postLikedState, setPostLiked] = useState(
-    data.LikedByAuthor.length > 0
-  );
-  const [likesCountState, setLikesCountState] = useState(
-    data._count.LikedByAuthor
-  );
-  const [bookmarkedState, setBookmarkedState] = useState(
-    data.BookmarkedByAuthor.length > 0
-  );
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
   const [showBigImage, setShowBigImage] = useState(false);
   const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
@@ -40,26 +29,7 @@ const PostView: FC<{
 
   const authorAdmin = currentUserID === data.Author.id;
 
-  const likeQuery = api.post.like.useMutation();
-  const bookmarkQuery = api.post.bookMark.useMutation();
   const deleteQuery = api.post.delete.useMutation();
-
-  const handleLike = async () => {
-    setPostLiked(!postLikedState);
-    setLikesCountState(likesCountState + (postLikedState ? -1 : 1));
-    await likeQuery.mutateAsync({
-      addLike: !postLikedState,
-      postId: data.id,
-    });
-  };
-
-  const handleBookmark = async () => {
-    setBookmarkedState(!bookmarkedState);
-    await bookmarkQuery.mutateAsync({
-      addBookmark: !bookmarkedState,
-      postId: data.id,
-    });
-  };
 
   const handleDelete = async () => {
     await deleteQuery.mutateAsync({ postId: data.id });
@@ -147,61 +117,9 @@ const PostView: FC<{
           </AnimatePresence>
           <AnimatePresence>
             {authorAdmin && showDeleteMenu && (
-              <>
-                <motion.div
-                  key={1}
-                  onClick={() => setShowDeleteMenu(false)}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 0.1,
-                  }}
-                  className='fixed top-0 left-0 z-10 h-screen w-screen backdrop-brightness-75'></motion.div>
-
-                <motion.div
-                  key={2}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1, translateX: '-50%' }}
-                  exit={{ scale: 0, opacity: 0 }}
-                  transition={{
-                    type: 'spring',
-                    duration: 0.3,
-                  }}
-                  className='absolute top-0 left-1/2 z-20 h-max w-60 rounded-md border border-themePrimary-300/50 bg-baseBackground-100 py-4 text-themePrimary-50/80'>
-                  <header className='flex h-fit w-full px-4'>
-                    <h2 className='flex-grow text-center font-mukta text-base tracking-wide text-themePrimary-50/95'></h2>
-
-                    <AiFillCloseCircle
-                      title='close'
-                      className='h-5 w-5 cursor-pointer text-base text-red-400 hover:text-red-500'
-                      onClick={() =>
-                        setShowDeleteMenu(false)
-                      }></AiFillCloseCircle>
-                  </header>
-                  <main className='h-max w-full px-2'>
-                    <div className='mx-2 my-4 mb-8 text-center'>
-                      <span className='font-mukta font-thin leading-none text-themePrimary-50'>
-                        Are you sure you want to permanently delete this post?
-                      </span>
-                    </div>
-                    <div className='flex gap-2'>
-                      <button
-                        className='btn py-1'
-                        onClick={() => setShowDeleteMenu(false)}>
-                        Cancel
-                      </button>
-                      <button
-                        onClick={handleDelete}
-                        className='btn border-none bg-red-500/90 py-1 text-themePrimary-50/95 hover:bg-red-500'>
-                        <span className='mx-auto flex items-center justify-center'>
-                          <MdDeleteForever></MdDeleteForever>Delete
-                        </span>
-                      </button>
-                    </div>
-                  </main>
-                </motion.div>
-              </>
+              <PostViewDeleteMenu
+                setShowDeleteMenu={(value: boolean) => setShowDeleteMenu(value)}
+                handleDelete={handleDelete}></PostViewDeleteMenu>
             )}
           </AnimatePresence>
         </div>
@@ -226,77 +144,11 @@ const PostView: FC<{
           </div>
         )}
 
-        <div className='flex select-none pt-1 font-ibmplex text-sm leading-none text-themePrimary-50/70'>
-          <div className='flex flex-grow items-center justify-center'>
-            <button
-              className='group/icon flex w-fit cursor-pointer items-center justify-center hover:text-red-500'
-              onClick={handleLike}
-              title='Like'>
-              <span className=' flex w-fit cursor-pointer items-center justify-center  rounded-full p-1 hover:bg-red-500/20  group-hover/icon:bg-red-500/20'>
-                {postLikedState && (
-                  <AiTwotoneHeart className='text-lg text-red-500'></AiTwotoneHeart>
-                )}
-                {!postLikedState && (
-                  <AiOutlineHeart className='text-lg'></AiOutlineHeart>
-                )}
-              </span>
-              &nbsp;{likesCountState}
-            </button>
-          </div>
-
-          <div className='flex flex-grow  items-center justify-center'>
-            <Link
-              title='Comments'
-              href={`${data.Author.username}/${data.id}`}
-              className='group/icon flex w-fit cursor-pointer items-center justify-center hover:text-themePrimary-300'>
-              <span className='rounded-full p-1 text-lg group-hover/icon:bg-themePrimary-300/10'>
-                <BiCommentDetail className=''></BiCommentDetail>
-              </span>
-              &nbsp;
-              {data._count.Comments}
-            </Link>
-          </div>
-
-          <div className='flex flex-grow items-center justify-center'>
-            <button
-              onClick={async () => {
-                const shareUrl =
-                  typeof window !== 'undefined'
-                    ? `${window.location.origin}/${data.Author.username}/${data.id}`
-                    : '/';
-
-                const shareData = {
-                  text: 'Share this post',
-                  title: 'Share this post',
-                  url: shareUrl,
-                };
-
-                await navigator.clipboard.writeText(shareUrl);
-                setShowCopyShareLink(true);
-                setTimeout(() => {
-                  setShowCopyShareLink(false);
-                }, 3000);
-
-                if (navigator.canShare(shareData)) {
-                  await navigator.share(shareData);
-                }
-              }}
-              title='Share'
-              className='w-fit cursor-pointer  items-center justify-center rounded-full p-1 text-lg hover:bg-green-300/10  hover:text-green-400'>
-              <BiShare className='text-lg'></BiShare>
-            </button>
-          </div>
-
-          <div className='flex flex-grow items-center justify-center'>
-            <button
-              onClick={handleBookmark}
-              className='h-6 w-6 rounded-full p-1 text-lg hover:bg-themePrimary-300/10 hover:text-themePrimary-300'
-              title='Bookmark'>
-              {bookmarkedState && <BsBookmarkCheckFill></BsBookmarkCheckFill>}
-              {!bookmarkedState && <BsBookmarkHeart></BsBookmarkHeart>}
-            </button>
-          </div>
-        </div>
+        <PostViewInteractions
+          data={data}
+          setShowCopyShareLink={(value: boolean) =>
+            setShowCopyShareLink(value)
+          }></PostViewInteractions>
       </div>
 
       <AnimatePresence>
