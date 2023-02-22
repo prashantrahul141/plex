@@ -35,7 +35,7 @@ export const PostRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      let public_id: string | null = null;
+      let postImageLink: string | null = null;
       if (input.postImages) {
         const expectedSignature = cloudinary.utils.api_sign_request(
           {
@@ -46,7 +46,7 @@ export const PostRouter = createTRPCRouter({
         );
 
         if (input.postImages.signature === expectedSignature) {
-          public_id = input.postImages.public_id;
+          postImageLink = `https://res.cloudinary.com/${env.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME}/image/upload/${input.postImages.public_id}`;
         }
       }
 
@@ -78,7 +78,7 @@ export const PostRouter = createTRPCRouter({
       const createdPost = await prisma.post.create({
         data: {
           text: input.postText,
-          image: public_id,
+          image: postImageLink,
           Author: {
             connect: {
               id: ctx.session.user.id,
@@ -118,6 +118,23 @@ export const PostRouter = createTRPCRouter({
               id: input.postId,
             },
           });
+
+          // deleting image from cloudinary
+          if (postToDelete.image) {
+            const imageUrl = new URL(postToDelete.image);
+            const imagePublicId = imageUrl.pathname
+              .split('/')
+              [imageUrl.pathname.split('/').length - 1]?.split('.')[0];
+
+            if (imagePublicId) {
+              await cloudinary.uploader.destroy(imagePublicId, {
+                // @ts-ignore
+                api_key: env.CLOUDINARY_CLUODAPIKEY,
+                api_secret: env.CLOUDINARY_CLOUDAPISECRET,
+                cloud_name: env.CLOUDINARY_CLOUDNAME,
+              });
+            }
+          }
           return { status: 'POSTDELETED' } as const;
         }
         return { status: 'UNAUTHORIZED' } as const;
