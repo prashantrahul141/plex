@@ -8,7 +8,7 @@ import {
 } from 'src/constantValues';
 
 export const hashtagReplace = (
-  text: string | React.ReactNode[] | undefined
+  text: string | React.ReactNode[] | undefined | React.ReactNodeArray
 ) => {
   return reactStringReplace(text, HASHTAG_REGEX_EXP, (match, i) => {
     return (
@@ -16,7 +16,7 @@ export const hashtagReplace = (
         key={match + i.toString()}
         title={match}
         className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
-        href={`/trending?q=${match.substring(1, match.length)}`}>
+        href={`/trending?q=${match}`}>
         #{match}
       </Link>
     );
@@ -24,7 +24,7 @@ export const hashtagReplace = (
 };
 
 export const usernameReplace = (
-  text: string | React.ReactNode[] | undefined
+  text: string | React.ReactNode[] | undefined | React.ReactNodeArray
 ) => {
   return reactStringReplace(text, USERNAME_REGEX_EXP, (match, i) => {
     return (
@@ -32,14 +32,16 @@ export const usernameReplace = (
         title={match}
         key={match + i.toString()}
         className='font-ibmplex leading-tight tracking-tighter text-themePrimary-300 hover:underline'
-        href={`/${match.substring(1, match.length)}`}>
+        href={`/${match}`}>
         @{match}
       </Link>
     );
   });
 };
 
-export const urlReplace = (text: string | React.ReactNode[] | undefined) => {
+export const urlReplace = (
+  text: string | React.ReactNode[] | undefined | React.ReactNodeArray
+) => {
   return reactStringReplace(text, URL_REGEX_EXP, (match, i) => {
     try {
       const url = new URL(match);
