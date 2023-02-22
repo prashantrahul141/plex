@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import type { FC } from 'react';
 import reactStringReplace from 'react-string-replace';
+import { HASHTAG_REGEX_EXP, USERNAME_REGEX_EXP } from 'src/constantValues';
 
 const PostViewText: FC<{ text: string }> = ({ text }) => {
-  let output = reactStringReplace(text, /(#\S+)/gi, (match, i) => {
+  let output = reactStringReplace(text, HASHTAG_REGEX_EXP, (match, i) => {
     return (
       <Link
         key={match + i.toString()}
@@ -15,7 +16,7 @@ const PostViewText: FC<{ text: string }> = ({ text }) => {
     );
   });
 
-  output = reactStringReplace(output, /(@\S+)/gi, (match, i) => {
+  output = reactStringReplace(output, USERNAME_REGEX_EXP, (match, i) => {
     return (
       <Link
         title={match}
