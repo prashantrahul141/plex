@@ -48,10 +48,10 @@ model Session {
 model User {
     id             String    @id @default(cuid())
     name           String
-    username       String    @unique @default(cuid())
+    username       String    @unique @db.Char(16)
     email          String    @unique
     emailVerified  DateTime?
-    image          String    @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed") @db.Char(255)
+    image          String    @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed") @db.VarChar(255)
     joinedOn       DateTime  @default(now())
     authorVerified Boolean   @default(false)
 
@@ -59,7 +59,7 @@ model User {
     settingsId String
 
     url    String? @db.Text
-    banner String  @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultbanner_vfhdgt") @db.Char(255)
+    banner String  @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultbanner_vfhdgt") @db.VarChar(255)
     bio    String? @db.Text
 
     accounts Account[]
@@ -101,8 +101,8 @@ model LikedByAuthor {
 // Posts by author
 model Post {
     id        String    @id @default(cuid())
-    text      String    @db.Char(255)
-    image     String?   @db.Char(255)
+    text      String    @db.VarChar(255)
+    image     String?   @db.VarChar(255)
     createdOn DateTime  @default(now())
     Comments  Comment[]
 
@@ -117,7 +117,7 @@ model Post {
 // Hashtag model 
 model Hashtag {
     id            String          @id @default(cuid())
-    text          String          @default("hashtag") @db.Char(255)
+    text          String          @default("hashtag") @db.VarChar(255)
     createdOn     DateTime        @default(now())
     HashtagOnPost HashtagOnPost[]
 }
@@ -136,7 +136,7 @@ model HashtagOnPost {
 // Comments by author
 model Comment {
     id          String   @id @default(cuid())
-    commentText String   @default("") @db.Char(255)
+    commentText String   @default("") @db.VarChar(255)
     createdOn   DateTime @default(now())
 
     author User   @relation(fields: [userId], references: [id])
@@ -182,9 +182,9 @@ model Notification {
     User   User   @relation(fields: [userId], references: [id])
     userId String
 
-    iconImage String   @default("/favicon.ico") @db.Char(255)
-    text      String   @default("") @db.Char(255)
-    url       String   @default("/") @db.Char(255)
+    iconImage String   @default("/favicon.ico") @db.VarChar(255)
+    text      String   @default("") @db.VarChar(255)
+    url       String   @default("/") @db.VarChar(255)
     seen      Boolean  @default(false)
     createdOn DateTime @default(now())
 }
