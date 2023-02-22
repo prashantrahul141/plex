@@ -25,12 +25,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? // @db.Text
+    id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -51,16 +51,16 @@ model User {
     username       String    @unique @default(cuid())
     email          String    @unique
     emailVerified  DateTime?
-    image          String    @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed")
+    image          String    @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed") @db.Char(255)
     joinedOn       DateTime  @default(now())
     authorVerified Boolean   @default(false)
 
     settings   Settings @relation(fields: [settingsId], references: [id])
     settingsId String
 
-    url    String?
-    banner String  @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultbanner_vfhdgt")
-    bio    String?
+    url    String? @db.Text
+    banner String  @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultbanner_vfhdgt") @db.Char(255)
+    bio    String? @db.Text
 
     accounts Account[]
     sessions Session[]
@@ -101,8 +101,8 @@ model LikedByAuthor {
 // Posts by author
 model Post {
     id        String    @id @default(cuid())
-    text      String    @default("")
-    image     String?
+    text      String    @db.Char(255)
+    image     String?   @db.Char(255)
     createdOn DateTime  @default(now())
     Comments  Comment[]
 
@@ -117,7 +117,7 @@ model Post {
 // Hashtag model 
 model Hashtag {
     id            String          @id @default(cuid())
-    text          String          @default("")
+    text          String          @default("hashtag") @db.Char(255)
     createdOn     DateTime        @default(now())
     HashtagOnPost HashtagOnPost[]
 }
@@ -136,7 +136,7 @@ model HashtagOnPost {
 // Comments by author
 model Comment {
     id          String   @id @default(cuid())
-    commentText String   @default("")
+    commentText String   @default("") @db.Char(255)
     createdOn   DateTime @default(now())
 
     author User   @relation(fields: [userId], references: [id])
@@ -182,9 +182,9 @@ model Notification {
     User   User   @relation(fields: [userId], references: [id])
     userId String
 
-    iconImage String   @default("/favicon.ico")
-    text      String   @default("")
-    url       String   @default("/")
+    iconImage String   @default("/favicon.ico") @db.Char(255)
+    text      String   @default("") @db.Char(255)
+    url       String   @default("/") @db.Char(255)
     seen      Boolean  @default(false)
     createdOn DateTime @default(now())
 }
