@@ -1,13 +1,26 @@
 import type { PrismaClient } from '@prisma/client';
 import type { Adapter, AdapterAccount } from 'next-auth/adapters';
 
+const makeUsername = (length: number) => {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+};
+
 export function CustomPrismaAdapter(p: PrismaClient): Adapter {
   return {
-    createUser: (data) =>
-      p.user.create({
+    createUser: (data) => {
+      return p.user.create({
         // @ts-ignore
         data: {
           ...data,
+          username: makeUsername(16),
           settings: { create: {} },
           notifications: {
             create: {
@@ -16,7 +29,8 @@ export function CustomPrismaAdapter(p: PrismaClient): Adapter {
             },
           },
         },
-      }),
+      });
+    },
 
     getUser: (id) => p.user.findUnique({ where: { id } }),
 
