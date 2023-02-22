@@ -124,10 +124,10 @@ model Hashtag {
 
 // hashtag on post
 model HashtagOnPost {
-    post   Post   @relation(fields: [postId], references: [id])
+    post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
     postId String
 
-    Hashtag   Hashtag @relation(fields: [hashtagId], references: [id])
+    Hashtag   Hashtag @relation(fields: [hashtagId], references: [id], onDelete: Cascade)
     hashtagId String
 
     @@id([hashtagId, postId])
