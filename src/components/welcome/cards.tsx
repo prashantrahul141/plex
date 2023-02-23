@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import type { FC } from 'react';
 import WelcomePageButton from './buttons';
-import type { NextRouter } from 'next/router';
 import Link from 'next/link';
 
-const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
+const WelcomePageCards: FC = () => {
   const cardsData: Array<{
     imageUrl: string;
     imageAttributionName: string;
@@ -96,7 +95,7 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
             </span>
             .
           </header>
-          <WelcomePageButton router={router}></WelcomePageButton>
+          <WelcomePageButton></WelcomePageButton>
         </article>
       </div>
     </div>
