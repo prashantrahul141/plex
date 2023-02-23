@@ -53,32 +53,32 @@ const PostView: FC<{
       <div className='w-full'>
         <div className='relative flex items-center'>
           <Link href={`/${data.Author.username}`} className='flex items-center'>
-            <h5 className='font-mukta text-themePrimary-50/95 hover:underline'>
+            <span className='font-mukta text-themePrimary-50/95 hover:underline'>
               {data.Author.name}
-            </h5>
+            </span>
             &nbsp;
             {data.Author.authorVerified && (
-              <h6 className='group/verified relative'>
+              <span className='group/verified relative'>
                 <MdVerified></MdVerified>
                 <span className='absolute left-1/2 top-6 hidden w-max -translate-x-1/2 rounded-md bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide group-hover/verified:block'>
                   This user is verified by the plex team.
                 </span>
-              </h6>
+              </span>
             )}
             &nbsp;
-            <h6 className='font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline'>
+            <span className='hidden font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline sm:block'>
               @{data.Author.username}
-            </h6>
+            </span>
             &nbsp;
             <span className='text-2xl leading-none text-themePrimary-50/70'>
               ·
             </span>
             &nbsp;
-            <h6 className='cursor-default font-ibmplex text-xs tracking-tighter text-themePrimary-100/70'>
+            <span className='cursor-default font-ibmplex text-xs tracking-tighter text-themePrimary-100/70'>
               <ReactTimeAgo
                 date={data.createdOn}
                 timeStyle={'twitter'}></ReactTimeAgo>
-            </h6>
+            </span>
           </Link>
 
           {authorAdmin && (
