@@ -6,6 +6,12 @@ import WelcomePageMainHeader from '@components/welcome/mainheader';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
+export const getStaticProps = () => {
+  return {
+    props: {},
+  };
+};
+
 const WelcomePage: NextPage = () => {
   const router = useRouter();
   return (

@@ -6,6 +6,12 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+export const getStaticProps = () => {
+  return {
+    props: {},
+  };
+};
+
 const SignInPage: NextPage = () => {
   const { status } = useSession();
   const router = useRouter();
