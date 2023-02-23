@@ -5,6 +5,7 @@ import { UserRouter } from './routers/user';
 import { NotificationRouter } from './routers/notification';
 import { FollowsRouter } from './routers/follows';
 import { CommentsRouter } from './routers/comments';
+import { TrendingRouter } from './routers/trending';
 
 export const appRouter = createTRPCRouter({
   ping: PingRouter,
@@ -13,6 +14,7 @@ export const appRouter = createTRPCRouter({
   notification: NotificationRouter,
   follows: FollowsRouter,
   comments: CommentsRouter,
+  trending: TrendingRouter,
 });
 
 export type AppRouter = typeof appRouter;
