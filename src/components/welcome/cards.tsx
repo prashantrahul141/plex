@@ -15,7 +15,7 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
     textGradientColors: { colorOne: string; colorTwo: string };
   }> = [
     {
-      imageUrl: '/static/welcomepage_friends.jpg',
+      imageUrl: '/static/welcomepage_friends.webp',
       imageAttributionName: 'lobosnico',
       imageAttribution: 'https://unsplash.com/@lobosnico',
       header: 'Get together with',
@@ -30,7 +30,7 @@ const WelcomePageCards: FC<{ router: NextRouter }> = ({ router }) => {
       },
     },
     {
-      imageUrl: '/static/welcomepage_family.jpg',
+      imageUrl: '/static/welcomepage_family.webp',
       imageAttributionName: 'pablomerchanm',
       imageAttribution: 'https://unsplash.com/@pablomerchanm',
       header: 'Get together with',
