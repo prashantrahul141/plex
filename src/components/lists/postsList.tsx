@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import type { TReturnPost } from 'src/types';
 import { POSTS_PER_PAGE } from 'src/constantValues';
+import Link from 'next/link';
 
 const PostList: FC<{ userId?: string; authorId: string }> = ({
   userId,
@@ -99,6 +100,18 @@ const PostList: FC<{ userId?: string; authorId: string }> = ({
       })}
       {!loadingPosts && isMore && (
         <div className='h-2 w-2' ref={loadMoreRef}></div>
+      )}
+      {!isMore && (
+        <div className='flex h-full w-full items-center justify-center gap-4 px-3 py-3'>
+          <span className='font-mukta leading-none tracking-wide text-themePrimary-50'>
+            No more posts to see, check out whats trending today.
+          </span>
+          <Link href={'/trending'} aria-label='Trending'>
+            <button className='btn max-w-[8rem] rounded-lg bg-themePrimary-400/90 py-2 text-sm text-themePrimary-50/95 hover:bg-themePrimary-400'>
+              Trending
+            </button>
+          </Link>
+        </div>
       )}
       {loadingPosts && (
         <div className='flex h-12 w-full items-center justify-center'>
