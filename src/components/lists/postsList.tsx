@@ -9,21 +9,34 @@ import type { TReturnPost } from 'src/types';
 import { POSTS_PER_PAGE } from 'src/constantValues';
 import Link from 'next/link';
 
-const PostList: FC<{ userId?: string; authorId: string }> = ({
-  userId,
-  authorId,
-}) => {
+const PostList: FC<{
+  userId?: string;
+  authorId: string;
+  trendingList?: boolean;
+  trendingQuery?: string | null;
+}> = ({ userId, authorId, trendingList = false, trendingQuery }) => {
   const [skipPosts, setSkipPosts] = useState(POSTS_PER_PAGE);
   const [postsData, setPostsData] = useState<Array<TReturnPost>>([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [isMore, setIsMore] = useState(true);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  const postQuery = userId
+  const postQuery = trendingList
+    ? trendingQuery
+      ? api.trending.getSpecificFromQuery.useQuery({ query: trendingQuery })
+      : api.trending.getCurrentTrending.useQuery({})
+    : userId
     ? api.post.listFromUserId.useQuery({ userId: userId })
     : api.post.list.useQuery({});
 
-  const loadMorePostsQuery = userId
+  const loadMorePostsQuery = trendingList
+    ? trendingQuery
+      ? api.trending.getSpecificFromQuery.useQuery({
+          query: trendingQuery,
+          skip: skipPosts,
+        })
+      : api.trending.getCurrentTrending.useQuery({ skip: skipPosts })
+    : userId
     ? api.post.listFromUserId.useQuery({ userId: userId, skip: skipPosts })
     : api.post.list.useQuery({ skip: skipPosts });
 
@@ -101,7 +114,7 @@ const PostList: FC<{ userId?: string; authorId: string }> = ({
       {!loadingPosts && isMore && (
         <div className='h-2 w-2' ref={loadMoreRef}></div>
       )}
-      {!isMore && (
+      {!isMore && !trendingList && (
         <div className='flex h-full w-full items-center justify-center gap-4 px-3 py-3'>
           <span className='font-mukta leading-none tracking-wide text-themePrimary-50'>
             No more posts to see, check out whats trending today.
