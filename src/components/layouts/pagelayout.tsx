@@ -85,7 +85,9 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
                 <PostList authorId={session.user.id}></PostList>
               )}
 
-              {page === 'trending' && <TrendingList key={3}></TrendingList>}
+              {page === 'trending' && (
+                <TrendingList session={session} key={3}></TrendingList>
+              )}
               {page === 'notifications' && (
                 <NotificationsList key={4}></NotificationsList>
               )}
