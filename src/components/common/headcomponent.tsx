@@ -18,6 +18,7 @@ const HeadComp: FC<{ headTitle?: string }> = ({ headTitle = undefined }) => {
           content='A Social Media Application.'
         />
         <link rel='manifest' href='/manifest.json'></link>
+        <link rel='apple-touch-icon' href='/icons/apple-touch-icon.png'></link>
         <meta name='darkreader-lock' />
         <meta content='Plex' property='og:title' />
         <meta content='Get together.' property='og:description' />

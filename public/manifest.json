@@ -37,6 +37,11 @@
   ],
   "icons": [
     {
+      "src": "icons/apple-touch-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
       "src": "icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
