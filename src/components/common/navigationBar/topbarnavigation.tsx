@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import CreatePostForm from '@components/forms/createpostform';
 import { HiOutlinePencil } from 'react-icons/hi';
 import { api } from '@utils/api';
+import { IoPersonCircleOutline, IoPersonCircleSharp } from 'react-icons/io5';
 
 const TopBarNavigation: FC<{
   activeTab: string;
@@ -58,7 +59,7 @@ const TopBarNavigation: FC<{
                   type: 'spring',
                   duration: 0.3,
                 }}
-                className={`absolute z-10 rounded-md border border-themePrimary-50/10 bg-baseBackground-100 p-2`}>
+                className={`absolute z-10 flex flex-col gap-[.18rem] rounded-md border border-themePrimary-50/10 bg-baseBackground-100 p-2`}>
                 <div
                   onClick={() => setShowCreatePostForm(true)}
                   className={`flex items-center rounded-md py-1 px-2 `}>
@@ -107,6 +108,36 @@ const TopBarNavigation: FC<{
                     </Link>
                   );
                 })}
+
+                <Link
+                  href={'/profile'}
+                  key={10}
+                  aria-label={'Profile'}
+                  className={`flex items-center rounded-md py-1 px-2 ${
+                    activeTab.toLowerCase() === 'profile'.toLowerCase()
+                      ? 'bg-themePrimary-50/10'
+                      : ''
+                  }`}>
+                  <i>
+                    {activeTab.toLowerCase() === 'profile'.toLowerCase() ? (
+                      <IoPersonCircleSharp
+                        className='navbar-icon-active'
+                        size={24}></IoPersonCircleSharp>
+                    ) : (
+                      <IoPersonCircleOutline
+                        className='navbar-icon-inactive'
+                        size={24}></IoPersonCircleOutline>
+                    )}
+                  </i>
+                  <span
+                    className={`ml-2 font-mukta ${
+                      activeTab === 'profile'.toLowerCase()
+                        ? 'text-themePrimary-50'
+                        : 'text-themePrimary-50/70'
+                    }`}>
+                    {'Profile'}
+                  </span>
+                </Link>
               </motion.div>
             </>
           )}
