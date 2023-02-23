@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { HiOutlinePencil, HiPencil } from 'react-icons/hi';
 import CreatePostForm from '@components/forms/createpostform';
 import { api } from '@utils/api';
+import NavigationIcon from './navigationIcon';
 
 const SideBarNavigation: FC<{
   activeTab: string;
@@ -20,16 +21,7 @@ const SideBarNavigation: FC<{
 
   return (
     <nav className='flex h-screen w-max flex-col border-r border-themePrimary-100/40 px-4 pt-4 lg:px-12'>
-      <div className='mb-8 mt-2 flex select-none justify-center xl:justify-start'>
-        <Link href={'/'}>
-          <Image
-            priority
-            src='/favicon.ico'
-            width={32}
-            height={32}
-            alt='Plex'></Image>
-        </Link>
-      </div>
+      <NavigationIcon></NavigationIcon>
 
       <div
         className='my-3 flex cursor-pointer justify-center xl:justify-start'
