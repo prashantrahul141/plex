@@ -52,7 +52,7 @@ const CommentView: FC<{ data: IReturnComment }> = ({ data }) => {
             </h6>
           )}
           &nbsp;
-          <h6 className='font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline'>
+          <h6 className='hidden font-ibmplex text-xs tracking-tight text-themePrimary-100/70 hover:underline sm:block'>
             @{data.author.username}
           </h6>
           &nbsp;
