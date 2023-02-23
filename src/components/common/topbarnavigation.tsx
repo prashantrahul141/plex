@@ -77,6 +77,7 @@ const TopBarNavigation: FC<{
                     <Link
                       href={eachMenuTab.link}
                       key={index}
+                      aria-label={eachMenuTab.name}
                       className={`flex items-center rounded-md py-1 px-2 ${
                         activeTab.toLowerCase() ===
                         eachMenuTab.name.toLowerCase()

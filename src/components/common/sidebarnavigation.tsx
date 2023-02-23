@@ -66,7 +66,7 @@ const SideBarNavigation: FC<{
                 ? 'bg-themePrimary-50/10'
                 : ''
             }`}>
-            <Link href={eachTab.link}>
+            <Link href={eachTab.link} aria-label={eachTab.name}>
               <i className='group relative flex items-center'>
                 {activeTab.toLowerCase() === eachTab.name.toLowerCase()
                   ? eachTab.activateIcon
