@@ -6,7 +6,7 @@
 @tailwind base;
 
 /* * {
-  @apply outline outline-themePrimary-50;
+  @apply outline outline-1 outline-themePrimary-50/40;
 } */
 
 /* Firefox */
