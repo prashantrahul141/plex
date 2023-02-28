@@ -13,7 +13,7 @@ const PostList: FC<{
   userId?: string;
   authorId: string;
   trendingList?: boolean;
-  trendingQuery?: string | null;
+  trendingQuery?: string;
 }> = ({ userId, authorId, trendingList = false, trendingQuery }) => {
   const [skipPosts, setSkipPosts] = useState(POSTS_PER_PAGE);
   const [postsData, setPostsData] = useState<Array<TReturnPost>>([]);
@@ -21,24 +21,22 @@ const PostList: FC<{
   const [isMore, setIsMore] = useState(true);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  const postQuery = trendingList
-    ? trendingQuery
+  const postQuery =
+    trendingList && trendingQuery
       ? api.trending.getSpecificFromQuery.useQuery({ query: trendingQuery })
-      : api.trending.getCurrentTrending.useQuery({})
-    : userId
-    ? api.post.listFromUserId.useQuery({ userId: userId })
-    : api.post.list.useQuery({});
+      : userId
+      ? api.post.listFromUserId.useQuery({ userId: userId })
+      : api.post.list.useQuery({});
 
-  const loadMorePostsQuery = trendingList
-    ? trendingQuery
+  const loadMorePostsQuery =
+    trendingList && trendingQuery
       ? api.trending.getSpecificFromQuery.useQuery({
           query: trendingQuery,
           skip: skipPosts,
         })
-      : api.trending.getCurrentTrending.useQuery({ skip: skipPosts })
-    : userId
-    ? api.post.listFromUserId.useQuery({ userId: userId, skip: skipPosts })
-    : api.post.list.useQuery({ skip: skipPosts });
+      : userId
+      ? api.post.listFromUserId.useQuery({ userId: userId, skip: skipPosts })
+      : api.post.list.useQuery({ skip: skipPosts });
 
   // initial data load
   useEffect(() => {
