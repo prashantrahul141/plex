@@ -10,7 +10,6 @@ import CommonAlert from '@components/common/commonAlert';
 import type { TReturnPost } from 'src/types';
 import { api } from '@utils/api';
 import ReactTimeAgo from 'react-time-ago';
-import { useRouter } from 'next/router';
 import PostViewText from '@components/views/postView/postViewText';
 import PostViewInteractions from './postViewInteractions';
 import PostViewDeleteMenu from './postViewDeleteMenu';
@@ -20,8 +19,6 @@ const PostView: FC<{
   currentUserID: string;
   imagePrioriy?: boolean;
 }> = ({ data, currentUserID, imagePrioriy = false }) => {
-  const router = useRouter();
-
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
   const [showBigImage, setShowBigImage] = useState(false);
   const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
@@ -124,13 +121,11 @@ const PostView: FC<{
           </AnimatePresence>
         </div>
 
-        <span
-          onClick={() =>
-            void router.push(`/${data.Author.username}/${data.id}`)
-          }
+        <Link
+          href={`/${data.Author.username}/${data.id}`}
           className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-none tracking-wide'>
           <PostViewText text={data.text}></PostViewText>
-        </span>
+        </Link>
 
         {data.image !== null && (
           <div className='select-none' onClick={() => setShowBigImage(true)}>
