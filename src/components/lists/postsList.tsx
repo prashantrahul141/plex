@@ -112,7 +112,7 @@ const PostList: FC<{
       {!loadingPosts && isMore && (
         <div className='h-2 w-2' ref={loadMoreRef}></div>
       )}
-      {!isMore && !trendingList && (
+      {!isMore && !trendingList && !userId && (
         <div className='flex h-full w-full items-center justify-center gap-4 px-3 py-3'>
           <span className='font-mukta leading-none tracking-wide text-themePrimary-50'>
             No more posts to see, check out whats trending today.
