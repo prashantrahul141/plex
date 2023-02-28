@@ -15,7 +15,7 @@ const NotificationView: FC<{ data: Notification }> = ({ data }) => {
     <Link
       href={data.url}
       onClick={markSeen}
-      className={`border-y-1 flex w-full items-center justify-center gap-2 border-b border-themePrimary-50/30 px-1 py-2 hover:bg-themePrimary-50/5 ${
+      className={`border-y-1 flex w-full items-center justify-center gap-2 border-b border-themePrimary-50/10 px-1 py-2 hover:bg-themePrimary-50/5 ${
         !data.seen ? 'bg-themePrimary-50/5' : ''
       }`}>
       <div className='h-10 w-10 text-2xl text-themePrimary-50/95'>
