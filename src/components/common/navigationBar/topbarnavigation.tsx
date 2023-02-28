@@ -47,9 +47,15 @@ const TopBarNavigation: FC<{
         <AnimatePresence>
           {showNavBarMenu && !showCreatePostForm && (
             <>
-              <div
-                className='fixed top-0 left-0 -z-10 h-screen w-screen cursor-default'
-                id='navbar-backdrop'></div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 100 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 0.2,
+                }}
+                className='fixed top-0 left-0 -z-10 h-screen w-screen cursor-default bg-black/50'
+                id='navbar-backdrop'></motion.div>
 
               <motion.div
                 initial={{ top: -80, right: -30, opacity: 0, scale: 0 }}
@@ -59,7 +65,7 @@ const TopBarNavigation: FC<{
                   type: 'spring',
                   duration: 0.3,
                 }}
-                className={`absolute z-10 flex flex-col gap-[.18rem] rounded-md border border-themePrimary-50/10 bg-baseBackground-100 p-2`}>
+                className={`absolute z-10 flex flex-col gap-[.18rem] rounded-md border border-themePrimary-50/10 bg-baseBackground-100 p-2 pr-3`}>
                 <div
                   onClick={() => setShowCreatePostForm(true)}
                   className={`flex items-center rounded-md py-1 px-2 `}>
@@ -69,7 +75,7 @@ const TopBarNavigation: FC<{
                       className='navbar-icon-inactive'></HiOutlinePencil>
                   </i>
                   <span
-                    className={`ml-2 font-mukta text-lg text-themePrimary-50/70 `}>
+                    className={`ml-2 font-mukta text-lg tracking-wider text-themePrimary-50/70 `}>
                     Create
                   </span>
                 </div>
@@ -92,7 +98,7 @@ const TopBarNavigation: FC<{
                           : eachMenuTab.inactivateIcon}
                       </i>
                       <span
-                        className={`ml-2 font-mukta text-lg ${
+                        className={`ml-2 font-mukta text-lg tracking-wider ${
                           activeTab === eachMenuTab.name.toLowerCase()
                             ? 'text-themePrimary-50'
                             : 'text-themePrimary-50/70'
@@ -131,7 +137,7 @@ const TopBarNavigation: FC<{
                     )}
                   </i>
                   <span
-                    className={`ml-2 font-mukta text-lg ${
+                    className={`ml-2 font-mukta text-lg tracking-wider ${
                       activeTab === 'profile'.toLowerCase()
                         ? 'text-themePrimary-50'
                         : 'text-themePrimary-50/70'
