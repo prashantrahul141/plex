@@ -6,41 +6,38 @@ import { POSTS_PER_PAGE } from 'src/constantValues';
 export const TrendingRouter = createTRPCRouter({
   // gets current trending page
   getCurrentTrending: protectedProcedure
-    .input(z.object({ skip: z.number().default(0) }))
-    .query(async ({ input, ctx }) => {
-      const posts = await prisma.post.findMany({
-        take: POSTS_PER_PAGE,
-        skip: input.skip,
+    .input(z.object({ take: z.number().positive().default(10) }))
+    .query(async () => {
+      const hashtagsTrending = await prisma.hashtagOnPost.groupBy({
+        by: ['createdOn', 'hashtagId'],
         orderBy: { createdOn: 'asc' },
+        take: 10,
+        where: {
+          createdOn: {
+            gte: (() => {
+              const today = new Date();
+              const oneWeekBefore = today.getDate() - 7;
+              today.setDate(oneWeekBefore);
+              return today.toISOString();
+            })(),
+          },
+        },
+      });
+
+      const idsToFind = hashtagsTrending.map((e) => e.hashtagId);
+      const hashtagsTrendingData = await prisma.hashtag.findMany({
+        where: {
+          id: { in: idsToFind },
+        },
         include: {
-          BookmarkedByAuthor: {
-            where: {
-              userId: ctx.session.user.id,
-            },
-          },
-          LikedByAuthor: {
-            where: {
-              userId: ctx.session.user.id,
-            },
-          },
           _count: {
             select: {
-              Comments: true,
-              LikedByAuthor: true,
-            },
-          },
-          Author: {
-            select: {
-              id: true,
-              image: true,
-              name: true,
-              username: true,
-              authorVerified: true,
+              HashtagOnPost: true,
             },
           },
         },
       });
-      return { posts };
+      return hashtagsTrendingData;
     }),
 
   // gets posts with a specific hashtag
