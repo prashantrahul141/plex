@@ -121,11 +121,9 @@ const PostView: FC<{
           </AnimatePresence>
         </div>
 
-        <Link
-          href={`/${data.Author.username}/${data.id}`}
-          className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-none tracking-wide'>
+        <span className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-none tracking-wide'>
           <PostViewText text={data.text}></PostViewText>
-        </Link>
+        </span>
 
         {data.image !== null && (
           <div className='select-none' onClick={() => setShowBigImage(true)}>
