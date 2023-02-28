@@ -26,7 +26,7 @@ const CommentView: FC<{ data: IReturnComment }> = ({ data }) => {
   };
 
   return (
-    <article className='flex w-full gap-3 border-y border-themePrimary-100/10 px-1 py-3'>
+    <article className='flex w-full gap-3 border-y border-themePrimary-100/10 px-2 py-3'>
       <header className=''>
         <Link href={'/' + data.author.username}>
           <Image
