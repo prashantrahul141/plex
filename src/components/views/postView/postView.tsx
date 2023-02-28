@@ -104,7 +104,7 @@ const PostView: FC<{
                   className='absolute z-10 rounded-md border border-themePrimary-300/50 bg-baseBackground-100 py-1 text-themePrimary-50/80'>
                   <button
                     onClick={() => setShowDeleteMenu(true)}
-                    className='group/btn flex items-center justify-start gap-1 py-1 px-2 font-mukta text-lg font-light tracking-wide hover:bg-red-500/80 hover:text-themePrimary-50'>
+                    className='group/btn flex items-center justify-start gap-1 px-2 font-mukta text-lg font-light tracking-wide hover:bg-red-500/80 hover:text-themePrimary-50'>
                     <MdDeleteForever
                       size={24}
                       className='group-hover/btn:text-themePrimary-50'></MdDeleteForever>
