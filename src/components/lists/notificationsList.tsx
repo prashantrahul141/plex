@@ -8,9 +8,11 @@ const NotificationsList: FC = () => {
 
   if (notifications.status !== 'success') {
     return (
-      <div className='flex h-full w-full items-center justify-center'>
-        <div className='h-8 w-8'>
-          <LoadingComponent></LoadingComponent>
+      <div className='flex h-screen w-full items-center justify-center'>
+        <div className='flex'>
+          <div className='h-8 w-8'>
+            <LoadingComponent></LoadingComponent>
+          </div>
         </div>
       </div>
     );
