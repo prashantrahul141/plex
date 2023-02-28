@@ -42,7 +42,7 @@ const PostViewInteractions: FC<{
   };
 
   return (
-    <div className='pr-4'>
+    <div className='pt-4 pr-4'>
       <div className='flex select-none pt-1 font-ibmplex text-sm leading-none text-themePrimary-50/70'>
         <div className='flex flex-grow items-center justify-start'>
           <button
