@@ -5,6 +5,7 @@ import type { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import type { IEditFormInput } from 'src/types';
 import { BiErrorCircle, BiLoaderAlt, BiCheckCircle } from 'react-icons/bi';
 import { api } from '@utils/api';
+import { USERNAME_REGEX_EXP } from 'src/constantValues';
 
 const EditProfileUsernameForm: FC<{
   watch: UseFormWatch<IEditFormInput>;
@@ -76,7 +77,7 @@ const EditProfileUsernameForm: FC<{
             message: 'username cannot be longer than 16 characters',
           },
           pattern: {
-            value: /^[a-zA-Z][a-zA-Z0-9_]+$/,
+            value: USERNAME_REGEX_EXP,
             message:
               "Username can only contain letters, numbers and '_'. And should only start with letters.",
           },
