@@ -15,7 +15,7 @@ const BigImageView: FC<{
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
         onClick={() => callBackFun(false)}
-        className='fixed top-0 left-0 z-40 h-screen w-screen backdrop-blur-sm backdrop-brightness-50'>
+        className='fixed top-0 left-0 z-50 h-screen w-screen backdrop-blur-sm backdrop-brightness-50'>
         <motion.div
           className='relative h-screen w-screen'
           initial={{ scale: 0, opacity: 1 }}
