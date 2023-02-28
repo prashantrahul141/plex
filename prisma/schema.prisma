@@ -117,8 +117,9 @@ model Hashtag {
 
 // hashtag on post
 model HashtagOnPost {
-    post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-    postId String
+    createdOn DateTime @default(now())
+    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+    postId    String
 
     Hashtag   Hashtag @relation(fields: [hashtagId], references: [id], onDelete: Cascade)
     hashtagId String
