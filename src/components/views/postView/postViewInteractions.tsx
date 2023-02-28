@@ -83,7 +83,7 @@ const PostViewInteractions: FC<{
                   : '/';
 
               const shareData = {
-                text: 'Share this post',
+                text: 'Check out this post on plex!',
                 title: 'Share this post',
                 url: shareUrl,
               };
