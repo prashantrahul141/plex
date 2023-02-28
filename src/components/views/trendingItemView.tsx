@@ -6,19 +6,27 @@ const TrendintItemView: FC<{
   hashtagData: TReturnHashtag;
 }> = ({ hashtagData }) => {
   return (
-    <article className='rounded-xs group bg-baseBackground-100/80 p-2 hover:bg-baseBackground-100'>
+    <article className='rounded-xs group border-y border-y-themePrimary-100/10 bg-baseBackground-100/20 py-3 px-4 hover:bg-baseBackground-100'>
       <Link className='' href={`/trending?q=${hashtagData.text}`}>
-        <span className=' font-ibmplex text-xs text-themePrimary-50/40'>
-          {hashtagData._count.HashtagOnPost} Posts
+        <span className='font-ibmplex text-xs tracking-wide text-themePrimary-50/40 group-hover:text-themePrimary-50/50'>
+          <span className='tracking-tighter'>
+            {hashtagData._count.HashtagOnPost}
+          </span>
+          &nbsp;Posts
         </span>
 
-        <h2 className='my-[1px] font-mukta text-xl tracking-wider text-themePrimary-400 group-hover:text-themePrimary-300'>
+        <h2 className='my-[.2rem] font-mukta text-2xl font-bold tracking-wider text-themePrimary-50/80 group-hover:text-themePrimary-300'>
           #{hashtagData.text}
         </h2>
 
         {hashtagData.subtext && (
-          <h5 className='font-mukta text-sm font-thin leading-tight tracking-wide text-themePrimary-50/40'>
+          <h5 className='font-mukta text-sm font-thin leading-tight tracking-wide text-themePrimary-50/30 group-hover:text-themePrimary-50/50'>
             {hashtagData.subtext}
+          </h5>
+        )}
+        {!hashtagData.subtext && (
+          <h5 className='font-mukta text-sm font-thin leading-tight tracking-wide text-themePrimary-50/30 group-hover:text-themePrimary-50/50'>
+            See posts about {`#${hashtagData.text}`}
           </h5>
         )}
       </Link>
