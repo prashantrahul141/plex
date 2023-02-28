@@ -4,6 +4,7 @@ import type {
   BookmarkedByAuthor,
   CommentLikedByAuthor,
   Follows,
+  Hashtag,
 } from '@prisma/client';
 
 interface IReturnUser {
@@ -96,6 +97,8 @@ interface IPostComment {
   commentText: string;
 }
 
+type TReturnHashtag = Hashtag & { _count: { HashtagOnPost: number } };
+
 export type {
   IReturnUser,
   TReturnPost,
@@ -105,4 +108,5 @@ export type {
   IReturnSmallUser,
   IReturnComment,
   IPostComment,
+  TReturnHashtag,
 };
