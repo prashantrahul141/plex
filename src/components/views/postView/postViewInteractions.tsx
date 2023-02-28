@@ -42,9 +42,9 @@ const PostViewInteractions: FC<{
   };
 
   return (
-    <div>
+    <div className='pr-4'>
       <div className='flex select-none pt-1 font-ibmplex text-sm leading-none text-themePrimary-50/70'>
-        <div className='flex flex-grow items-center justify-center'>
+        <div className='flex flex-grow items-center justify-start'>
           <button
             className='group/icon flex w-fit cursor-pointer items-center justify-center hover:text-red-500'
             onClick={handleLike}
@@ -61,7 +61,7 @@ const PostViewInteractions: FC<{
           </button>
         </div>
 
-        <div className='flex flex-grow  items-center justify-center'>
+        <div className='flex flex-grow items-center justify-start'>
           <Link
             title='Comments'
             href={`${data.Author.username}/${data.id}`}
@@ -74,7 +74,7 @@ const PostViewInteractions: FC<{
           </Link>
         </div>
 
-        <div className='flex flex-grow items-center justify-center'>
+        <div className='flex flex-grow items-center justify-start'>
           <button
             onClick={async () => {
               const shareUrl =
@@ -104,7 +104,7 @@ const PostViewInteractions: FC<{
           </button>
         </div>
 
-        <div className='flex flex-grow items-center justify-center'>
+        <div className='flex flex-grow items-center justify-start'>
           <button
             onClick={handleBookmark}
             className='h-6 w-6 rounded-full p-1 text-lg hover:bg-themePrimary-300/10 hover:text-themePrimary-300'
