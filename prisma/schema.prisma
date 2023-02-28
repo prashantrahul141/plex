@@ -111,6 +111,7 @@ model Post {
 model Hashtag {
     id            String          @id @default(cuid())
     text          String          @unique @default("hashtag") @db.VarChar(255)
+    subtext       String          @default("") @db.VarChar(255)
     createdOn     DateTime        @default(now())
     HashtagOnPost HashtagOnPost[]
 }
