@@ -19,14 +19,14 @@ const TopBarNavigation: FC<{
   const unseenNotifications = api.notification.getUnseenNumber.useQuery();
 
   return (
-    <nav className='relative flex h-12 w-full select-none pt-2 backdrop-blur-sm backdrop-brightness-75'>
+    <nav className='relative flex h-16 w-full select-none pt-2 backdrop-blur-sm backdrop-brightness-75'>
       <Link href={'/'} className='absolute left-2 select-none'>
         <Image
           priority
           alt='Plex'
           src={'/favicon.ico'}
-          width={32}
-          height={32}></Image>
+          width={44}
+          height={44}></Image>
       </Link>
 
       <button
@@ -35,7 +35,7 @@ const TopBarNavigation: FC<{
         }}
         className='absolute right-2 flex cursor-pointer items-center'>
         <Image
-          className='h-9 w-9 rounded-full border-2 border-baseBackground-100 object-cover'
+          className='h-12 w-12 rounded-full border-2 border-baseBackground-100 object-cover'
           alt={authorName}
           src={authorAvatar}
           width={32}
