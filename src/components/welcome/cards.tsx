@@ -52,6 +52,7 @@ const WelcomePageCards: FC = () => {
           <div key={index} className='w-full'>
             <article className='relative w-full'>
               <Image
+                priority
                 className={`-z-10 h-full select-none blur-[2px] brightness-[0.4] sm:w-full`}
                 alt='image'
                 src={eachCardData.imageUrl}
