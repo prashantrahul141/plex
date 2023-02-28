@@ -6,7 +6,7 @@ const TrendintItemView: FC<{
   hashtagData: TReturnHashtag;
 }> = ({ hashtagData }) => {
   return (
-    <article className='rounded-xs group border-y border-y-themePrimary-100/10 bg-baseBackground-100/20 py-3 px-4 hover:bg-baseBackground-100'>
+    <article className='rounded-xs group border-b border-b-themePrimary-100/10 bg-baseBackground-100/20 py-3 px-4 hover:bg-baseBackground-100'>
       <Link className='' href={`/trending?q=${hashtagData.text}`}>
         <span className='font-ibmplex text-xs tracking-wide text-themePrimary-50/40 group-hover:text-themePrimary-50/50'>
           <span className='tracking-tighter'>
