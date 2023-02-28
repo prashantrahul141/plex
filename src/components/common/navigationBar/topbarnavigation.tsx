@@ -65,15 +65,16 @@ const TopBarNavigation: FC<{
                   className={`flex items-center rounded-md py-1 px-2 `}>
                   <i>
                     <HiOutlinePencil
-                      size={24}
+                      size={28}
                       className='navbar-icon-inactive'></HiOutlinePencil>
                   </i>
-                  <span className={`ml-2 font-mukta text-themePrimary-50/70 `}>
+                  <span
+                    className={`ml-2 font-mukta text-lg text-themePrimary-50/70 `}>
                     Create
                   </span>
                 </div>
 
-                {getNavMenuTabs(24).map((eachMenuTab, index) => {
+                {getNavMenuTabs(28).map((eachMenuTab, index) => {
                   return (
                     <Link
                       href={eachMenuTab.link}
@@ -91,7 +92,7 @@ const TopBarNavigation: FC<{
                           : eachMenuTab.inactivateIcon}
                       </i>
                       <span
-                        className={`ml-2 font-mukta ${
+                        className={`ml-2 font-mukta text-lg ${
                           activeTab === eachMenuTab.name.toLowerCase()
                             ? 'text-themePrimary-50'
                             : 'text-themePrimary-50/70'
@@ -122,15 +123,15 @@ const TopBarNavigation: FC<{
                     {activeTab.toLowerCase() === 'profile'.toLowerCase() ? (
                       <IoPersonCircleSharp
                         className='navbar-icon-active'
-                        size={24}></IoPersonCircleSharp>
+                        size={28}></IoPersonCircleSharp>
                     ) : (
                       <IoPersonCircleOutline
                         className='navbar-icon-inactive'
-                        size={24}></IoPersonCircleOutline>
+                        size={28}></IoPersonCircleOutline>
                     )}
                   </i>
                   <span
-                    className={`ml-2 font-mukta ${
+                    className={`ml-2 font-mukta text-lg ${
                       activeTab === 'profile'.toLowerCase()
                         ? 'text-themePrimary-50'
                         : 'text-themePrimary-50/70'
