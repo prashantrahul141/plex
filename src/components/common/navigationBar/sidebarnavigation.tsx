@@ -39,10 +39,10 @@ const SideBarNavigation: FC<{
             Create
           </span>
           <span
-            className={`ml-2 hidden font-mukta text-xl font-thin not-italic tracking-wide xl:block ${
+            className={`ml-2 hidden font-mukta text-xl font-thin not-italic tracking-wide duration-150 ease-in-out group-hover:text-themePrimary-50 xl:block ${
               showCreatePostForm
                 ? 'text-themePrimary-50'
-                : 'text-themePrimary-50/80'
+                : 'text-themePrimary-50/60'
             }`}>
             Create
           </span>
@@ -74,7 +74,7 @@ const SideBarNavigation: FC<{
                     </span>
                   )}
                 <span
-                  className={`ml-2 hidden font-mukta text-xl font-thin not-italic tracking-wide xl:block ${
+                  className={`ml-2 hidden font-mukta text-xl font-thin not-italic tracking-wide duration-150 ease-in-out group-hover:text-themePrimary-50 xl:block ${
                     activeTab.toLowerCase() === eachTab.name.toLowerCase()
                       ? 'text-themePrimary-50'
                       : 'text-themePrimary-50/60'
@@ -97,7 +97,7 @@ const SideBarNavigation: FC<{
           }`}>
           <i className='group relative flex items-center'>
             <Image
-              className='h-8 w-8 rounded-full border-2 border-themePrimary-300 object-cover'
+              className='border-1 h-8 w-8 rounded-full border-baseBackground-100 object-cover'
               src={authorAvatar}
               width={50}
               height={50}
@@ -106,7 +106,7 @@ const SideBarNavigation: FC<{
               {authorName}
             </span>
             <span
-              className={`ml-2 hidden font-mukta text-base font-thin not-italic tracking-wide xl:block ${
+              className={`ml-2 hidden font-mukta text-base font-thin not-italic tracking-wide duration-150 ease-in-out group-hover:text-themePrimary-50 xl:block ${
                 activeTab.toLowerCase() === 'profile'
                   ? 'text-themePrimary-50'
                   : 'text-themePrimary-50/80'
