@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { api } from '@utils/api';
 import ProfileView from './profileView/profileView';
 import LoadingComponent from '@components/common/loadingcomponent';
@@ -35,6 +35,12 @@ const UserProfileView: FC<{
     ? api.user.getForShowFromId.useQuery({ id: idToFind })
     : api.user.getForShow.useQuery({ username: idToFind });
 
+  useEffect(() => {
+    if (getUserQuery.data && getUserQuery.data.foundUser) {
+      setLayoutTitleCallback(getUserQuery.data.foundUser.name);
+    }
+  }, [getUserQuery.data]);
+
   if (getUserQuery.status !== 'success') {
     return (
       <div className='flex h-screen w-full items-center justify-center'>
@@ -50,7 +56,6 @@ const UserProfileView: FC<{
     void router.push('/404');
     return <></>;
   }
-  setLayoutTitleCallback(getUserQuery.data.foundUser.name);
 
   return (
     <>
