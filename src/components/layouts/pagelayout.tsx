@@ -15,7 +15,7 @@ import AdditionalWidgets from '@components/common/additionalWidgets';
 import UserProfileView from '@components/views/userProfileVIew';
 import EditProfileForm from '@components/forms/editprofile/editprofileform';
 import FollowsViewOnProfile from '@components/views/Follows/followsViewOnProfile';
-import FollowsVIewOnUser from '@components/views/Follows/followsViewOnUser';
+import FollowsViewOnUser from '@components/views/Follows/followsViewOnUser';
 import OpenPost from '@components/views/openPost';
 
 type pages =
@@ -72,7 +72,16 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
               className={`hidden border-b border-themePrimary-100/40 px-3 py-4 font-mukta text-2xl tracking-wide text-themePrimary-50/90 sm:block ${
                 !['user', 'profile'].includes(page) ? `capitalize` : ``
               }`}>
-              {['user', 'profile'].includes(page) ? layoutTitle : page}
+              {[
+                'user',
+                'profile',
+                'followers profile',
+                'followings profile',
+                'followers user',
+                'followings user',
+              ].includes(page)
+                ? layoutTitle
+                : page}
             </h2>
             <motion.div
               initial={{ opacity: 0, height: 0 }}
@@ -123,26 +132,38 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
 
               {page === 'followers profile' && (
                 <FollowsViewOnProfile
+                  setLayoutTitleCallback={(target: string) =>
+                    setLayoutTitle(target)
+                  }
                   key={10}
                   page='followers'></FollowsViewOnProfile>
               )}
 
               {page === 'followings profile' && (
                 <FollowsViewOnProfile
+                  setLayoutTitleCallback={(target: string) =>
+                    setLayoutTitle(target)
+                  }
                   key={11}
                   page='followings'></FollowsViewOnProfile>
               )}
 
               {page === 'followers user' && (
-                <FollowsVIewOnUser
+                <FollowsViewOnUser
+                  setLayoutTitleCallback={(target: string) =>
+                    setLayoutTitle(target)
+                  }
                   key={12}
-                  page='followers'></FollowsVIewOnUser>
+                  page='followers'></FollowsViewOnUser>
               )}
 
               {page === 'followings user' && (
-                <FollowsVIewOnUser
+                <FollowsViewOnUser
+                  setLayoutTitleCallback={(target: string) =>
+                    setLayoutTitle(target)
+                  }
                   key={13}
-                  page='followings'></FollowsVIewOnUser>
+                  page='followings'></FollowsViewOnUser>
               )}
               {page === 'post' && (
                 <OpenPost key={13} session={session}></OpenPost>
