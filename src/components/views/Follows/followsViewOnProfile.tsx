@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { api } from '@utils/api';
 import LoadingComponent from '@components/common/loadingcomponent';
 import { useRouter } from 'next/router';
@@ -6,13 +7,18 @@ import SmallProfileView from '../profileView/smallProfileView';
 
 const FollowsViewOnProfile: FC<{
   page: 'followers' | 'followings';
-}> = ({ page }) => {
+  setLayoutTitleCallback: (target: string) => void;
+}> = ({ page, setLayoutTitleCallback }) => {
   const followsQuery =
     page === 'followers'
       ? api.follows.getAuthorFollowers.useQuery()
       : api.follows.getAuthorFollowings.useQuery();
 
   const router = useRouter();
+
+  useEffect(() => {
+    setLayoutTitleCallback(page);
+  }, [page]);
 
   if (followsQuery.status !== 'success') {
     return (

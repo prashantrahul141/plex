@@ -1,12 +1,13 @@
-import type { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { api } from '@utils/api';
 import LoadingComponent from '@components/common/loadingcomponent';
 import { useRouter } from 'next/router';
 import SmallProfileView from '../profileView/smallProfileView';
 
-const FollowsVIewOnUser: FC<{
+const FollowsViewOnUser: FC<{
   page: 'followers' | 'followings';
-}> = ({ page }) => {
+  setLayoutTitleCallback: (target: string) => void;
+}> = ({ page, setLayoutTitleCallback }) => {
   const router = useRouter();
 
   // sets idToFind to username
@@ -26,6 +27,10 @@ const FollowsVIewOnUser: FC<{
     page === 'followers'
       ? api.follows.getFollowersFromUsername.useQuery({ username: idToFind })
       : api.follows.getFollowingsFromUsername.useQuery({ username: idToFind });
+
+  useEffect(() => {
+    setLayoutTitleCallback(`${idToFind}'s ${page}`);
+  }, [page]);
 
   if (followsQuery.status !== 'success') {
     return (
@@ -55,4 +60,4 @@ const FollowsVIewOnUser: FC<{
   );
 };
 
-export default FollowsVIewOnUser;
+export default FollowsViewOnUser;
