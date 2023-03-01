@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { AiOutlineCompass } from 'react-icons/ai';
 
-const FourZeroFour: FC = () => {
+const PageNotFoundError: FC = () => {
   return (
     <div className='flex h-screen w-full items-center justify-center'>
       <main className='flex flex-col items-center justify-center'>
@@ -25,4 +25,4 @@ const FourZeroFour: FC = () => {
   );
 };
 
-export default FourZeroFour;
+export default PageNotFoundError;
