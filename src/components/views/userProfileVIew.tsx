@@ -1,4 +1,5 @@
-import { FC, useEffect } from 'react';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 import { api } from '@utils/api';
 import ProfileView from './profileView/profileView';
 import LoadingComponent from '@components/common/loadingcomponent';
@@ -6,6 +7,7 @@ import type { Session } from 'next-auth';
 import { useRouter } from 'next/router';
 import HeadComp from '@components/common/headcomponent';
 import PostList from '@components/lists/postsList';
+import React from 'react';
 
 const UserProfileView: FC<{
   isCurrentUser: boolean;
@@ -39,7 +41,7 @@ const UserProfileView: FC<{
     if (getUserQuery.data && getUserQuery.data.foundUser) {
       setLayoutTitleCallback(getUserQuery.data.foundUser.name);
     }
-  }, [getUserQuery.data]);
+  }, [getUserQuery.data, setLayoutTitleCallback]);
 
   if (getUserQuery.status !== 'success') {
     return (

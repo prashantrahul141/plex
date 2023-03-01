@@ -1,4 +1,5 @@
-import { FC, useEffect } from 'react';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 import { api } from '@utils/api';
 import LoadingComponent from '@components/common/loadingcomponent';
 import { useRouter } from 'next/router';
@@ -30,7 +31,7 @@ const FollowsViewOnUser: FC<{
 
   useEffect(() => {
     setLayoutTitleCallback(`${idToFind}'s ${page}`);
-  }, [page]);
+  }, [page, idToFind, setLayoutTitleCallback]);
 
   if (followsQuery.status !== 'success') {
     return (

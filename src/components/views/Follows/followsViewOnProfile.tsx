@@ -18,7 +18,7 @@ const FollowsViewOnProfile: FC<{
 
   useEffect(() => {
     setLayoutTitleCallback(page);
-  }, [page]);
+  }, [page, setLayoutTitleCallback]);
 
   if (followsQuery.status !== 'success') {
     return (
