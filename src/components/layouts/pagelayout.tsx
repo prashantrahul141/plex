@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useCallback } from 'react';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import NotificationsList from '@components/lists/notificationsList';
@@ -37,6 +38,9 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [layoutTitle, setLayoutTitle] = useState('');
+  const setTitleCallback = useCallback((target: string) => {
+    setLayoutTitle(target);
+  }, []);
 
   if (status === 'authenticated') {
     return (
@@ -110,9 +114,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
               {page === 'profile' && (
                 <UserProfileView
                   key={7}
-                  setLayoutTitleCallback={(target: string) =>
-                    setLayoutTitle(target)
-                  }
+                  setLayoutTitleCallback={setTitleCallback}
                   isCurrentUser={true}
                   session={session}></UserProfileView>
               )}
@@ -123,9 +125,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
               {page === 'user' && (
                 <UserProfileView
                   key={9}
-                  setLayoutTitleCallback={(target: string) =>
-                    setLayoutTitle(target)
-                  }
+                  setLayoutTitleCallback={setTitleCallback}
                   isCurrentUser={false}
                   session={session}></UserProfileView>
               )}
@@ -141,27 +141,21 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
 
               {page === 'followings profile' && (
                 <FollowsViewOnProfile
-                  setLayoutTitleCallback={(target: string) =>
-                    setLayoutTitle(target)
-                  }
+                  setLayoutTitleCallback={setTitleCallback}
                   key={11}
                   page='followings'></FollowsViewOnProfile>
               )}
 
               {page === 'followers user' && (
                 <FollowsViewOnUser
-                  setLayoutTitleCallback={(target: string) =>
-                    setLayoutTitle(target)
-                  }
+                  setLayoutTitleCallback={setTitleCallback}
                   key={12}
                   page='followers'></FollowsViewOnUser>
               )}
 
               {page === 'followings user' && (
                 <FollowsViewOnUser
-                  setLayoutTitleCallback={(target: string) =>
-                    setLayoutTitle(target)
-                  }
+                  setLayoutTitleCallback={setTitleCallback}
                   key={13}
                   page='followings'></FollowsViewOnUser>
               )}
