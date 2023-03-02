@@ -5,7 +5,10 @@ import type { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import type { IEditFormInput } from 'src/types';
 import { BiErrorCircle, BiLoaderAlt, BiCheckCircle } from 'react-icons/bi';
 import { api } from '@utils/api';
-import { PROFILE_FORM_USERNAME_REGEX } from 'src/constantValues';
+import {
+  illegalUsernames,
+  PROFILE_FORM_USERNAME_REGEX,
+} from 'src/constantValues';
 
 const EditProfileUsernameForm: FC<{
   watch: UseFormWatch<IEditFormInput>;
@@ -19,18 +22,6 @@ const EditProfileUsernameForm: FC<{
     { username: usernameState },
     { enabled: false }
   );
-  const illegalUsernames = [
-    'api',
-    'bookmarks',
-    'dev',
-    'home',
-    'notificaions',
-    'profile',
-    'settings',
-    'signin',
-    'trending',
-    'welcome',
-  ];
 
   useEffect(() => {
     if (usernameState === currentUsername) {
