@@ -14,6 +14,7 @@ import LoadingComponent from '@components/common/loadingcomponent';
 import { useRouter } from 'next/router';
 import ErrorMessage from '@components/common/errorMessage';
 import type { IFormInput } from 'src/types';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
   formSetCallback,
@@ -103,7 +104,7 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
     <form
       className='max-w-screen relative w-96 rounded-lg border border-themePrimary-100/10 bg-baseBackground-100 px-2 py-4'
       onSubmit={handleSubmit(submitForm)}>
-      {uploadingImageProgress && (
+      {uploadingImageProgress !== null && (
         <>
           <div className='absolute top-0 left-0 z-30 h-full w-full max-w-md rounded backdrop-brightness-50'>
             <div className='absolute top-1/2 left-1/2 h-10 w-10 -translate-y-1/2 -translate-x-1/2 text-center'>
@@ -115,10 +116,15 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
           </div>
         </>
       )}
+      <div className='w-full'></div>
 
       <div className='py-4 text-center'>
-        <span className='font-mukta text-2xl leading-tight tracking-wide text-themePrimary-100/95'>
-          Create a post
+        <span className='flex items-center justify-center font-mukta text-2xl leading-tight tracking-wide text-themePrimary-100/95'>
+          <span className='flex-grow'> Create a post</span>
+          <AiFillCloseCircle
+            title='close'
+            className='mr-4 mb-3 h-5 w-5 cursor-pointer text-base text-red-400 hover:text-red-500'
+            onClick={() => formSetCallback(false)}></AiFillCloseCircle>
         </span>
       </div>
       <textarea
