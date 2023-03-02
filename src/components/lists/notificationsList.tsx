@@ -2,6 +2,7 @@ import { api } from '@utils/api';
 import type { FC } from 'react';
 import LoadingComponent from '@components/common/loadingcomponent';
 import NotificationView from '@components/views/notificationView/notificationView';
+import NothingToSeeHere from '@components/common/nothingToSeeHere';
 
 const NotificationsList: FC = () => {
   const notifications = api.notification.get.useQuery();
@@ -26,6 +27,11 @@ const NotificationsList: FC = () => {
             data={eachNotification}></NotificationView>
         );
       })}
+
+      {notifications.data.length < 1 && (
+        <NothingToSeeHere
+          text={<span>You&apos;re all caught up!</span>}></NothingToSeeHere>
+      )}
     </div>
   );
 };

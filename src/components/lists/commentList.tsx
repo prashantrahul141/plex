@@ -1,4 +1,5 @@
 import LoadingComponent from '@components/common/loadingcomponent';
+import NothingToSeeHere from '@components/common/nothingToSeeHere';
 import CommentForm from '@components/forms/commentform';
 import CommentView from '@components/views/commentView/commentView';
 import { api } from '@utils/api';
@@ -53,6 +54,12 @@ const CommentList: FC<{
       {commentsData.map((eachComment) => (
         <CommentView key={eachComment.id} data={eachComment}></CommentView>
       ))}
+      {commentsData.length < 1 && (
+        <NothingToSeeHere
+          text={
+            <span>No comments yet, be the first one!</span>
+          }></NothingToSeeHere>
+      )}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import { useState } from 'react';
 import type { TReturnPost } from 'src/types';
 import { POSTS_PER_PAGE } from 'src/constantValues';
 import Link from 'next/link';
+import NothingToSeeHere from '@components/common/nothingToSeeHere';
 
 const PostList: FC<{
   userId?: string;
@@ -111,6 +112,9 @@ const PostList: FC<{
             currentUserID={authorId}></PostView>
         );
       })}
+
+      {postsData.length < 1 && <NothingToSeeHere></NothingToSeeHere>}
+
       {!loadingPosts && isMore && (
         <div className='h-2 w-2' ref={loadMoreRef}></div>
       )}
