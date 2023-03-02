@@ -1,5 +1,6 @@
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
@@ -38,6 +39,11 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Role {
+    USER
+    DEVELOPER
+}
+
 model User {
     id             String    @id @default(cuid())
     name           String
@@ -47,6 +53,7 @@ model User {
     image          String    @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed") @db.VarChar(255)
     joinedOn       DateTime  @default(now())
     authorVerified Boolean   @default(false)
+    role           Role      @default(USER)
 
     settings   Settings @relation(fields: [settingsId], references: [id])
     settingsId String
