@@ -4,6 +4,7 @@ import { api } from '@utils/api';
 import LoadingComponent from '@components/common/loadingcomponent';
 import { useRouter } from 'next/router';
 import SmallProfileView from '../profileView/smallProfileView';
+import NothingToSeeHere from '@components/common/nothingToSeeHere';
 
 const FollowsViewOnProfile: FC<{
   page: 'followers' | 'followings';
@@ -44,6 +45,9 @@ const FollowsViewOnProfile: FC<{
           data={eachFollow}
           key={eachFollow.username}></SmallProfileView>
       ))}
+      {followsQuery.data.follows.length < 1 && (
+        <NothingToSeeHere></NothingToSeeHere>
+      )}
     </>
   );
 };

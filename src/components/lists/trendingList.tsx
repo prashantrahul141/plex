@@ -7,6 +7,7 @@ import PostList from './postsList';
 import { api } from '@utils/api';
 import TrendingItemView from '@components/views/trendingItemView';
 import type { TReturnHashtag } from 'src/types';
+import NothingToSeeHere from '@components/common/nothingToSeeHere';
 
 const TrendingList: FC<{ session: Session }> = ({ session }) => {
   const router = useRouter();
@@ -51,6 +52,10 @@ const TrendingList: FC<{ session: Session }> = ({ session }) => {
             key={eachTrending.id}
             hashtagData={eachTrending}></TrendingItemView>
         ))}
+
+      {!queryToFind && trendingListState.length < 1 && (
+        <NothingToSeeHere></NothingToSeeHere>
+      )}
     </>
   );
 };
