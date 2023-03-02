@@ -27,15 +27,24 @@ const HeadComp: FC<{ headTitle?: string }> = ({ headTitle = undefined }) => {
         <meta content='Plex' property='og:title' />
         <meta content='Get together with Plex.' property='og:description' />
         <meta content='https://plex-social.vercel.app/' property='og:url' />
-        <meta content='/static/cardimage.png' property='og:image' />
+        <meta
+          content='https://plex-social.vercel.app/_next/image?url=%2Fstatic%2Fcardimage.png&w=1080&q=75'
+          property='og:image'
+        />
         <meta content='#141d31' data-react-helmet='true' name='theme-color' />
 
-        <meta name='twitter:card' content='/static/cardimage.png' />
+        <meta
+          name='twitter:card'
+          content='https://plex-social.vercel.app/_next/image?url=%2Fstatic%2Fcardimage.png&w=1080&q=75'
+        />
         <meta property='twitter:domain' content='plex-social.vercel.app' />
         <meta property='twitter:url' content='https://plex-social.vercel.app' />
         <meta name='twitter:title' content='Plex' />
         <meta name='twitter:description' content='Get together with Plex.' />
-        <meta name='twitter:image' content='/static/cardimage.png' />
+        <meta
+          name='twitter:image'
+          content='https://plex-social.vercel.app/_next/image?url=%2Fstatic%2Fcardimage.png&w=1080&q=75'
+        />
       </Head>
     </>
   );
