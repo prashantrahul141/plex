@@ -1,3 +1,4 @@
+import HeadComp from '@components/common/headcomponent';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { AiOutlineCompass } from 'react-icons/ai';
@@ -5,6 +6,7 @@ import { AiOutlineCompass } from 'react-icons/ai';
 const PageNotFoundError: FC = () => {
   return (
     <div className='flex h-screen w-full items-center justify-center'>
+      <HeadComp headTitle='404'></HeadComp>
       <main className='flex flex-col items-center justify-center'>
         <AiOutlineCompass
           className='mb-4 text-themePrimary-50'
