@@ -18,7 +18,8 @@
 next-env.d.ts
 
 # pwa
-/public/*.js
+/public/sw.js
+/public/workbox-*.js
 
 # production
 /build
