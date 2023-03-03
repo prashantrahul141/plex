@@ -70,6 +70,25 @@ npm i
 
 ### 🖼️ Screenshots
 
+Home
+<img src="/public/static/meta/s-1.png" alt="screenshot" width="500"/><br>
+Trending
+<img src="/public/static/meta/s-2.png" alt="screenshot" width="500"/><br>
+Notifications
+<img src="/public/static/meta/s-3.png" alt="screenshot" width="500"/><br>
+Bookmarks
+<img src="/public/static/meta/s-4.png" alt="screenshot" width="500"/><br>
+Profile
+<img src="/public/static/meta/s-5.png" alt="screenshot" width="500"/><br>
+Create posts, upload images
+<img src="/public/static/meta/s-6.png" alt="screenshot" width="500"/><br>
+Edit profile
+<img src="/public/static/meta/s-7.png" alt="screenshot" width="500"/><br>
+Fully Responsive
+<img src="/public/static/meta/s-8.png" alt="screenshot" width="500"/><br>
+<img src="/public/static/meta/s-9.png" alt="screenshot" width="500"/><br>
+<img src="/public/static/meta/s-10.png" alt="screenshot" width="500"/><br>
+<img src="/public/static/meta/s-11.png" alt="screenshot" width="500"/><br>
 <br>
 
 ### 💻 Technologies used
