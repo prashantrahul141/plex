@@ -12,7 +12,7 @@ import { useSession } from 'next-auth/react';
 import SideBarNavigation from '@components/common/navigationBar/sidebarnavigation';
 import { useRouter } from 'next/router';
 import LoadingComponent from '@components/common/loadingcomponent';
-// import AdditionalWidgets from '@components/common/additionalWidgets';
+import AdditionalWidgets from '@components/common/additionalWidgets';
 import UserProfileView from '@components/views/userProfileVIew';
 import EditProfileForm from '@components/forms/editprofile/editprofileform';
 import FollowsViewOnProfile from '@components/views/Follows/followsViewOnProfile';
@@ -165,9 +165,9 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
             </motion.div>
           </motion.div>
         </AnimatePresence>
-        {/* <div className='hidden lg:block'>
+        <div className='hidden lg:block'>
           <AdditionalWidgets></AdditionalWidgets>
-        </div> */}
+        </div>
       </div>
     );
   } else if (status === 'unauthenticated') {
