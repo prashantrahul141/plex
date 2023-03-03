@@ -93,7 +93,8 @@ const TopBarNavigation: FC<{
                           : ''
                       }`}>
                       <i>
-                        {activeTab === eachMenuTab.name
+                        {activeTab.toLowerCase() ===
+                        eachMenuTab.name.toLowerCase()
                           ? eachMenuTab.activateIcon
                           : eachMenuTab.inactivateIcon}
                       </i>
