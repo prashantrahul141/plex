@@ -53,13 +53,13 @@ const WelcomePageCards: FC = () => {
             <article className='relative w-full'>
               <Image
                 priority
-                className={`-z-10 h-full select-none blur-[2px] brightness-[0.4] sm:w-full`}
+                className={`-z-10 h-screen select-none object-cover blur-[2px] brightness-[0.4] sm:h-full sm:w-full`}
                 alt='image'
                 src={eachCardData.imageUrl}
                 width={1000}
                 height={1000}></Image>
 
-              <header className='absolute left-1/2 top-1/3 w-full max-w-2xl -translate-x-1/2 px-2 text-center sm:top-1/2 sm:px-0'>
+              <header className='absolute left-1/2 top-1/2 w-full max-w-2xl -translate-x-1/2 px-2 text-center sm:top-1/2 sm:px-0'>
                 <h1 className='mx-auto font-unbounded text-lg tracking-wide text-themePrimary-50 sm:text-4xl'>
                   {eachCardData.header}&nbsp;
                   <span
@@ -67,12 +67,12 @@ const WelcomePageCards: FC = () => {
                     {eachCardData.headerGradientText}
                   </span>
                 </h1>
-                <p className='mt-2 font-mukta text-sm leading-tight tracking-wide text-themePrimary-50/90 sm:text-base'>
+                {/* <p className='mt-2 font-mukta text-sm leading-tight tracking-wide text-themePrimary-50/90 sm:text-base'>
                   {eachCardData.description}
-                </p>
+                </p> */}
               </header>
               <div className='absolute bottom-0 left-0'>
-                <span className='text-themePrimary-50/30 hover:text-themePrimary-50/70 hover:underline'>
+                <span className='text-xs text-themePrimary-50/30 hover:text-themePrimary-50/70 hover:underline sm:text-base'>
                   Image by&nbsp;
                   <Link
                     target={'_blank'}

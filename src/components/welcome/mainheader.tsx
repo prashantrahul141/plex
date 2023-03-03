@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 const WelcomePageMainHeader: FC = () => {
   return (
-    <header className=' text-center'>
+    <header className='h-1/2 text-center'>
       <header className=''>
         <h1 className='select-none font-unbounded text-8xl tracking-wider text-themePrimary-50'>
           Plex
