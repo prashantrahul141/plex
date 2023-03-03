@@ -95,7 +95,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
             {data.foundUser.authorVerified && (
               <span className='group/verified relative'>
                 <MdVerified></MdVerified>
-                <span className='absolute left-1/2 top-6 z-40 hidden w-max -translate-x-1/2 rounded-md border border-none bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide text-themePrimary-50/90 group-hover/verified:block'>
+                <span className='absolute left-12 top-6 z-50 hidden w-max -translate-x-1/2 rounded-md border border-none bg-black/90 px-2 py-1 font-mukta text-xs font-thin tracking-wide text-themePrimary-50/90 group-hover/verified:block'>
                   This user is verified by the plex team.
                 </span>
               </span>
@@ -109,7 +109,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
           <ProfileViewBio bioText={data.foundUser.bio}></ProfileViewBio>
 
           <h6 className='flex flex-col sm:flex-row sm:gap-2'>
-            {data.foundUser.url !== null && (
+            {data.foundUser.url !== null && data.foundUser.url !== '' && (
               <Link
                 passHref={true}
                 target='_blank'
