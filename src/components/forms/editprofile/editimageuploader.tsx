@@ -52,6 +52,7 @@ const EditImageUploader: FC<{
   };
 
   const handleUpload = async () => {
+    setuploadingImageProgress(0);
     const signature = (await signatureQuery.refetch()).data;
 
     if (signature && avatarImageState !== null) {
@@ -99,7 +100,7 @@ const EditImageUploader: FC<{
         duration: 0.2,
       }}
       className='absolute left-1/2 top-1/3 z-20 h-max w-96 -translate-x-1/2 rounded-md border border-themePrimary-50/20 bg-baseBackground-100'>
-      {uploadingImageProgress && (
+      {uploadingImageProgress !== null && (
         <div className='absolute top-0 left-0 z-50 h-full w-full max-w-md rounded backdrop-brightness-50'>
           <div className='absolute top-1/2 left-1/2 h-10 w-10 -translate-y-1/2 -translate-x-1/2 text-center'>
             <LoadingComponent></LoadingComponent>
@@ -176,7 +177,8 @@ const EditImageUploader: FC<{
               type='button'
               onClick={handleUpload}
               className='btn bg-themePrimary-400/90 text-themePrimary-50/95 hover:bg-themePrimary-400'>
-              Set new profile picture
+              {uploadType === 'image' && 'Set new profile picture'}
+              {uploadType === 'banner' && 'Set new banner picture'}
             </button>
           </div>
         </>
