@@ -70,25 +70,33 @@ npm i
 
 ### 🖼️ Screenshots
 
-Home
+Home<br>
 <img src="/public/static/meta/s-1.png" alt="screenshot" width="500"/><br>
-Trending
+
+Trending<br>
 <img src="/public/static/meta/s-2.png" alt="screenshot" width="500"/><br>
-Notifications
+
+Notifications<br>
 <img src="/public/static/meta/s-3.png" alt="screenshot" width="500"/><br>
-Bookmarks
+
+Bookmarks<br>
 <img src="/public/static/meta/s-4.png" alt="screenshot" width="500"/><br>
-Profile
+
+Profile<br>
 <img src="/public/static/meta/s-5.png" alt="screenshot" width="500"/><br>
-Create posts, upload images
+
+Create posts, upload images<br>
 <img src="/public/static/meta/s-6.png" alt="screenshot" width="500"/><br>
-Edit profile
+
+Edit profile<br>
 <img src="/public/static/meta/s-7.png" alt="screenshot" width="500"/><br>
-Fully Responsive
-<img src="/public/static/meta/s-8.png" alt="screenshot" width="500"/><br>
-<img src="/public/static/meta/s-9.png" alt="screenshot" width="500"/><br>
-<img src="/public/static/meta/s-10.png" alt="screenshot" width="500"/><br>
-<img src="/public/static/meta/s-11.png" alt="screenshot" width="500"/><br>
+<br>
+
+Fully responsive<br>
+<img src="/public/static/meta/s-8.png" alt="screenshot" width="500"/><br><br>
+<img src="/public/static/meta/s-9.png" alt="screenshot" width="500"/><br><br>
+<img src="/public/static/meta/s-10.png" alt="screenshot" width="500"/><br><br>
+<img src="/public/static/meta/s-11.png" alt="screenshot" width="500"/><br><br>
 <br>
 
 ### 💻 Technologies used
