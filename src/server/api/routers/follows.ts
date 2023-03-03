@@ -12,6 +12,7 @@ export const FollowsRouter = createTRPCRouter({
       select: {
         follower: {
           select: {
+            id: true,
             name: true,
             username: true,
             bio: true,
@@ -38,6 +39,7 @@ export const FollowsRouter = createTRPCRouter({
       select: {
         following: {
           select: {
+            id: true,
             name: true,
             username: true,
             bio: true,
@@ -68,6 +70,7 @@ export const FollowsRouter = createTRPCRouter({
         select: {
           follower: {
             select: {
+              id: true,
               name: true,
               username: true,
               bio: true,
@@ -98,6 +101,7 @@ export const FollowsRouter = createTRPCRouter({
         select: {
           following: {
             select: {
+              id: true,
               name: true,
               username: true,
               bio: true,
