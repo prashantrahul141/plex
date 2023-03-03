@@ -165,7 +165,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
             </motion.div>
           </motion.div>
         </AnimatePresence>
-        <div className='hidden lg:block'>
+        <div className='hidden min-w-[18rem] lg:block'>
           <AdditionalWidgets></AdditionalWidgets>
         </div>
       </div>
