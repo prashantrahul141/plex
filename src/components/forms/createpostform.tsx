@@ -208,7 +208,9 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
           </motion.div>
         )}
       </AnimatePresence>
-      <button className='btn' type='submit'>
+      <button
+        className='btn bg-themePrimary-400/90 text-themePrimary-50/95 hover:bg-themePrimary-400'
+        type='submit'>
         Post
       </button>
     </form>
