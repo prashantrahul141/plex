@@ -15,5 +15,5 @@ export const illegalUsernames = [
   'signin',
   'trending',
   'welcome',
-  'verify',
+  'about',
 ];
