@@ -1,0 +1,65 @@
+name: Node CI
+
+on:
+  push:
+    branches: ['*']
+  pull_request:
+    branches: ['*']
+
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+  NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+
+  DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+  DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
+
+  G_GITHUB_CLIENT_ID: ${{ secrets._GITHUB_CLIENT_ID }}
+  G_GITHUB_CLIENT_SECRET: ${{ secrets._GITHUB_CLIENT_SECRET }}
+
+  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+
+  NEXT_PUBLIC_CLOUDINARY_CLOUDNAME: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUDNAME }}
+  NEXT_PUBLIC_CLOUDINARY_CLOUDAPIKEY: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUDAPIKEY }}
+  CLOUDINARY_CLOUDAPISECRET: ${{ secrets.CLOUDINARY_CLOUDAPISECRET }}
+  NEXT_PUBLIC_CLOUDINARY_ENDPOINT: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_ENDPOINT }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Runs ESLint
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Packages
+        run: npm ci
+
+      - name: Tests Lint
+        run: npm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build the project
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Packages
+        run: npm ci
+
+      - name: Build
+        run: npm run build
