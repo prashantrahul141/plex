@@ -28,15 +28,19 @@ const PeopleToFollow: FC = () => {
   }
 
   return (
-    <div className='w-full rounded-md border border-themePrimary-50/30 border-t-transparent border-l-transparent py-4'>
-      <header className='mb-4 w-full px-4'>
+    <div className='w-full py-5 pl-3'>
+      <header className='mb-4 w-full pl-1'>
         <span className='font-mukta text-2xl leading-none tracking-wide text-themePrimary-50'>
           Who to follow
         </span>
       </header>
-      {usersState.map((eachUser) => (
-        <SmallProfileView key={eachUser.id} data={eachUser}></SmallProfileView>
-      ))}
+      <div className='pl-2'>
+        {usersState.map((eachUser) => (
+          <SmallProfileView
+            key={eachUser.id}
+            data={eachUser}></SmallProfileView>
+        ))}
+      </div>
     </div>
   );
 };

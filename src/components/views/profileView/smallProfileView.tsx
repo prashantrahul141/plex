@@ -8,7 +8,7 @@ const SmallProfileView: FC<{
   data: IReturnSmallUser;
 }> = ({ data }) => {
   return (
-    <article className=' hover:bg-themePrimary-200/5'>
+    <article className='rounded-lg hover:bg-themePrimary-200/5'>
       <Link className='flex py-2 px-1' href={'/' + data.username}>
         <div className=''>
           <Image
