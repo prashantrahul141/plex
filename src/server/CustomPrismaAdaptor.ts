@@ -22,6 +22,9 @@ export function CustomPrismaAdapter(p: PrismaClient): Adapter {
           ...data,
           username: makeUsername(16),
           settings: { create: {} },
+          followings: {
+            create: { following: { connect: { username: 'plex' } } },
+          },
           notifications: {
             create: {
               text: 'Welcome to Plex, View your profile here.',
