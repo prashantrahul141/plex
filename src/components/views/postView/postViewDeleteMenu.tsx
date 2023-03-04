@@ -53,7 +53,7 @@ const PostViewDeleteMenu: FC<{
         </header>
         <main className='h-max w-full px-2'>
           <div className='mx-2 my-4 mb-8 text-center'>
-            <span className='font-mukta leading-tight text-themePrimary-50'>
+            <span className='font-mukta leading-tight text-themePrimary-50/90'>
               Are you sure you want to permanently delete this post?
             </span>
           </div>
