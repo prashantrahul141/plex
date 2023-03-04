@@ -10,7 +10,7 @@ const SmallProfileView: FC<{
 }> = ({ data, showBio = true }) => {
   return (
     <article className='rounded-lg hover:bg-themePrimary-200/5'>
-      <Link className='flex py-2 px-1' href={'/' + data.username}>
+      <Link className='flex py-2 px-3' href={'/' + data.username}>
         <div className=''>
           <Image
             className='h-12 min-h-[3rem] w-12 min-w-[3rem] rounded-full object-cover'
@@ -19,7 +19,7 @@ const SmallProfileView: FC<{
             alt={data.username}
             src={data.image}></Image>
         </div>
-        <main className='relative flex-grow pt-1 pl-2'>
+        <main className='relative flex-grow pt-1 pl-3'>
           <header className=''>
             <span className='flex gap-1 font-mukta text-xl leading-none tracking-wider text-themePrimary-50'>
               {data.name}
