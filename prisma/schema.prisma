@@ -59,7 +59,7 @@ model User {
     settingsId String
 
     url    String? @db.Text
-    banner String  @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultbanner_vfhdgt") @db.VarChar(255)
+    banner String  @default("https://res.cloudinary.com/dwa8at7sx/image/upload/v1677930500/defaultbanner_hjtdni") @db.VarChar(255)
     bio    String? @db.Text
 
     accounts Account[]

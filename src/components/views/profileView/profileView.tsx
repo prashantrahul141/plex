@@ -28,9 +28,9 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
     { enabled: false }
   );
   const followHandle = async () => {
-    await followQuery.refetch();
     setFollwingState((prevState) => !prevState);
     setFollowersCount((prevCount) => prevCount + (followingState ? -1 : 1));
+    await followQuery.refetch();
   };
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
         <header className='relative'>
           <Image
             priority={true}
-            className='max-h-64 min-w-full select-none bg-baseBackground-200/50 object-contain'
+            className='max-h-64 min-w-full cursor-pointer select-none bg-baseBackground-200/50 object-contain'
             onClick={() => {
               setShowBigImageBanner(true);
             }}
@@ -63,7 +63,7 @@ const ProfileView: FC<{ data: IReturnUser }> = ({ data }) => {
               setShowBigImageAvatar(true);
             }}
             priority={true}
-            className='absolute left-2 -bottom-12 h-32 w-32 rounded-full border-[5px] border-baseBackground-100 object-cover'
+            className='absolute left-2 -bottom-12 h-32 w-32 cursor-pointer rounded-full border-[5px] border-baseBackground-100 object-cover'
             src={data.foundUser.image}
             width={200}
             height={200}

@@ -72,7 +72,7 @@ const WelcomePageCards: FC = () => {
                 </p> */}
               </header>
               <div className='absolute bottom-0 left-0'>
-                <span className='text-xs text-themePrimary-50/30 hover:text-themePrimary-50/70 hover:underline sm:text-base'>
+                <span className='font-mukta text-xs font-thin text-themePrimary-50/30 hover:text-themePrimary-50/70 hover:underline sm:text-base'>
                   Image by&nbsp;
                   <Link
                     target={'_blank'}

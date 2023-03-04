@@ -70,7 +70,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
             exit={{ opacity: 0 }}
             transition={{ ease: 'easeInOut', duration: 0.1 }}
             key={0}
-            className='max-w-lg overflow-auto sm:min-w-[40rem] md:border-r md:border-themePrimary-100/40'>
+            className='max-w-lg overflow-hidden sm:min-w-[40rem] md:border-r md:border-themePrimary-100/40'>
             <h2
               key={1}
               className={`hidden border-b border-themePrimary-100/40 px-3 py-4 font-mukta text-2xl tracking-wide text-themePrimary-50/90 sm:block ${
@@ -89,11 +89,12 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
             </h2>
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: '90%' }}
+              animate={{ opacity: 1, height: '100%' }}
               exit={{ opacity: 0 }}
               transition={{ ease: 'easeInOut', duration: 0.2 }}
               key={2}
-              className='h-[90%] sm:overflow-auto'>
+              style={{ height: '100%' }}
+              className='pb-12 sm:overflow-auto'>
               {page === 'home' && (
                 <PostList authorId={session.user.id}></PostList>
               )}

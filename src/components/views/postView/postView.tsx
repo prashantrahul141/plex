@@ -131,7 +131,7 @@ const PostView: FC<{
           <div className='select-none' onClick={() => setShowBigImage(true)}>
             <Image
               priority={imagePrioriy}
-              className='max-h-[30rem] w-max rounded-2xl border border-themePrimary-300/20 object-contain'
+              className='max-h-[30rem] w-max cursor-pointer rounded-2xl border border-themePrimary-300/20 object-contain'
               width={800}
               height={800}
               src={data.image}
