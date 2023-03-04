@@ -36,7 +36,8 @@ const PeopleToFollow: FC = () => {
           usersState.map((eachUser) => (
             <SmallProfileView
               key={eachUser.id}
-              data={eachUser}></SmallProfileView>
+              data={eachUser}
+              showBio={false}></SmallProfileView>
           ))}
       </div>
     </div>

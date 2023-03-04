@@ -6,7 +6,8 @@ import Link from 'next/link';
 import ProfileViewBio from './profileViewBio';
 const SmallProfileView: FC<{
   data: IReturnSmallUser;
-}> = ({ data }) => {
+  showBio?: boolean;
+}> = ({ data, showBio = true }) => {
   return (
     <article className='rounded-lg hover:bg-themePrimary-200/5'>
       <Link className='flex py-2 px-1' href={'/' + data.username}>
@@ -36,13 +37,15 @@ const SmallProfileView: FC<{
             </span>
           </header>
 
-          <div className='mt-3'>
-            <p className='font-mukta font-thin leading-tight tracking-wide text-themePrimary-50/95'>
-              <ProfileViewBio
-                preserveWhitespace={false}
-                bioText={data.bio}></ProfileViewBio>
-            </p>
-          </div>
+          {showBio && (
+            <div className='mt-3'>
+              <p className='font-mukta font-thin leading-tight tracking-wide text-themePrimary-50/95'>
+                <ProfileViewBio
+                  preserveWhitespace={false}
+                  bioText={data.bio}></ProfileViewBio>
+              </p>
+            </div>
+          )}
         </main>
       </Link>
     </article>

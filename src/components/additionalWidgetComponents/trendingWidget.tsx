@@ -26,7 +26,7 @@ const TrendingWidget: FC = () => {
           What&apos;s trending
         </span>
       </header>
-      <div className='pl-2'>
+      <div className=''>
         {trendingHashtags.status !== 'success' && (
           <div className='flex w-full items-center justify-center'>
             <div className='flex'>
