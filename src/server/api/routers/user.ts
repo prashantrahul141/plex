@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { v2 as cloudinary } from 'cloudinary';
 import { env } from 'src/env/server.mjs';
+import { defaultAvatarURLs, defaultBannerURLs } from 'src/constantValues';
 
 export const UserRouter = createTRPCRouter({
   getForShowFromId: protectedProcedure
@@ -222,7 +223,10 @@ export const UserRouter = createTRPCRouter({
               .split('/')
               [oldURL.pathname.split('/').length - 1]?.split('.')[0];
 
-            if (oldUrlPublicId) {
+            if (
+              oldUrlPublicId &&
+              !defaultAvatarURLs.includes(oldURL.toString())
+            ) {
               await cloudinary.uploader.destroy(oldUrlPublicId, {
                 // @ts-ignore
                 api_key: env.CLOUDINARY_CLUODAPIKEY,
@@ -271,19 +275,21 @@ export const UserRouter = createTRPCRouter({
             id: ctx.session.user.id,
           },
           select: {
-            image: true,
+            banner: true,
           },
         });
 
         if (oldBannerPicture) {
-          const oldURL = new URL(oldBannerPicture.image);
+          const oldURL = new URL(oldBannerPicture.banner);
 
           if (oldURL.host === 'res.cloudinary.com') {
             const oldUrlPublicId = oldURL.pathname
               .split('/')
               [oldURL.pathname.split('/').length - 1]?.split('.')[0];
-
-            if (oldUrlPublicId) {
+            if (
+              oldUrlPublicId &&
+              !defaultBannerURLs.includes(oldURL.toString())
+            ) {
               await cloudinary.uploader.destroy(oldUrlPublicId, {
                 // @ts-ignore
                 api_key: env.CLOUDINARY_CLUODAPIKEY,
