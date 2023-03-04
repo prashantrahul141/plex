@@ -50,7 +50,7 @@ model User {
     username       String    @unique @db.Char(16)
     email          String    @unique
     emailVerified  DateTime?
-    image          String    @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed") @db.VarChar(255)
+    image          String    @default("https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed.png") @db.VarChar(255)
     joinedOn       DateTime  @default(now())
     authorVerified Boolean   @default(false)
     role           Role      @default(USER)
@@ -59,7 +59,7 @@ model User {
     settingsId String
 
     url    String? @db.Text
-    banner String  @default("https://res.cloudinary.com/dwa8at7sx/image/upload/v1677930500/defaultbanner_hjtdni") @db.VarChar(255)
+    banner String  @default("https://res.cloudinary.com/dwa8at7sx/image/upload/v1677930500/defaultbanner_hjtdni.png") @db.VarChar(255)
     bio    String? @db.Text
 
     accounts Account[]
