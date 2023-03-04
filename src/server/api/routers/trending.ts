@@ -11,7 +11,6 @@ export const TrendingRouter = createTRPCRouter({
       const hashtagsTrending = await prisma.hashtagOnPost.groupBy({
         by: ['createdOn', 'hashtagId'],
         orderBy: { createdOn: 'asc' },
-        take: input.take,
         where: {
           createdOn: {
             gte: (() => {
@@ -29,6 +28,7 @@ export const TrendingRouter = createTRPCRouter({
         where: {
           id: { in: idsToFind },
         },
+        take: input.take,
         include: {
           _count: {
             select: {
