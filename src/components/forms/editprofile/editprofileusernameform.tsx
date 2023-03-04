@@ -3,12 +3,13 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import type { UseFormRegister, UseFormWatch } from 'react-hook-form';
 import type { IEditFormInput } from 'src/types';
-import { BiErrorCircle, BiLoaderAlt, BiCheckCircle } from 'react-icons/bi';
+import { BiErrorCircle, BiCheckCircle } from 'react-icons/bi';
 import { api } from '@utils/api';
 import {
   illegalUsernames,
   PROFILE_FORM_USERNAME_REGEX,
 } from 'src/constantValues';
+import LoadingComponent from '@components/common/loadingcomponent';
 
 const EditProfileUsernameForm: FC<{
   watch: UseFormWatch<IEditFormInput>;
@@ -78,7 +79,9 @@ const EditProfileUsernameForm: FC<{
         })}
       />
       {loadingUsernameCheck && (
-        <BiLoaderAlt className='absolute right-2 text-xl text-blue-400'></BiLoaderAlt>
+        <div className='absolute right-2 h-5 w-5'>
+          <LoadingComponent></LoadingComponent>
+        </div>
       )}
       {existsAlready && !loadingUsernameCheck && (
         <BiErrorCircle className='absolute right-2 text-xl text-red-400'></BiErrorCircle>

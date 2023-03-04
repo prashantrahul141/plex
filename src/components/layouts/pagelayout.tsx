@@ -174,7 +174,7 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
     void router.push('/');
   }
   return (
-    <div className='flex h-screen w-full items-center justify-center'>
+    <div className='flex h-screen w-screen items-center justify-center'>
       <div className='flex'>
         <div className='h-8 w-8'>
           <LoadingComponent></LoadingComponent>

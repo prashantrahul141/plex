@@ -20,9 +20,9 @@ const CommentView: FC<{ data: IReturnComment }> = ({ data }) => {
   const likeQuery = api.comments.like.useMutation();
 
   const handleLike = async () => {
-    await likeQuery.mutateAsync({ addLike: !commentLiked, commentId: data.id });
     setCommentLiked((prev) => !prev);
     setCommentLikesCount(commentLikesCount + (commentLiked ? -1 : 1));
+    await likeQuery.mutateAsync({ addLike: !commentLiked, commentId: data.id });
   };
 
   return (

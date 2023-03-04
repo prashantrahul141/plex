@@ -17,7 +17,7 @@ const FooterWidget: FC = () => {
             passHref={true}
             title='Source Code on Github'
             target='_blank'>
-            Github
+            Source
           </Link>
         </main>
         <Link href={'/plex'} className=''>
