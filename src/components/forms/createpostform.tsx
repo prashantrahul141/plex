@@ -134,7 +134,7 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
           required: { value: true, message: 'Forgot to type something here?' },
           maxLength: {
             value: 150,
-            message: '   A post cannot be longer than 150 characters :/',
+            message: 'A post cannot be longer than 150 characters :/',
           },
         })}></textarea>
 
