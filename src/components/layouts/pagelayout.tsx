@@ -89,11 +89,10 @@ const PageLayout: FC<{ page: pages }> = ({ page }) => {
             </h2>
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: '100%' }}
+              animate={{ opacity: 1, height: '95%' }}
               exit={{ opacity: 0 }}
               transition={{ ease: 'easeInOut', duration: 0.2 }}
               key={2}
-              style={{ height: '100%' }}
               className='pb-12 sm:overflow-auto'>
               {page === 'home' && (
                 <PostList authorId={session.user.id}></PostList>
