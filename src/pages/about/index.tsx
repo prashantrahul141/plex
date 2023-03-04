@@ -2,6 +2,12 @@ import HeadComp from '@components/common/headcomponent';
 import type { FC } from 'react';
 import Link from 'next/link';
 
+export const getStaticProps = () => {
+  return {
+    props: {},
+  };
+};
+
 const AboutPage: FC = () => {
   return (
     <div className=' w-screen'>
