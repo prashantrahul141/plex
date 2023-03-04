@@ -2,8 +2,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AnimatePresence, motion } from 'framer-motion';
-import { SlOptions } from 'react-icons/sl';
+import { AnimatePresence } from 'framer-motion';
 import { MdDeleteForever, MdVerified } from 'react-icons/md';
 import BigImageView from '@components/views/bigImageView';
 import CommonAlert from '@components/common/commonAlert';
@@ -13,6 +12,7 @@ import ReactTimeAgo from 'react-time-ago';
 import PostViewText from '@components/views/postView/postViewText';
 import PostViewInteractions from './postViewInteractions';
 import PostViewDeleteMenu from './postViewDeleteMenu';
+import { useRouter } from 'next/dist/client/router';
 
 const PostView: FC<{
   data: TReturnPost;
@@ -21,8 +21,8 @@ const PostView: FC<{
 }> = ({ data, currentUserID, imagePrioriy = false }) => {
   const [showCopyShareLink, setShowCopyShareLink] = useState(false);
   const [showBigImage, setShowBigImage] = useState(false);
-  const [showHamMenuOptions, setShowHamMenuOptions] = useState(false);
   const [showDeleteMenu, setShowDeleteMenu] = useState(false);
+  const router = useRouter();
 
   const authorAdmin = currentUserID === data.Author.id;
 
@@ -31,6 +31,7 @@ const PostView: FC<{
   const handleDelete = async () => {
     await deleteQuery.mutateAsync({ postId: data.id });
     setShowDeleteMenu(false);
+    void router.push('/home');
   };
 
   return (
@@ -80,47 +81,14 @@ const PostView: FC<{
 
           {authorAdmin && (
             <button
-              title='Post Menu'
-              onClick={() => setShowHamMenuOptions(!showHamMenuOptions)}
-              className='absolute right-4 top-1/2 block rounded-full px-2 hover:bg-themePrimary-50/10 group-hover:block sm:hidden'>
-              <SlOptions></SlOptions>
+              title='Delete Post'
+              onClick={() =>
+                setShowDeleteMenu((prevDeleteMenu) => !prevDeleteMenu)
+              }
+              className='absolute right-4 top-1/2 block rounded-full p-1 text-red-600 hover:bg-red-600 hover:text-themePrimary-50 group-hover:block sm:hidden'>
+              <MdDeleteForever></MdDeleteForever>
             </button>
           )}
-          <AnimatePresence>
-            {authorAdmin && showHamMenuOptions && (
-              <>
-                <div
-                  onClick={() => setShowHamMenuOptions(false)}
-                  className='fixed top-0 left-0 h-screen w-screen'></div>
-                <motion.div
-                  key={0}
-                  initial={{ top: 10, right: -20, scale: 0, opacity: 0 }}
-                  animate={{ top: 30, right: 20, scale: 1, opacity: 1 }}
-                  exit={{ top: 10, right: -20, scale: 0, opacity: 0 }}
-                  transition={{
-                    type: 'spring',
-                    duration: 0.3,
-                  }}
-                  className='absolute z-10 rounded-md border border-themePrimary-300/50 bg-baseBackground-100 py-1 text-themePrimary-50/80'>
-                  <button
-                    onClick={() => setShowDeleteMenu(true)}
-                    className='group/btn flex items-center justify-start gap-1 px-2 font-mukta text-lg font-light tracking-wide hover:bg-red-500/80 hover:text-themePrimary-50'>
-                    <MdDeleteForever
-                      size={24}
-                      className='group-hover/btn:text-themePrimary-50'></MdDeleteForever>
-                    Delete
-                  </button>
-                </motion.div>
-              </>
-            )}
-          </AnimatePresence>
-          <AnimatePresence>
-            {authorAdmin && showDeleteMenu && (
-              <PostViewDeleteMenu
-                setShowDeleteMenu={(value: boolean) => setShowDeleteMenu(value)}
-                handleDelete={handleDelete}></PostViewDeleteMenu>
-            )}
-          </AnimatePresence>
         </div>
 
         <span className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-none tracking-wide'>
@@ -159,6 +127,13 @@ const PostView: FC<{
           <BigImageView
             callBackFun={(_state: boolean) => setShowBigImage(_state)}
             imageUrl={data.image}></BigImageView>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {authorAdmin && showDeleteMenu && (
+          <PostViewDeleteMenu
+            setShowDeleteMenu={(value: boolean) => setShowDeleteMenu(value)}
+            handleDelete={handleDelete}></PostViewDeleteMenu>
         )}
       </AnimatePresence>
     </article>
