@@ -189,7 +189,7 @@ export const PostRouter = createTRPCRouter({
       const posts = await prisma.post.findMany({
         take: POSTS_PER_PAGE,
         skip: input.skip,
-        orderBy: { createdOn: 'asc' },
+        orderBy: { createdOn: 'desc' },
         include: {
           BookmarkedByAuthor: {
             where: {
@@ -218,6 +218,7 @@ export const PostRouter = createTRPCRouter({
           },
         },
       });
+
       return { posts };
     }),
 
