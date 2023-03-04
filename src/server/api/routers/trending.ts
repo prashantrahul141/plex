@@ -7,11 +7,11 @@ export const TrendingRouter = createTRPCRouter({
   // gets current trending page
   getCurrentTrending: protectedProcedure
     .input(z.object({ take: z.number().positive().default(10) }))
-    .query(async () => {
+    .query(async ({ input }) => {
       const hashtagsTrending = await prisma.hashtagOnPost.groupBy({
         by: ['createdOn', 'hashtagId'],
         orderBy: { createdOn: 'asc' },
-        take: 10,
+        take: input.take,
         where: {
           createdOn: {
             gte: (() => {
