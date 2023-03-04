@@ -6,6 +6,9 @@ module.exports = {
   },
   theme: {
     extend: {
+      animation: {
+        'spin-ease': 'spin .9s ease-in-out infinite',
+      },
       fontFamily: {
         unbounded: ['Unbounded'],
         mukta: ['Mukta'],
