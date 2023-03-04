@@ -17,3 +17,11 @@ export const illegalUsernames = [
   'welcome',
   'about',
 ];
+export const defaultAvatarURLs = [
+  'https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed',
+  'https://res.cloudinary.com/dwa8at7sx/image/upload/defaultavatar_ve03ed.png',
+];
+export const defaultBannerURLs = [
+  'https://res.cloudinary.com/dwa8at7sx/image/upload/v1677930500/defaultbanner_hjtdni',
+  'https://res.cloudinary.com/dwa8at7sx/image/upload/v1677930500/defaultbanner_hjtdni.png',
+];
