@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { getNavMenuTabs } from 'src/constants';
 import { AnimatePresence, motion } from 'framer-motion';
-import CreatePostForm from '@components/forms/createpostform';
+import CreatePostForm from '@components/forms/createpost/createpostform';
 import { HiOutlinePencil } from 'react-icons/hi';
 import { api } from '@utils/api';
 import { IoPersonCircleOutline, IoPersonCircleSharp } from 'react-icons/io5';

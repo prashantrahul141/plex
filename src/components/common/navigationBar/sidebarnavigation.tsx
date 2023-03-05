@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { getNavMenuTabs } from 'src/constants';
 import { AnimatePresence, motion } from 'framer-motion';
 import { HiOutlinePencil, HiPencil } from 'react-icons/hi';
-import CreatePostForm from '@components/forms/createpostform';
+import CreatePostForm from '@components/forms/createpost/createpostform';
 import { api } from '@utils/api';
 import NavigationIcon from './navigationIcon';
 
