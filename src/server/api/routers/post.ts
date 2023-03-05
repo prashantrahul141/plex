@@ -126,7 +126,7 @@ export const PostRouter = createTRPCRouter({
           return {
             userId: each.id,
             iconImage: createdPost.Author.image,
-            text: `${createdPost.Author.name} mentioned you on his post.`,
+            text: `${createdPost.Author.name} mentioned you on their post.`,
             url: `${createdPost.Author.username}/${createdPost.id}`,
           };
         }),
