@@ -6,7 +6,7 @@ const FooterWidget: FC = () => {
       <span className='font-mukta text-xl leading-none tracking-wide text-themePrimary-50'>
         Links
       </span>
-      <section className='ml-3 mt-2 font-mukta font-thin tracking-wide text-themePrimary-50/40'>
+      <section className='ml-3 mt-2 font-mukta font-thin tracking-wide text-themePrimary-50/70'>
         <main className=' flex flex-wrap gap-2'>
           <Link href={'/about'} className='hover:underline' title='About Page'>
             About
