@@ -20,7 +20,7 @@ const BigImageView: FC<{
           className='relative h-screen w-screen'
           initial={{ opacity: 0, top: '0%', translateY: '-50%' }}
           animate={{ opacity: 1, top: '50%', translateY: '-50%' }}
-          exit={{ opacity: 0, top: '0%' }}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.3, type: 'spring' }}>
           {width === undefined && (
             <div className='relative z-50 h-screen w-screen'>

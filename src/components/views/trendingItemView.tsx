@@ -7,7 +7,7 @@ const TrendintItemView: FC<{
 }> = ({ hashtagData }) => {
   return (
     <Link href={`/trending?q=${hashtagData.text}`}>
-      <article className='rounded-xs group rounded-md py-1 pl-4 pr-3 hover:bg-baseBackground-100/40'>
+      <article className='rounded-xs group rounded-md py-1 pl-4 pr-3 hover:bg-baseBackground-100/50'>
         <span className='font-ibmplex text-xs tracking-wide text-themePrimary-50/40 group-hover:text-themePrimary-50/50'>
           <span className='tracking-tighter'>
             {hashtagData._count.HashtagOnPost}
@@ -15,7 +15,7 @@ const TrendintItemView: FC<{
           &nbsp;Posts
         </span>
 
-        <h2 className='my-[.1rem] font-mukta text-2xl font-bold tracking-wider text-themePrimary-50/80 group-hover:text-themePrimary-300'>
+        <h2 className='my-[.1rem] font-mukta text-2xl font-bold leading-tight tracking-wider text-themePrimary-50/80'>
           #{hashtagData.text}
         </h2>
 
