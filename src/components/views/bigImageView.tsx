@@ -18,10 +18,10 @@ const BigImageView: FC<{
         className='fixed top-0 left-0 z-50 h-screen w-screen backdrop-blur-sm backdrop-brightness-50'>
         <motion.div
           className='relative h-screen w-screen'
-          initial={{ scale: 0, opacity: 1 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0, opacity: 1 }}
-          transition={{ duration: 0.5, type: 'spring' }}>
+          initial={{ opacity: 0, top: '0%', translateY: '-50%' }}
+          animate={{ opacity: 1, top: '50%', translateY: '-50%' }}
+          exit={{ opacity: 0, top: '0%' }}
+          transition={{ duration: 0.3, type: 'spring' }}>
           {width === undefined && (
             <div className='relative z-50 h-screen w-screen'>
               <div className='absolute top-1/2 left-1/2 h-[92%] w-[92%] -translate-y-1/2 -translate-x-1/2 sm:w-[80%] '>
@@ -31,8 +31,8 @@ const BigImageView: FC<{
                   src={imageUrl}
                   fill
                   sizes='(max-width: 768px) 100vw,
-                  (max-width: 1200px) 50vw,
-                  33vw'
+                  (max-width: 1200px) 100vw,
+                  100vw'
                   alt='Image'></Image>
               </div>
             </div>
