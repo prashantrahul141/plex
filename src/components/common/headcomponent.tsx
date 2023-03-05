@@ -15,6 +15,9 @@ const HeadComp: FC<{ headTitle?: string }> = ({ headTitle = undefined }) => {
         <link rel='manifest' href='/manifest.json'></link>
         <link rel='apple-touch-icon' href='/icons/apple-touch-icon.png'></link>
         <meta
+          name='viewport'
+          content='width=device-width, user-scalable=no'></meta>
+        <meta
           name='apple-mobile-web-app-status-bar-style'
           content='black-translucent'></meta>
         <meta name='theme-color' content='#141d31'></meta>
