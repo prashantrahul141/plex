@@ -100,6 +100,15 @@ interface IPostComment {
 
 type TReturnHashtag = Hashtag & { _count: { HashtagOnPost: number } };
 
+type IReturnHashTagOnPost = Array<{
+  Hashtag: {
+    connectOrCreate: {
+      where: { text: string };
+      create: { text: string };
+    };
+  };
+}>;
+
 export type {
   IReturnUser,
   TReturnPost,
@@ -110,4 +119,5 @@ export type {
   IReturnComment,
   IPostComment,
   TReturnHashtag,
+  IReturnHashTagOnPost,
 };
