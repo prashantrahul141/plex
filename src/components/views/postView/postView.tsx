@@ -91,7 +91,7 @@ const PostView: FC<{
           )}
         </div>
 
-        <span className='mb-2 block select-text whitespace-pre-line font-mukta font-thin leading-none tracking-wide'>
+        <span className='mb-2 block select-text whitespace-pre-line pr-8 font-mukta font-thin leading-none tracking-wide'>
           <PostViewText text={data.text}></PostViewText>
         </span>
 
