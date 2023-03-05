@@ -6,7 +6,7 @@ import NotificationsList from '@components/lists/notificationsList';
 import PostList from '@components/lists/postsList';
 import BookmarksList from '@components/lists/bookmarksList';
 import TrendingList from '@components/lists/trendingList';
-import SettingsForm from '@components/forms/settingsform';
+import SettingsForm from '@components/forms/settings/settingsform';
 import TopBarNavigation from '@components/common/navigationBar/topbarnavigation';
 import { useSession } from 'next-auth/react';
 import SideBarNavigation from '@components/common/navigationBar/sidebarnavigation';
