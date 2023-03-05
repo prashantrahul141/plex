@@ -106,7 +106,7 @@ const PostList: FC<{
       {postsData.map((eachPost, index) => {
         return (
           <PostView
-            imagePrioriy={index % POSTS_PER_PAGE < 10}
+            imagePrioriy={index % POSTS_PER_PAGE < 6}
             key={eachPost.id}
             data={eachPost}
             currentUserID={authorId}></PostView>
