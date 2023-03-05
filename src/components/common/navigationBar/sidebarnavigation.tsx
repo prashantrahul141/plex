@@ -24,7 +24,7 @@ const SideBarNavigation: FC<{
       <NavigationIcon></NavigationIcon>
 
       <div
-        className='my-3 flex cursor-pointer justify-center xl:justify-start'
+        className='my-3 flex cursor-pointer justify-center lg:justify-start'
         onClick={() => setShowCreatePostForm(true)}>
         <i className='group relative flex items-center'>
           {!showCreatePostForm && (
@@ -35,11 +35,11 @@ const SideBarNavigation: FC<{
           {showCreatePostForm && (
             <HiPencil size={iconSize} className='navbar-icon-active'></HiPencil>
           )}
-          <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block xl:group-hover:hidden'>
+          <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block lg:group-hover:hidden'>
             Create
           </span>
           <span
-            className={`ml-2 hidden font-mukta text-xl font-thin not-italic tracking-wide duration-150 ease-in-out group-hover:text-themePrimary-50 xl:block ${
+            className={`ml-2 hidden font-mukta text-lg font-thin not-italic tracking-wide duration-150 ease-in-out group-hover:text-themePrimary-50 lg:block ${
               showCreatePostForm
                 ? 'text-themePrimary-50'
                 : 'text-themePrimary-50/60'
@@ -53,7 +53,7 @@ const SideBarNavigation: FC<{
         return (
           <div
             key={index}
-            className={`my-2 flex justify-center rounded-md px-1 py-1 xl:justify-start ${
+            className={`my-2 flex justify-center rounded-md px-1 py-1 lg:justify-start ${
               activeTab.toLowerCase() === eachTab.name.toLowerCase()
                 ? 'bg-themePrimary-50/10'
                 : ''
@@ -63,18 +63,18 @@ const SideBarNavigation: FC<{
                 {activeTab.toLowerCase() === eachTab.name.toLowerCase()
                   ? eachTab.activateIcon
                   : eachTab.inactivateIcon}
-                <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm  not-italic leading-relaxed text-black group-hover:block xl:group-hover:hidden'>
+                <span className='absolute left-full z-50 ml-1 hidden rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm  not-italic leading-relaxed text-black group-hover:block lg:group-hover:hidden'>
                   {eachTab.name}
                 </span>
                 {eachTab.name === 'Notifications' &&
                   unseenNotifications.data !== undefined &&
                   unseenNotifications.data > 0 && (
-                    <span className='absolute top-0 right-0 z-10 flex h-fit min-h-[1.1rem] w-fit min-w-[1.1rem] items-center justify-center rounded-full bg-themePrimary-400 font-ibmplex text-[.5rem] not-italic leading-none text-themePrimary-50 xl:left-3 xl:top-0'>
+                    <span className='absolute top-0 right-0 z-10 flex h-fit min-h-[1.1rem] w-fit min-w-[1.1rem] items-center justify-center rounded-full bg-themePrimary-400 font-ibmplex text-[.5rem] not-italic leading-none text-themePrimary-50 lg:left-3 lg:top-0'>
                       {unseenNotifications.data}
                     </span>
                   )}
                 <span
-                  className={`ml-2 hidden font-mukta text-xl font-thin not-italic tracking-wide duration-150 ease-in-out group-hover:text-themePrimary-50 xl:block ${
+                  className={`ml-2 hidden font-mukta text-lg font-thin not-italic tracking-wide duration-150 ease-in-out group-hover:text-themePrimary-50 lg:block ${
                     activeTab.toLowerCase() === eachTab.name.toLowerCase()
                       ? 'text-themePrimary-50'
                       : 'text-themePrimary-50/60'
@@ -102,11 +102,11 @@ const SideBarNavigation: FC<{
               width={50}
               height={50}
               alt={authorName}></Image>
-            <span className='absolute left-full z-50 ml-1 hidden w-max rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block xl:group-hover:hidden'>
+            <span className='absolute left-full z-50 ml-1 hidden w-max rounded-md bg-themePrimary-50/70 px-1 font-mukta text-sm not-italic leading-relaxed text-black group-hover:block lg:group-hover:hidden'>
               {authorName}
             </span>
             <span
-              className={`ml-2 hidden font-mukta text-base font-thin not-italic tracking-wide duration-150 ease-in-out group-hover:text-themePrimary-50 xl:block ${
+              className={`ml-2 hidden font-mukta text-base font-thin not-italic tracking-wide duration-150 ease-in-out group-hover:text-themePrimary-50 lg:block ${
                 activeTab.toLowerCase() === 'profile'
                   ? 'text-themePrimary-50'
                   : 'text-themePrimary-50/80'
