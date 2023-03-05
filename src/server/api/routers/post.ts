@@ -3,8 +3,13 @@ import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { v2 as cloudinary } from 'cloudinary';
 import { env } from 'src/env/server.mjs';
 import { prisma } from 'src/server/db';
-import { HASHTAG_REGEX_EXP, POSTS_PER_PAGE } from 'src/constantValues';
+import {
+  HASHTAG_REGEX_EXP,
+  POSTS_PER_PAGE,
+  USERNAME_REGEX_EXP,
+} from 'src/constantValues';
 import reactStringReplace from 'react-string-replace';
+import type { IReturnHashTagOnPost } from 'src/types';
 
 export const PostRouter = createTRPCRouter({
   // gets image signature for client to upload
@@ -51,14 +56,7 @@ export const PostRouter = createTRPCRouter({
       }
 
       const alreadyAddedHashtags: Array<string> = [];
-      const hashtagsOnPost: Array<{
-        Hashtag: {
-          connectOrCreate: {
-            where: { text: string };
-            create: { text: string };
-          };
-        };
-      }> = [];
+      const hashtagsOnPost: IReturnHashTagOnPost = [];
 
       reactStringReplace(input.postText, HASHTAG_REGEX_EXP, (match) => {
         if (!alreadyAddedHashtags.includes(match)) {
@@ -93,9 +91,45 @@ export const PostRouter = createTRPCRouter({
           Author: {
             select: {
               username: true,
+              name: true,
+              image: true,
             },
           },
         },
+      });
+
+      const mentionsOnPost: Array<string> = [];
+
+      reactStringReplace(input.postText, USERNAME_REGEX_EXP, (match) => {
+        if (
+          match !== 'everyone' &&
+          match !== `${createdPost.Author.username}`
+        ) {
+          if (!mentionsOnPost.includes(match)) {
+            mentionsOnPost.push(match);
+          }
+        }
+        return '';
+      });
+
+      const usersMentioned = await prisma.user.findMany({
+        where: {
+          username: { in: mentionsOnPost },
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      await prisma.notification.createMany({
+        data: usersMentioned.map((each) => {
+          return {
+            userId: each.id,
+            iconImage: createdPost.Author.image,
+            text: `${createdPost.Author.name} mentioned you on his post.`,
+            url: `${createdPost.Author.username}/${createdPost.id}`,
+          };
+        }),
       });
 
       return { createdPost };
