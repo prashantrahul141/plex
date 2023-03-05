@@ -132,6 +132,32 @@ export const PostRouter = createTRPCRouter({
         }),
       });
 
+      // notifying everyone who has their notification open when posted by plex account.
+      if (createdPost.Author.username === 'plex') {
+        const usersWithNoticationEnabled = await prisma.user.findMany({
+          where: {
+            settings: {
+              officialNews: {
+                equals: true,
+              },
+            },
+          },
+          select: {
+            id: true,
+          },
+        });
+        await prisma.notification.createMany({
+          data: usersWithNoticationEnabled.map((e) => {
+            return {
+              userId: e.id,
+              text: 'New official announcement by Plex.',
+              iconImage: '/favicon.ico',
+              url: `${createdPost.Author.username}/${createdPost.id}`,
+            };
+          }),
+        });
+      }
+
       return { createdPost };
     }),
 
