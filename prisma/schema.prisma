@@ -163,8 +163,9 @@ model CommentLikedByAuthor {
 
 // User settings
 model Settings {
-    id   String @id @default(cuid())
-    User User[]
+    id           String  @id @default(cuid())
+    officialNews Boolean @default(true)
+    User         User[]
 }
 
 // followers & followings relation
