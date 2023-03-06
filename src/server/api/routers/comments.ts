@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { prisma } from 'src/server/db';
+import reactStringReplace from 'react-string-replace';
+import { USERNAME_REGEX_EXP } from 'src/constantValues';
 
 export const CommentsRouter = createTRPCRouter({
   // get comments for a post
@@ -103,6 +105,39 @@ export const CommentsRouter = createTRPCRouter({
             },
           },
         },
+      });
+
+      const mentionsOnComment: Array<string> = [];
+
+      reactStringReplace(input.commentText, USERNAME_REGEX_EXP, (match) => {
+        if (
+          !mentionsOnComment.includes(match) &&
+          match !== createdComment.author.username
+        ) {
+          mentionsOnComment.push(match);
+        }
+
+        return '';
+      });
+
+      const usersMentioned = await prisma.user.findMany({
+        where: {
+          username: { in: mentionsOnComment },
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      await prisma.notification.createMany({
+        data: usersMentioned.map((each) => {
+          return {
+            userId: each.id,
+            iconImage: createdComment.author.image,
+            text: `${createdComment.author.name} mentioned you on their comment.`,
+            url: `${input.postAuthor.username}/${input.postId}`,
+          };
+        }),
       });
 
       if (input.postAuthor.id !== ctx.session.user.id) {
