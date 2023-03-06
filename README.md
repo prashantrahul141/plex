@@ -81,6 +81,7 @@ Notifications<br>
 
 Bookmarks<br>
 <img src="/public/static/meta/s-4.png" alt="screenshot" width="500"/><br>
+<img src="/public/static/meta/s-4.5.png" alt="screenshot" width="500"/><br>
 
 Profile<br>
 <img src="/public/static/meta/s-5.png" alt="screenshot" width="500"/><br>
