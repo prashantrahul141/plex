@@ -18,6 +18,7 @@ const EditProfileImageForm: FC<{
       <Image
         className='h-28 w-28 cursor-pointer rounded-full object-cover hover:brightness-90'
         alt='Avatar'
+        priority
         onClick={() => setShowUploadForm(true)}
         src={currentAvatar}
         width={120}
