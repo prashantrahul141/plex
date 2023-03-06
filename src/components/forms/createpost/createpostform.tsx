@@ -27,6 +27,8 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
     setFocus,
     setValue,
     getValues,
+    setError,
+    clearErrors,
     formState: { errors },
     handleSubmit,
   } = useForm<IFormInput>({ mode: 'all' });
@@ -153,6 +155,9 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
         {errors.postText && (
           <ErrorMessage message={errors.postText.message}></ErrorMessage>
         )}
+        {errors.postImages && (
+          <ErrorMessage message={errors.postImages.message}></ErrorMessage>
+        )}
 
         {postImageObjectUrlState !== null && (
           <div className='my-8 w-full '>
@@ -184,16 +189,23 @@ const CreatePostForm: FC<{ formSetCallback: (value: boolean) => void }> = ({
             <div className='w-min'>
               <label htmlFor='contained-button-file' className='cursor-pointer'>
                 <input
-                  accept={'.png, .jpg, .jpeg'}
                   className='hidden'
                   id='contained-button-file'
                   type='file'
                   onChange={({ target: { files } }) => {
                     setShowEmojiMenu(false);
                     if (files !== null && files[0] !== undefined) {
-                      setPostImageState(files[0]);
-                      const objectUrl = URL.createObjectURL(files[0]);
-                      setPostImageObjectUrlState(objectUrl);
+                      if (files[0].size / 1024 ** 2 < 4) {
+                        setPostImageState(files[0]);
+                        clearErrors('postImages');
+                        const objectUrl = URL.createObjectURL(files[0]);
+                        setPostImageObjectUrlState(objectUrl);
+                      } else {
+                        setError('postImages', {
+                          message: 'File size cannot exceed 4mb.',
+                          type: 'value',
+                        });
+                      }
                     }
                   }}
                 />
