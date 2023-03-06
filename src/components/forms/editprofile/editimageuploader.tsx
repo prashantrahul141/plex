@@ -9,6 +9,7 @@ import { api } from '@utils/api';
 import { env } from 'src/env/client.mjs';
 import type { AxiosProgressEvent } from 'axios';
 import axios from 'axios';
+import ErrorMessage from '@components/common/errorMessage';
 
 const EditImageUploader: FC<{
   callbackfun: () => void;
@@ -19,6 +20,7 @@ const EditImageUploader: FC<{
 
   const signatureQuery = api.post.getSignature.useQuery({}, { enabled: false });
   const [avatarImageState, setAvatarImageState] = useState<File | null>(null);
+  const [sizeError, setSizeError] = useState(false);
   const [avatarImageObjectUrlState, setAvatarImageObjectUrlState] = useState<
     string | null
   >(null);
@@ -91,7 +93,7 @@ const EditImageUploader: FC<{
   };
 
   return (
-    <motion.form
+    <motion.fieldset
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1, translateX: '-50%', translateY: '-50%' }}
       exit={{ scale: 0, opacity: 0 }}
@@ -137,9 +139,14 @@ const EditImageUploader: FC<{
               type='file'
               onChange={({ target: { files } }) => {
                 if (files !== null && files[0] !== undefined) {
-                  setAvatarImageState(files[0]);
-                  const objectUrl = URL.createObjectURL(files[0]);
-                  setAvatarImageObjectUrlState(objectUrl);
+                  if (files[0].size / 1024 ** 2 < 4) {
+                    setSizeError(false);
+                    setAvatarImageState(files[0]);
+                    const objectUrl = URL.createObjectURL(files[0]);
+                    setAvatarImageObjectUrlState(objectUrl);
+                  } else {
+                    setSizeError(true);
+                  }
                 }
               }}
             />
@@ -152,6 +159,14 @@ const EditImageUploader: FC<{
               </span>
             </div>
           </label>
+        </div>
+      )}
+
+      {sizeError && (
+        <div className='my-2 w-full'>
+          <div className='mx-auto w-fit'>
+            <ErrorMessage message='File size cannot exceed 4mb.'></ErrorMessage>
+          </div>
         </div>
       )}
 
@@ -183,7 +198,7 @@ const EditImageUploader: FC<{
           </div>
         </>
       )}
-    </motion.form>
+    </motion.fieldset>
   );
 };
 
