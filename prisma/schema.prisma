@@ -55,7 +55,7 @@ model User {
     authorVerified Boolean   @default(false)
     role           Role      @default(USER)
 
-    settings   Settings @relation(fields: [settingsId], references: [id])
+    settings   Settings @relation(fields: [settingsId], references: [id], onDelete: Cascade)
     settingsId String
 
     url    String? @db.Text
@@ -141,10 +141,10 @@ model Comment {
     commentText String   @default("") @db.VarChar(255)
     createdOn   DateTime @default(now())
 
-    author User   @relation(fields: [userId], references: [id])
+    author User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String
 
-    post   Post   @relation(fields: [postId], references: [id])
+    post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
     postId String
 
     CommentLikedByAuthor CommentLikedByAuthor[]
@@ -152,10 +152,10 @@ model Comment {
 
 // authors liked a comment
 model CommentLikedByAuthor {
-    comment   Comment @relation(fields: [commentId], references: [id])
+    comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
     commentId String
 
-    user   User   @relation(fields: [userId], references: [id])
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String
 
     @@id([commentId, userId])
@@ -170,9 +170,9 @@ model Settings {
 
 // followers & followings relation
 model Follows {
-    follower    User   @relation("follower", fields: [followerId], references: [id])
+    follower    User   @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
     followerId  String
-    following   User   @relation("following", fields: [followingId], references: [id])
+    following   User   @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
     followingId String
 
     @@id([followerId, followingId])
@@ -182,7 +182,7 @@ model Follows {
 model Notification {
     id String @id @default(cuid())
 
-    User   User   @relation(fields: [userId], references: [id])
+    User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String
 
     iconImage String   @default("/favicon.ico") @db.VarChar(255)
